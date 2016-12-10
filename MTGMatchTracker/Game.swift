@@ -6,83 +6,43 @@
 //  Copyright © 2016 blensink. All rights reserved.
 //
 
+import CoreData
 import ReactiveSwift
 import enum Result.NoError
 
 class Game {
-  let start: MutableProperty<Start?>
-  let result: MutableProperty<GameResult?>
-  let myHand: MutableProperty<Hand?>
-  let theirHand: MutableProperty<Hand?>
-  let notes: MutableProperty<String?>
-  var isFull: MutableProperty<Bool>
-  var (fullStream, fullObserver) = Signal<Bool, NoError>.pipe()
-  
-  /**
-   *  Make a new game with the provided values
-   */
-  init() {
-    start = MutableProperty(nil)
-    result = MutableProperty(nil)
-    myHand = MutableProperty(nil)
-    theirHand = MutableProperty(nil)
-    notes = MutableProperty(nil)
-    isFull = MutableProperty(false)
-    
-    isFull.signal.observe(fullObserver)
-      
-    fullStream = Signal.combineLatest(
-      start.signal,
-      result.signal,
-      myHand.signal,
-      theirHand.signal,
-      notes.signal
-      ).map { inputs in
-        return (inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil &&
-          inputs.4 != nil)
-      }
-  }
+  let start: Start
+  let result: GameResult
+  let myHand: Hand
+  let theirHand: Hand
+  let notes: String?
   
   /**
    *  Make a new game with the provided values
    *
    *  - Parameters:
-   *    - date: The date the game happened
+   *    - start: The user's start, either play or draw
+   *    - result: The game result
+   *    - myHand: User's starting hand size
+   *    - theirHand: Opp's starting hand size
+   *    - notes: Any notes taken during match
    */
-  init(start: Start, result: GameResult, myHand: Hand, theirHand: Hand, notes: String) {
-    self.start = MutableProperty(start)
-    self.result = MutableProperty(result)
-    self.myHand = MutableProperty(myHand)
-    self.theirHand = MutableProperty(theirHand)
-    self.notes = MutableProperty(notes)
-    isFull = MutableProperty(true)
-    
-    isFull.signal.observe(fullObserver)
-    
-    fullStream = Signal.combineLatest(
-      self.start.signal,
-      self.result.signal,
-      self.myHand.signal,
-      self.theirHand.signal,
-      self.notes.signal
-      ).map { inputs in
-        print("checking:", inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil &&
-          inputs.4 != nil)
-        return (inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil &&
-          inputs.4 != nil)
-    }  }
+  init(start: Start, result: GameResult, myHand: Hand, theirHand: Hand, notes: String?) {
+    self.start = start
+    self.result = result
+    self.myHand = myHand
+    self.theirHand = theirHand
+    self.notes = notes
+  }
   
   func toString() -> String {
-//    var returnString = start!.rawValue
-//    returnString = returnString + " " + (result?.rawValue)!
-//    returnString = returnString + " " + String(describing: myHand)
-//    returnString = returnString + " " + String(describing: theirHand)
-//    returnString = returnString + " " + notes!
-//    return returnString
-    return ""
+    return "Start: \(start), \n Result: \(result) \n My Hand: \(myHand) \n Their hand: \(theirHand) Notes: \(notes)"
   }
 }
 
+/**
+ *  User's start value
+ */
 enum Start: String {
   case play = "Play"
   case draw = "Draw"
@@ -90,6 +50,9 @@ enum Start: String {
   static let allValues = [play, draw]
 }
 
+/**
+ *  The final result of a game
+ */
 enum GameResult: String {
   case w = "Win"
   case l = "Loss"
@@ -97,6 +60,9 @@ enum GameResult: String {
   static let allValues = [w, l]
 }
 
+/**
+ *  Possible hand sizes for a game
+ */
 enum Hand: Int {
   case one = 1
   case two

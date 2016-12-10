@@ -56,7 +56,7 @@ class Picker {
    *
    *  - Returns: A hand picker
    */
-  func makeHandAlert(hand: MutableProperty<Hand?>, isTheirs: Bool, model: LogMatchViewModel) -> UIAlertController  {
+  func makeHandAlert(hand: MutableProperty<Hand>, isTheirs: Bool, model: LogMatchViewModel) -> UIAlertController  {
     var titleText =  Text.myHand
     if(isTheirs) { titleText = Text.theirHand }
     

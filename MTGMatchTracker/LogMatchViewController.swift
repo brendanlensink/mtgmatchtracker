@@ -205,7 +205,7 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Make the first game view
     
-    gameViewOne.initGame(vc: self, game: viewModel.gameOne)
+    gameViewOne.initGame(vc: self)
     scrollView.addSubview(gameViewOne)
     
       // Snapkit
@@ -218,7 +218,7 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Make the second game view
     
-    gameViewTwo.initGame(vc: self, game: viewModel.gameTwo)
+    gameViewTwo.initGame(vc: self)
     scrollView.addSubview(gameViewTwo)
     
       // Snapkit
@@ -231,7 +231,7 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Make the third game view
     
-    gameViewThree.initGame(vc: self, game: viewModel.gameThree)
+    gameViewThree.initGame(vc: self)
     gameViewThree.isHidden = true
     scrollView.addSubview(gameViewThree)
     
@@ -314,11 +314,27 @@ class LogMatchViewController: UIViewController {
     viewModel.rel.signal.observeValues { value in
       self.relButton.setTitle(value, for: .normal)
     }
+    
+    // MARK: Game View Listeners
+    
+    gameViewOne.doneStream.observeValues { _ in
+      self.viewModel.gameOne.swap(self.gameViewOne.getGame())
+    }
+    
+    gameViewTwo.doneStream.observeValues { _ in
+      self.viewModel.gameTwo.swap(self.gameViewTwo.getGame())
+    }
+    
+    gameViewThree.doneStream.observeValues { _ in
+      self.viewModel.gameThree.swap(self.gameViewThree.getGame())
+    }
   }
   
   // MARK: Navigation Bar Actions
   
   func addTapped(_ sender: UIButton) {
-    viewModel.toString()
+    if(viewModel.saveMatch()) {
+      print("match saved")
+      self.present(LogMatchViewController(), animated: true, completion: {}) }
   }
 }

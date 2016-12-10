@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import ReactiveSwift
+import enum Result.NoError
 
 class GameView: UIView {
   
@@ -16,13 +17,14 @@ class GameView: UIView {
   
   let startStream: MutableProperty<Start?>
   let resultStream: MutableProperty<GameResult?>
-  let myHandStream: MutableProperty<Hand?>
-  let theirHandStream: MutableProperty<Hand?>
+  let myHandStream: MutableProperty<Hand>
+  let theirHandStream: MutableProperty<Hand>
   let notesStream: MutableProperty<String?>
   
   // MARK: - Outputs
-  
-  var game: Game? = nil
+
+//  let game: Games
+  let doneStream: Signal<Bool, NoError>
   
   // MARK: - UI Elements
   
@@ -37,11 +39,23 @@ class GameView: UIView {
   // MARK: - Input
 
   override init (frame : CGRect) {
+    
+    // MARK: Set up reactive elements 
+    
     startStream = MutableProperty(nil)
     resultStream = MutableProperty(nil)
-    myHandStream = MutableProperty(nil)
-    theirHandStream = MutableProperty(nil)
+    myHandStream = MutableProperty(Hand.seven)
+    theirHandStream = MutableProperty(Hand.seven)
     notesStream = MutableProperty(nil)
+    
+    doneStream = Signal.combineLatest(
+      startStream.signal,
+      resultStream.signal
+    ).map { inputs in
+      return true
+    }
+    
+    // MARK: Set up UI Elements
     
     playDraw = UISwitch()
     playText = UILabel()
@@ -62,9 +76,14 @@ class GameView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func initGame(vc: LogMatchViewController, game: Game) {
-    self.game = game
-    
+  /**
+   *  Set up the game
+   *
+   *  - Parameters:
+   *    - vc: A reference to the view controller containing this game view
+   *    - game: The game object that represents this game
+   */
+  func initGame(vc: LogMatchViewController) {
     // MARK: Make the play/draw switch
     
     playDraw.isOn = true
@@ -171,23 +190,19 @@ class GameView: UIView {
     
     startStream.signal.observeValues { value in
       self.playText.text = value!.rawValue
-      game.start.swap(value)
     }
     
     resultStream.signal.observeValues { value in
       self.resultText.text = value!.rawValue
-      game.result.swap(value)
     }
     
     myHandStream.signal.observeValues { value in
-      self.myHand.setTitle(Text.GameCell.myHand + String(describing: value!.rawValue), for: .normal)
-      game.myHand.swap(value)
+      self.myHand.setTitle(Text.GameCell.myHand + String(describing: value.rawValue), for: .normal)
     }
     
     theirHandStream.signal.observeValues { value in
       self.theirHand.setTitle(
-        Text.GameCell.theirHand + String(describing: value!.rawValue), for: .normal)
-      game.theirHand.swap(value)
+        Text.GameCell.theirHand + String(describing: value.rawValue), for: .normal)
     }
   }
   
@@ -208,6 +223,19 @@ class GameView: UIView {
       self.resultStream.swap(GameResult.l)
     }
   }
+  
+  /**
+   *  Return a game object from the information in the game view
+   */
+  func getGame() -> Game {
+    return Game(
+      start: self.startStream.value!,
+      result: self.resultStream.value!,
+      myHand: self.myHandStream.value,
+      theirHand: self.theirHandStream.value,
+      notes: self.notesStream.value
+    )
+  }
 }
 
 // MARK: UI Text View Delegate Methods
@@ -218,6 +246,5 @@ extension GameView: UITextViewDelegate {
    */
   func textViewDidChange(_ textView: UITextView) {
     notesStream.swap(textView.text)
-    game?.notes.swap(textView.text)
   }
 }

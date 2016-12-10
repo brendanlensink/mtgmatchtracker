@@ -30,7 +30,6 @@ class TemplateViewController: UIViewController {
    * Called by the OS when the view loads
    */
   override func viewDidLoad() {
-//    self.title = Text.Title.template
     
     // MARK: Make the background view and gradient
     

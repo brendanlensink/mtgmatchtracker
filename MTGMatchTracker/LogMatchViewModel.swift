@@ -18,9 +18,9 @@ class LogMatchViewModel {
   let rel: MutableProperty<String?>
   let myDeck: MutableProperty<String?>
   let theirDeck: MutableProperty<String?>
-  let gameOne: Game
-  let gameTwo: Game
-  let gameThree: Game
+  let gameOne: MutableProperty<Game?>
+  let gameTwo: MutableProperty<Game?>
+  let gameThree: MutableProperty<Game?>
   
   // MARK: - Outputs
   
@@ -34,9 +34,9 @@ class LogMatchViewModel {
     rel = MutableProperty(nil)
     myDeck = MutableProperty(nil)
     theirDeck = MutableProperty(nil)
-    gameOne = Game()
-    gameTwo = Game()
-    gameThree = Game()
+    gameOne = MutableProperty(nil)
+    gameTwo = MutableProperty(nil)
+    gameThree = MutableProperty(nil)
     
     addButtonStream = Signal.combineLatest(
       date.signal,
@@ -44,15 +44,22 @@ class LogMatchViewModel {
       rel.signal,
       myDeck.signal,
       theirDeck.signal,
-      gameOne.isFull.signal,
-      gameTwo.isFull.signal
+      gameOne.signal,
+      gameTwo.signal
     ).map { inputs in
       return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil &&
-        inputs.4 != nil && inputs.5 && inputs.6
+        inputs.4 != nil && inputs.5 != nil && inputs.6 != nil
     }
   }
   
+  /**
+   * Store a match and reload the view controller
+   */
+  func saveMatch() -> Bool {
+    return true
+  }
+  
   func toString() {
-    print(date, format, rel, myDeck, theirDeck, gameOne.toString(), gameTwo.toString())
+    print(date, format, rel, myDeck, theirDeck, gameOne.value?.toString(), gameTwo.value?.toString())
   }
 }
