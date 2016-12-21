@@ -29,6 +29,12 @@
 		D4EEF83C1DDF858B003DB180 /* LogMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEF83B1DDF858B003DB180 /* LogMatchViewModel.swift */; };
 		D4EEF83F1DDF85E3003DB180 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEF83E1DDF85E3003DB180 /* Color.swift */; };
 		D4EEF8411DDF8736003DB180 /* GC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EEF8401DDF8736003DB180 /* GC.swift */; };
+		D4F7CE4A1DFCE2E200F8E709 /* GameObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE461DFCE2E200F8E709 /* GameObject+CoreDataClass.swift */; };
+		D4F7CE4B1DFCE2E200F8E709 /* GameObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE471DFCE2E200F8E709 /* GameObject+CoreDataProperties.swift */; };
+		D4F7CE4C1DFCE2E200F8E709 /* MatchObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE481DFCE2E200F8E709 /* MatchObject+CoreDataClass.swift */; };
+		D4F7CE4D1DFCE2E200F8E709 /* MatchObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE491DFCE2E200F8E709 /* MatchObject+CoreDataProperties.swift */; };
+		D4F7CE511DFCEDE200F8E709 /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE501DFCEDE200F8E709 /* MatchesViewModel.swift */; };
+		D4F7CE531DFCEDED00F8E709 /* MatchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7CE521DFCEDED00F8E709 /* MatchesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +85,12 @@
 		D4EEF83B1DDF858B003DB180 /* LogMatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogMatchViewModel.swift; sourceTree = "<group>"; };
 		D4EEF83E1DDF85E3003DB180 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D4EEF8401DDF8736003DB180 /* GC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GC.swift; sourceTree = "<group>"; };
+		D4F7CE461DFCE2E200F8E709 /* GameObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D4F7CE471DFCE2E200F8E709 /* GameObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D4F7CE481DFCE2E200F8E709 /* MatchObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D4F7CE491DFCE2E200F8E709 /* MatchObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MatchObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D4F7CE501DFCEDE200F8E709 /* MatchesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesViewModel.swift; sourceTree = "<group>"; };
+		D4F7CE521DFCEDED00F8E709 /* MatchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesViewController.swift; sourceTree = "<group>"; };
 		D65D2070F01F1ED27E0F376C /* Pods-MTGMatchTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTGMatchTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MTGMatchTrackerUITests/Pods-MTGMatchTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC77FF128103D5E2B541A008 /* Pods-MTGMatchTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MTGMatchTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-MTGMatchTracker/Pods-MTGMatchTracker.release.xcconfig"; sourceTree = "<group>"; };
 		F0638DC8DC9D0EEE3CF18832 /* Pods_MTGMatchTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatchTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +207,10 @@
 		D4EEF82B1DDEE135003DB180 /* Element */ = {
 			isa = PBXGroup;
 			children = (
+				D4F7CE461DFCE2E200F8E709 /* GameObject+CoreDataClass.swift */,
+				D4F7CE471DFCE2E200F8E709 /* GameObject+CoreDataProperties.swift */,
+				D4F7CE481DFCE2E200F8E709 /* MatchObject+CoreDataClass.swift */,
+				D4F7CE491DFCE2E200F8E709 /* MatchObject+CoreDataProperties.swift */,
 				D4EEF8301DDF84CB003DB180 /* UI */,
 				D4EEF82E1DDEE173003DB180 /* Game.swift */,
 				D4EEF82C1DDEE16C003DB180 /* Match.swift */,
@@ -218,6 +234,7 @@
 			children = (
 				D4EEF8371DDF8555003DB180 /* TemplateViewController.swift */,
 				D4EEF8391DDF8582003DB180 /* LogMatchViewController.swift */,
+				D4F7CE521DFCEDED00F8E709 /* MatchesViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -227,6 +244,7 @@
 			children = (
 				D4EEF8351DDF853A003DB180 /* TemplateViewModel.swift */,
 				D4EEF83B1DDF858B003DB180 /* LogMatchViewModel.swift */,
+				D4F7CE501DFCEDE200F8E709 /* MatchesViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -524,13 +542,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F7CE531DFCEDED00F8E709 /* MatchesViewController.swift in Sources */,
+				D4F7CE4B1DFCE2E200F8E709 /* GameObject+CoreDataProperties.swift in Sources */,
 				D4EEF83C1DDF858B003DB180 /* LogMatchViewModel.swift in Sources */,
 				D4EEF82F1DDEE173003DB180 /* Game.swift in Sources */,
 				D4EEF8031DDEDFC6003DB180 /* MTGMatchTracker.xcdatamodeld in Sources */,
 				D4EEF83F1DDF85E3003DB180 /* Color.swift in Sources */,
 				D4EEF7FB1DDEDFC6003DB180 /* AppDelegate.swift in Sources */,
+				D4F7CE511DFCEDE200F8E709 /* MatchesViewModel.swift in Sources */,
+				D4F7CE4D1DFCE2E200F8E709 /* MatchObject+CoreDataProperties.swift in Sources */,
 				D46AF0ED1DDFCEEB00527B0E /* GameView.swift in Sources */,
 				D4EEF8411DDF8736003DB180 /* GC.swift in Sources */,
+				D4F7CE4C1DFCE2E200F8E709 /* MatchObject+CoreDataClass.swift in Sources */,
 				D4EEF8321DDF84D6003DB180 /* Drawer.swift in Sources */,
 				D42B90741DDFA9E400142E7D /* Button.swift in Sources */,
 				D46AF0E91DDFACD300527B0E /* Text.swift in Sources */,
@@ -538,6 +561,7 @@
 				D4EEF8361DDF853A003DB180 /* TemplateViewModel.swift in Sources */,
 				D4EEF83A1DDF8582003DB180 /* LogMatchViewController.swift in Sources */,
 				D4EEF82D1DDEE16C003DB180 /* Match.swift in Sources */,
+				D4F7CE4A1DFCE2E200F8E709 /* GameObject+CoreDataClass.swift in Sources */,
 				D4EEF8381DDF8555003DB180 /* TemplateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
