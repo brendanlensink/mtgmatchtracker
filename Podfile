@@ -8,6 +8,7 @@ target 'MTGMatchTracker' do
   pod 'ReactiveCocoa', :git => 'https://github.com/ReactiveCocoa/ReactiveCocoa.git'
   pod 'Hue'
   pod 'SnapKit', '~> 3.0.2'
+  pod 'SQLite.swift', '~> 0.11.1'
  
   target 'MTGMatchTrackerTests' do
     inherit! :search_paths
