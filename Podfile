@@ -1,21 +1,21 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'MTGMatchTracker' do
+target 'MTGMatch' do
   use_frameworks!
 
-  # Pods for MTGMatchTracker
+  # Pods for MTGMatch
   pod 'ReactiveCocoa', :git => 'https://github.com/ReactiveCocoa/ReactiveCocoa.git'
   pod 'Hue'
   pod 'SnapKit', '~> 3.0.2'
-  pod 'SQLite.swift', '~> 0.11.1'
+  pod 'RealmSwift'
  
-  target 'MTGMatchTrackerTests' do
+  target 'MTGMatchTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'MTGMatchTrackerUITests' do
+  target 'MTGMatchUITests' do
     inherit! :search_paths
     # Pods for testing
   end

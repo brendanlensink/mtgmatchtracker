@@ -1,20 +1,22 @@
 PODS:
-  - Hue (2.0.0)
-  - ReactiveCocoa (5.0.0-alpha.3):
-    - ReactiveSwift (~> 1.0.0-alpha.3)
-  - ReactiveSwift (1.0.0-alpha.3):
-    - Result (~> 3.0)
-  - Result (3.0.0)
+  - Hue (2.0.1)
+  - ReactiveCocoa (5.0.0-alpha.5):
+    - ReactiveSwift (= 1.0.0-rc.2)
+  - ReactiveSwift (1.0.0-rc.2):
+    - Result (~> 3.1)
+  - Realm (2.1.2):
+    - Realm/Headers (= 2.1.2)
+  - Realm/Headers (2.1.2)
+  - RealmSwift (2.1.2):
+    - Realm (= 2.1.2)
+  - Result (3.1.0)
   - SnapKit (3.0.2)
-  - SQLite.swift (0.11.1):
-    - SQLite.swift/standard (= 0.11.1)
-  - SQLite.swift/standard (0.11.1)
 
 DEPENDENCIES:
   - Hue
   - ReactiveCocoa (from `https://github.com/ReactiveCocoa/ReactiveCocoa.git`)
+  - RealmSwift
   - SnapKit (~> 3.0.2)
-  - SQLite.swift (~> 0.11.1)
 
 EXTERNAL SOURCES:
   ReactiveCocoa:
@@ -22,17 +24,18 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ReactiveCocoa:
-    :commit: fb4becb34066c5240d780baebed957886c048b98
+    :commit: a216bc77faf47d92a9f519ee24e5b70e9cba97e6
     :git: https://github.com/ReactiveCocoa/ReactiveCocoa.git
 
 SPEC CHECKSUMS:
-  Hue: 2b317616a04cc5d7cccdb024c88e6d143e2b9cf1
-  ReactiveCocoa: 96e5ddab6fef4ca4a9759572490acec75f7b6d1d
-  ReactiveSwift: d67b677f9574ba614d94022a88fcf456e77fa515
-  Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
+  Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  ReactiveCocoa: 446605d3763d7b26e4efacaeaf054bac72d0c91a
+  ReactiveSwift: 86aa3db3eca9a1a4a69ee6c61b138eec37afc9e6
+  Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
+  RealmSwift: 17d6ee30b6f9df86364408c2197492e33bfea567
+  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
-  SQLite.swift: e0c01bd94d8a5cb726835f8bddd41c7d32b606a9
 
-PODFILE CHECKSUM: f38ecfe5f3578f1f7595b774222d5a8458ea7f55
+PODFILE CHECKSUM: 8ebb960444c8e289a23be6fc409eec4cabbe978b
 
 COCOAPODS: 1.2.0.beta.1

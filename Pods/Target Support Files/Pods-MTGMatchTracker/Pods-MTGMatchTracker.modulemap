@@ -1,6 +1,0 @@
-framework module Pods_MTGMatchTracker {
-  umbrella header "Pods-MTGMatchTracker-umbrella.h"
-
-  export *
-  module * { export * }
-}
