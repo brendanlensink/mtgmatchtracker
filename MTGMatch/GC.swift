@@ -18,10 +18,17 @@ struct GC {
   }
   
   struct Margin {
-    static let top = 80
+    static let top = 64
     static let left = 15
     static let right = -15
-    static let bottom = -20
+    static let bottom = -49
+    
+    struct Cell {
+      static let top = 5
+      static let bottom = -5
+      static let left = 5
+      static let right = -5
+    }
   }
   
   struct Button {

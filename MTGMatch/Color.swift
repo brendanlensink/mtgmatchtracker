@@ -26,6 +26,11 @@ struct Color {
   
   // MARK: Color Assignments
   
+  struct TabBar {
+    static let background = white
+    static let text = Slate.dark
+  }
+  
   struct TextField {
     static let text = Slate.dark
     static let drawer = Slate.light.alpha(0.2)
@@ -36,5 +41,15 @@ struct Color {
   }
   
   static let background = white
+  
+  struct MatchCell {
+    static let background = white
+  }
+  
+  struct Button {
+    struct Text {
+      static let primary = Slate.dark
+    }
+  }
   
 }

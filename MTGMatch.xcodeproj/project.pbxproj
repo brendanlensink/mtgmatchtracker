@@ -10,6 +10,7 @@
 		366A10B0F3A7974F2D46AA4C /* Pods_MTGMatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1F01F71AA9A6D2AD5FD86DB /* Pods_MTGMatchUITests.framework */; };
 		7A5A1923A73DC0C1098FF947 /* Pods_MTGMatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0118443A12E2107276DBEFB /* Pods_MTGMatchTests.framework */; };
 		9CF5B8381A711226A41AF9D0 /* Pods_MTGMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF1844275A1C028259B2505 /* Pods_MTGMatch.framework */; };
+		D4677D281E0BA0D70015F793 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4677D271E0BA0D70015F793 /* MatchCell.swift */; };
 		D4FB166A1E0A4A0C0063C0D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FB16691E0A4A0C0063C0D9 /* AppDelegate.swift */; };
 		D4FB166F1E0A4A0C0063C0D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4FB166D1E0A4A0C0063C0D9 /* Main.storyboard */; };
 		D4FB16711E0A4A0C0063C0D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4FB16701E0A4A0C0063C0D9 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		A1F01F71AA9A6D2AD5FD86DB /* Pods_MTGMatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0118443A12E2107276DBEFB /* Pods_MTGMatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFF1844275A1C028259B2505 /* Pods_MTGMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4677D271E0BA0D70015F793 /* MatchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
 		D4FB16661E0A4A0C0063C0D9 /* MTGMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MTGMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FB16691E0A4A0C0063C0D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4FB166E1E0A4A0C0063C0D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				D4FB169E1E0A4B860063C0D9 /* Picker.swift */,
 				D4FB169B1E0A4B860063C0D9 /* GameView.swift */,
 				D4FB16A41E0A4B860063C0D9 /* Drawer.swift */,
+				D4677D271E0BA0D70015F793 /* MatchCell.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				D4FB16B41E0A4B860063C0D9 /* TemplateViewModel.swift in Sources */,
 				D4FB16B31E0A4B860063C0D9 /* Drawer.swift in Sources */,
 				D4FB16A61E0A4B860063C0D9 /* LogMatchViewModel.swift in Sources */,
+				D4677D281E0BA0D70015F793 /* MatchCell.swift in Sources */,
 				D4FB16AD1E0A4B860063C0D9 /* Picker.swift in Sources */,
 				D4FB16B01E0A4B860063C0D9 /* Text.swift in Sources */,
 				D4FB16AB1E0A4B860063C0D9 /* Match.swift in Sources */,

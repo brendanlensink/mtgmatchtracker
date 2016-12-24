@@ -18,10 +18,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     self.window = UIWindow(frame: UIScreen.main.bounds)
     
-//    let navController = UINavigationController(rootViewController: LogMatchViewController())
-    let navController = UINavigationController(rootViewController: MatchesViewController())
+    let tabBarController = UITabBarController()
+    tabBarController.tabBar.barTintColor = Color.TabBar.background
+    tabBarController.tabBar.tintColor = Color.TabBar.text
+    
+    let logController = UINavigationController(rootViewController: LogMatchViewController())
+    logController.navigationBar.barTintColor = Color.TabBar.background
+    logController.navigationBar.tintColor = Color.TabBar.text
+    logController.tabBarItem = UITabBarItem(
+      title: "Log A Match",
+      image: UIImage(named: "new"),
+      tag:  1
+    )
+    
+    let matchesController = UINavigationController(rootViewController: MatchesViewController())
+    matchesController.navigationBar.barTintColor = Color.TabBar.background
+    matchesController.navigationBar.tintColor = Color.TabBar.text
+    matchesController.tabBarItem = UITabBarItem(
+      title: "View Past Matches",
+      image: UIImage(named: "history"),
+      tag: 2
+    )
+    
+    let tabViewControllers = [
+      logController,
+      matchesController
+    ]
+    tabBarController.viewControllers = tabViewControllers
 
-    window?.rootViewController = navController
+    window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
 
     return true

@@ -30,4 +30,8 @@ struct Text {
     static let myHand = "My Hand: "
     static let theirHand = "Their Hand: "
   }
+  
+  struct Matches {
+    static let export = "Export All Matches"
+  }
 }
