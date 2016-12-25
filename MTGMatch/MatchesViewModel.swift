@@ -85,15 +85,15 @@ class MatchesViewModel {
     // MARK: Convert the string to data
     let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false)
     
-    // Unwrapping the optional.
-    if let content = data {
-      print("NSData: \(content)")
-    }
+//    // Unwrapping the optional.
+//    if let content = data {
+//      print("NSData: \(content)")
+//    }
     
     // Generating the email controller.
     func configuredMailComposeViewController() -> MFMailComposeViewController {
       let emailController = MFMailComposeViewController()
-      emailController.setSubject("CSV File")
+      emailController.setSubject("MTGMatchTracker CSV File")
       emailController.setMessageBody("", isHTML: false)
       
       // Attaching the .CSV file to the email.

@@ -31,6 +31,8 @@ class LogMatchViewController: UIViewController {
   private let gameViewThree: GameView
   private let plusButton: UIButton
   
+  fileprivate let defaults = UserDefaultsModel.sharedInstance
+  
   // MARK: - Lifecycle
   
   init() {
@@ -119,7 +121,7 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Make the format dropdown
     
-    formatButton.setTitle("Format", for: .normal)
+    formatButton.setTitle(Text.format, for: .normal)
     formatButton.setTitleColor(Color.TextField.text, for: .normal)
     formatButton.contentHorizontalAlignment = .left
     formatButton.contentVerticalAlignment = .bottom
@@ -136,7 +138,7 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Make the REL dropdown
     
-    relButton.setTitle("REL", for: .normal)
+    relButton.setTitle(Text.rel, for: .normal)
     relButton.setTitleColor(Color.TextField.text, for: .normal)
     relButton.contentHorizontalAlignment = .left
     relButton.contentVerticalAlignment = .bottom
@@ -298,6 +300,26 @@ class LogMatchViewController: UIViewController {
     plusButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
       self.plusButton.isHidden = true
       self.gameViewThree.isHidden = false
+    }
+    
+    // MARK: If any of the fields are populated by user defaults we need to update the stream
+    
+    if(defaults.getFormat() != nil) {
+      let format = defaults.getFormat()!
+      formatButton.setTitle(format, for: .normal)
+      viewModel.format.swap(defaults.getFormat()!)
+    }
+    
+    if(defaults.getREL() != nil) {
+      let rel = defaults.getREL()!
+      relButton.setTitle(rel, for: .normal)
+      viewModel.format.swap(rel)
+    }
+    
+    if(defaults.getMyDeck() != nil) {
+      let deck = defaults.getMyDeck()!
+      myDeck.text = deck
+      viewModel.myDeck.swap(deck)
     }
     
     // MARK: View Model Response Listeners

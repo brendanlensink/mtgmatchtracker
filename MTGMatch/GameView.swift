@@ -193,11 +193,13 @@ class GameView: UIView {
     // MARK: Game View Button Listeners
     
     startStream.signal.observeValues { value in
-      self.playText.text = String(value!.rawValue)
+      let startText = (value!.rawValue == 0 ? Text.GameCell.play : Text.GameCell.draw)
+      self.playText.text = startText
     }
     
     resultStream.signal.observeValues { value in
-      self.resultText.text = String(value!.rawValue)
+      let resultText = (value!.rawValue == 0 ? Text.GameCell.win : Text.GameCell.loss)
+      self.resultText.text = resultText
     }
     
     myHandStream.signal.observeValues { value in

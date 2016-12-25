@@ -86,13 +86,21 @@ class LogMatchViewModel {
       newMatch.games.append(thirdGame)
     }
     
-    // MARK: Write the match to realm
+    // MARK: Step 2: Write the match to realm
+    
     let realm = try! Realm() // Create realm pointing to default file
     
     // Save your object
     realm.beginWrite()
     realm.add(newMatch)
     try! realm.commitWrite()
+    
+    // MARK: Step 3: Save the info filled in to user defaults to populate the next match
+    
+    let defaults = UserDefaultsModel.sharedInstance
+    defaults.setFormat(format.value!)
+    defaults.setREL(rel.value!)
+    defaults.setMyDeck(myDeck.value!)
     
     return true
   }
