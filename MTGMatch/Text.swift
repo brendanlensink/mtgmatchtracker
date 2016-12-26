@@ -21,6 +21,8 @@ struct Text {
   
   static let notes = "Notes"
   
+  static let save = "Save"
+  
   struct GameCell {
     static let play = "Play"
     static let draw = "Draw"

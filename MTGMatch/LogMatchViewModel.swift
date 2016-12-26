@@ -102,6 +102,8 @@ class LogMatchViewModel {
     defaults.setREL(rel.value!)
     defaults.setMyDeck(myDeck.value!)
     
+    print(defaults.getREL())
+    
     return true
   }
 }

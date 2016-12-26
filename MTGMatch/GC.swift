@@ -33,6 +33,10 @@ struct GC {
   
   struct Button {
     static let height = 40
+    
+    struct Font {
+      static let primary = UIFont(name: "HelveticaNeue", size: 25)
+    }
   }
   
   struct Font {

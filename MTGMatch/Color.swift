@@ -19,6 +19,12 @@ struct Color {
   private static let black = UIColor.black
   private static let white = UIColor.white
   
+  private static let darkGrey = UIColor(hex: "22181C")
+  private static let grey = UIColor(hex: "312F2F")
+  private static let darkerLightBlue = UIColor(hex: "84DCCF")
+  private static let lightBlue = UIColor(hex: "F6E8EA")
+  private static let orange = UIColor(hex: "EF626C")
+  
   private struct Slate {
     static let light = UIColor(hex: "778899")
     static let dark = UIColor(hex: "2F4F4F")
@@ -48,7 +54,11 @@ struct Color {
   
   struct Button {
     struct Text {
-      static let primary = Slate.dark
+      static let primary = lightBlue
+    }
+    
+    struct Background {
+      static let primary = grey
     }
   }
   

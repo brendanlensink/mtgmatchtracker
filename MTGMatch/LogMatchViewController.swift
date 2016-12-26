@@ -257,7 +257,7 @@ class LogMatchViewController: UIViewController {
         make.top.equalTo(gameViewTwo.snp.bottom).offset(GC.Padding.vertical)
         make.centerX.equalTo(scrollView)
       }
-    
+  
     bindViewModel()
   }
   
@@ -307,13 +307,13 @@ class LogMatchViewController: UIViewController {
     if(defaults.getFormat() != nil) {
       let format = defaults.getFormat()!
       formatButton.setTitle(format, for: .normal)
-      viewModel.format.swap(defaults.getFormat()!)
+      viewModel.format.swap(format)
     }
     
     if(defaults.getREL() != nil) {
       let rel = defaults.getREL()!
       relButton.setTitle(rel, for: .normal)
-      viewModel.format.swap(rel)
+      viewModel.rel.swap(rel)
     }
     
     if(defaults.getMyDeck() != nil) {
@@ -325,6 +325,7 @@ class LogMatchViewController: UIViewController {
     // MARK: View Model Response Listeners
     
     viewModel.addButtonStream.observeValues { _ in
+      print("gasdgasd")
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain,
         target: self, action: #selector(self.addTapped))
     }
