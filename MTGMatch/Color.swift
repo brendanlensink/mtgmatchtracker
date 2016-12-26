@@ -47,22 +47,22 @@ struct Color {
   
   // MARK: Color Assignments
   
-  static let background = Green.eight
+  static let background = Green.zero
   
   struct TabBar {
-    static let background = Green.seven
-    static let text = Green.one
+    static let background = Green.one.alpha(0.02)
+    static let text = Green.seven
   }
   
   struct TextField {
-    static let text = Green.zero
-    static let placeholder = Green.one
+    static let text = Green.seven
+    static let placeholder = Green.four
     static let drawer = GreenAccent.four.alpha(0.3)
   }
   
   struct GameCell {
     static let border = GreenAccent.four.alpha(0.3)
-    static let textFieldBackground = Green.eight
+    static let textFieldBackground = Green.one.alpha(0.2)
   }
   
   struct MatchCell {
