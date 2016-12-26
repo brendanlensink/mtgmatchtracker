@@ -30,23 +30,40 @@ struct Color {
     static let dark = UIColor(hex: "2F4F4F")
   }
   
+  private struct Green {
+    static let eight = UIColor(hex: "00695C")
+    static let seven = UIColor(hex: "00796B")
+    static let four = UIColor(hex: "26A69A")
+    static let one = UIColor(hex: "B2DFDB")
+    static let zero = UIColor(hex: "E0F2F1")
+  }
+  
+  private struct GreenAccent {
+    static let seven = UIColor(hex: "00BFA5")
+    static let four = UIColor(hex: "1DE9B6")
+    static let two = UIColor(hex: "64FFDA")
+    static let one = UIColor(hex: "A7FFEB")
+  }
+  
   // MARK: Color Assignments
   
+  static let background = Green.eight
+  
   struct TabBar {
-    static let background = white
-    static let text = Slate.dark
+    static let background = Green.seven
+    static let text = Green.one
   }
   
   struct TextField {
-    static let text = Slate.dark
-    static let drawer = Slate.light.alpha(0.2)
+    static let text = Green.zero
+    static let placeholder = Green.one
+    static let drawer = GreenAccent.four.alpha(0.3)
   }
   
   struct GameCell {
-    static let border = Slate.light.alpha(0.2)
+    static let border = GreenAccent.four.alpha(0.3)
+    static let textFieldBackground = Green.eight
   }
-  
-  static let background = white
   
   struct MatchCell {
     static let background = white

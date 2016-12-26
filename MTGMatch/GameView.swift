@@ -101,6 +101,7 @@ class GameView: UIView {
       }
     
     playText.text = Text.GameCell.play
+    playText.textColor = Color.TextField.text
     playText.font = GC.Font.main
     self.addSubview(playText)
     
@@ -124,6 +125,7 @@ class GameView: UIView {
       }
     
     resultText.text = Text.GameCell.win
+    resultText.textColor = Color.TextField.text
     resultText.font = GC.Font.main
     self.addSubview(resultText)
     
@@ -163,6 +165,8 @@ class GameView: UIView {
     // MARK: Make the notes view
     
     notes.layer.borderColor = Color.GameCell.border.cgColor
+    notes.textColor = Color.TextField.text
+    notes.backgroundColor = Color.GameCell.textFieldBackground
     notes.layer.borderWidth = 1
     notes.layer.cornerRadius = 4
     notes.delegate = self
@@ -172,7 +176,7 @@ class GameView: UIView {
       notes.snp.makeConstraints { make in
         make.top.equalTo(self).offset(GC.Padding.vertical)
         make.bottom.equalTo(self).offset(-GC.Padding.vertical)
-        make.left.equalTo(theirHand.snp.right).offset(GC.Padding.horizontal)
+        make.left.equalTo(theirHand.snp.right).offset(GC.Padding.horizontal*2)
         make.right.equalTo(self).offset(-GC.Padding.horizontal)
       }
     

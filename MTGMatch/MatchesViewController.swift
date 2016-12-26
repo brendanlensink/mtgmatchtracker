@@ -82,6 +82,7 @@ class MatchesViewController: UIViewController {
       matchesTable.register(MatchCell.self, forCellReuseIdentifier: matchCellIdentifier)
       matchesTable.estimatedRowHeight = 100
       matchesTable.rowHeight = UITableViewAutomaticDimension
+      matchesTable.backgroundColor = Color.background
       view.addSubview(matchesTable)
       
         // Snapkit
@@ -121,13 +122,12 @@ class MatchesViewController: UIViewController {
   private func bindViewModel() {
     viewModel.getMatches()
     
-    let emailViewController = viewModel.emailCSV(viewModel.exportCSV())
+//    let emailViewController = viewModel.emailCSV(viewModel.exportCSV())
     
-    if MFMailComposeViewController.canSendMail() {
-      self.present(emailViewController, animated: true, completion: nil)
-    }
+//    if MFMailComposeViewController.canSendMail() {
+//      self.present(emailViewController, animated: true, completion: nil)
+//    }
   }
-  
 }
 
 extension MatchesViewController: UITableViewDelegate {

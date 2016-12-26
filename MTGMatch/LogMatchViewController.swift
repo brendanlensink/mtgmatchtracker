@@ -66,6 +66,16 @@ class LogMatchViewController: UIViewController {
    */
   override func viewDidLoad() {
     
+    // MARK: Attach a gesture recognizer to listen for taps outside the text field
+    
+    let tap: UITapGestureRecognizer =
+      UITapGestureRecognizer(target: self, action: #selector(LogMatchViewController.dismissKeyboard))
+    
+    //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+    //tap.cancelsTouchesInView = false
+    
+    view.addGestureRecognizer(tap)
+    
     // MARK: Make the background view and gradient
     
     let backgroundView = UIView()
@@ -157,7 +167,7 @@ class LogMatchViewController: UIViewController {
     
     myDeck.attributedPlaceholder = NSAttributedString(
       string: Text.myDeck,
-      attributes: [NSForegroundColorAttributeName: Color.TextField.text]
+      attributes: [NSForegroundColorAttributeName: Color.TextField.placeholder]
     )
     myDeck.tag = 1
     myDeck.textColor = Color.TextField.text
@@ -183,7 +193,7 @@ class LogMatchViewController: UIViewController {
     
     theirDeck.attributedPlaceholder = NSAttributedString(
       string: Text.theirDeck,
-      attributes: [NSForegroundColorAttributeName: Color.TextField.text]
+      attributes: [NSForegroundColorAttributeName: Color.TextField.placeholder]
     )
     theirDeck.tag = 2
     theirDeck.textColor = Color.TextField.text
@@ -325,7 +335,6 @@ class LogMatchViewController: UIViewController {
     // MARK: View Model Response Listeners
     
     viewModel.addButtonStream.observeValues { _ in
-      print("gasdgasd")
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain,
         target: self, action: #selector(self.addTapped))
     }
@@ -351,6 +360,13 @@ class LogMatchViewController: UIViewController {
     gameViewThree.doneStream.observeValues { _ in
       self.viewModel.gameThree.swap(self.gameViewThree.getGame())
     }
+  }
+  
+  //Calls this function when the tap is recognized.
+  func dismissKeyboard() {
+    print("dismiss called")
+    //Causes the view (or one of its embedded text fields) to resign the first responder status.
+    view.endEditing(true)
   }
   
   // MARK: Navigation Bar Actions
