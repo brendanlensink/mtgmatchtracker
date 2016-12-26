@@ -94,7 +94,7 @@ class LogMatchViewController: UIViewController {
     
       // Snapkit
       scrollView.snp.makeConstraints { make in
-        make.top.equalTo(view).offset(GC.Margin.top)
+        make.top.equalTo(view).offset(GC.Margin.top + 10)
         make.bottom.equalTo(view).offset(GC.Margin.bottom)
         make.left.equalTo(view).offset(GC.Margin.left)
         make.right.equalTo(view).offset(GC.Margin.right)

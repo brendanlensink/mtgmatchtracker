@@ -13,7 +13,7 @@ import UIKit
  */
 struct GC {
   struct Padding {
-    static let vertical = 5
+    static let vertical = 7
     static let horizontal = 5
   }
   

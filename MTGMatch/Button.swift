@@ -17,7 +17,7 @@ class Button: UIButton {
     
     // Snapkit
     underline.snp.makeConstraints { make in
-      make.bottom.equalTo(button.snp.bottom).offset(-2)
+      make.bottom.equalTo(button.snp.bottom)
       make.height.equalTo(1)
       make.left.right.equalTo(button)
     }
