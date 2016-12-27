@@ -10,12 +10,14 @@ PODS:
   - RealmSwift (2.1.2):
     - Realm (= 2.1.2)
   - Result (3.1.0)
+  - SevenSwitch (2.1.0)
   - SnapKit (3.0.2)
 
 DEPENDENCIES:
   - Hue
   - ReactiveCocoa (from `https://github.com/ReactiveCocoa/ReactiveCocoa.git`)
   - RealmSwift
+  - SevenSwitch (~> 2.1)
   - SnapKit (~> 3.0.2)
 
 EXTERNAL SOURCES:
@@ -34,8 +36,9 @@ SPEC CHECKSUMS:
   Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   RealmSwift: 17d6ee30b6f9df86364408c2197492e33bfea567
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  SevenSwitch: 5543327829b7bec5b29b73bad5f3cc3f92c1736d
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
 
-PODFILE CHECKSUM: 8ebb960444c8e289a23be6fc409eec4cabbe978b
+PODFILE CHECKSUM: 81da817bd88c11721b0c9150ebf0ad60d4df334e
 
 COCOAPODS: 1.2.0.beta.1
