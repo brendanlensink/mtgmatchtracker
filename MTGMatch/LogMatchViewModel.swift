@@ -14,6 +14,7 @@ class LogMatchViewModel {
   
   // MARK: - Inputs
   
+  let eventName: MutableProperty<String?>
   let date: MutableProperty<String?>
   let format: MutableProperty<String?>
   let rel: MutableProperty<String?>
@@ -30,6 +31,7 @@ class LogMatchViewModel {
   // MARK: - Initializer
   
   init() {
+    eventName = MutableProperty(nil)
     date = MutableProperty(nil)
     format = MutableProperty(nil)
     rel = MutableProperty(nil)
@@ -40,6 +42,7 @@ class LogMatchViewModel {
     gameThree = MutableProperty(nil)
     
     addButtonStream = Signal.combineLatest(
+      eventName.signal,
       date.signal,
       format.signal,
       rel.signal,
@@ -49,7 +52,7 @@ class LogMatchViewModel {
       gameTwo.signal
     ).map { inputs in
       return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil &&
-        inputs.4 != nil && inputs.5 != nil && inputs.6 != nil
+        inputs.4 != nil && inputs.5 != nil && inputs.6 != nil && inputs.7 != nil
     }
   }
   
@@ -66,6 +69,7 @@ class LogMatchViewModel {
     
     let newMatch = Match()
     newMatch.matchID = matchID
+    newMatch.eventName = eventName.value!
     newMatch.timeStamp = String(timestamp)
     newMatch.format = format.value!
     newMatch.rel = rel.value!
@@ -98,12 +102,11 @@ class LogMatchViewModel {
     // MARK: Step 3: Save the info filled in to user defaults to populate the next match
     
     let defaults = UserDefaultsModel.sharedInstance
+    defaults.setEventName(eventName.value!)
     defaults.setFormat(format.value!)
     defaults.setREL(rel.value!)
     defaults.setMyDeck(myDeck.value!)
-    
-    print(defaults.getREL())
-    
+        
     return true
   }
 }

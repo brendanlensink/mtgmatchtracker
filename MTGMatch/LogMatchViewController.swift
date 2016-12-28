@@ -19,6 +19,7 @@ class LogMatchViewController: UIViewController {
   
   private let scrollView: UIScrollView
   
+  private let name: UITextField
   private let dateButton: UIButton
   private let formatButton: UIButton
   private let relButton: UIButton
@@ -40,6 +41,7 @@ class LogMatchViewController: UIViewController {
     
     scrollView = UIScrollView()
     
+    name = UITextField()
     dateButton = UIButton()
     formatButton = UIButton()
     relButton = UIButton()
@@ -129,6 +131,32 @@ class LogMatchViewController: UIViewController {
         make.width.equalTo(scrollView)
       }
     
+    // MARK: Make the event name 
+    
+    name.attributedPlaceholder = NSAttributedString(
+      string: Text.name,
+      attributes: [NSForegroundColorAttributeName: Color.TextField.placeholder]
+    )
+    name.tag = 1
+    name.textColor = Color.TextField.text
+    name.textAlignment = .left
+    name.keyboardType = .default
+    name.autocapitalizationType = .none
+    name.autocorrectionType = .no
+    name.leftViewMode = .always
+    name.leftView =
+      UIView(frame: CGRect(x: 0, y: 0, width: 5, height: myDeck.frame.height))
+    scrollView.addSubview(name)
+    Button().makeUnderline(textField: name)
+    
+      // Snapkit
+      name.snp.makeConstraints { make in
+        make.top.equalTo(dateButton.snp.bottom).offset(GC.Padding.vertical)
+        make.height.equalTo(GC.Button.height)
+        make.left.equalTo(dateButton)
+        make.right.equalTo(dateButton)
+      }
+    
     // MARK: Make the format dropdown
     
     formatButton.setTitle(Text.format, for: .normal)
@@ -140,7 +168,7 @@ class LogMatchViewController: UIViewController {
     
       // Snapkit
       formatButton.snp.makeConstraints { make in
-        make.top.equalTo(dateButton.snp.bottom).offset(GC.Padding.vertical)
+        make.top.equalTo(name.snp.bottom).offset(GC.Padding.vertical)
         make.height.equalTo(GC.Button.height)
         make.leading.equalTo(scrollView)
         make.width.equalTo(scrollView).multipliedBy(0.45)
@@ -294,6 +322,8 @@ class LogMatchViewController: UIViewController {
     
     // MARK: Button Listeners
     
+    viewModel.eventName <~ name.reactive.continuousTextValues
+    
     formatButton.reactive.controlEvents(.touchUpInside).observeValues  { _ in
       self.present( Picker.sharedInstance.makeFormatAlert(
         model: self.viewModel), animated: false, completion: {} )
@@ -313,6 +343,13 @@ class LogMatchViewController: UIViewController {
     }
     
     // MARK: If any of the fields are populated by user defaults we need to update the stream
+    
+    if(defaults.getEventName() != nil) {
+      print(defaults.getEventName())
+      let nameText = defaults.getEventName()!
+      name.text = nameText
+      viewModel.eventName.swap(nameText)
+    }
     
     if(defaults.getFormat() != nil) {
       let format = defaults.getFormat()!

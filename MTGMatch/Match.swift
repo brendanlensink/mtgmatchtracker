@@ -11,6 +11,7 @@ import Foundation
 
 class Match: Object {
   dynamic var matchID: String = ""
+  dynamic var eventName: String = ""
   dynamic var timeStamp: String = ""
   dynamic var format: String = ""
   dynamic var rel: String = ""

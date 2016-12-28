@@ -59,41 +59,34 @@ class MatchesViewController: UIViewController {
     
     // MARK: If there are matches to display show them, otherwise show a placeholder message
     
-    // TODO: Add match count check
-    // if(viewModel.numberOfIncidentsInSection(0) != 0) {
-    if(true) {
-      
-      // MARK: But actually make the export all button first so we can size the table off it
-      
-      exportButton.setTitle(Text.Matches.export, for: .normal)
-      exportButton.setTitleColor(Color.Button.Text.primary, for: .normal)
-      exportButton.contentHorizontalAlignment = .right
-      view.addSubview(exportButton)
-      
-        // Snapkit
-        exportButton.snp.makeConstraints { make in
-          make.bottom.equalTo(view).offset(GC.Margin.bottom)
-          make.left.equalTo(view).offset(GC.Margin.left)
-          make.right.equalTo(view).offset(GC.Margin.right)
-        }
-      
-      matchesTable.delegate = self
-      matchesTable.dataSource = self
-      matchesTable.register(MatchCell.self, forCellReuseIdentifier: matchCellIdentifier)
-      matchesTable.estimatedRowHeight = 100
-      matchesTable.rowHeight = UITableViewAutomaticDimension
-      matchesTable.backgroundColor = Color.background
-      view.addSubview(matchesTable)
-      
-        // Snapkit
-        matchesTable.snp.makeConstraints { make in
-          make.top.equalTo(view).offset(GC.Margin.top)
-          make.bottom.equalTo(exportButton.snp.top).offset(GC.Padding.vertical)
-          make.left.right.equalTo(view)
-        }
-    }else {
-      
-    }
+    // MARK: But actually make the export all button first so we can size the table off it
+    
+    exportButton.setTitle(Text.Matches.export, for: .normal)
+    exportButton.setTitleColor(Color.Button.Text.primary, for: .normal)
+    exportButton.contentHorizontalAlignment = .right
+    view.addSubview(exportButton)
+    
+      // Snapkit
+      exportButton.snp.makeConstraints { make in
+        make.bottom.equalTo(view).offset(GC.Margin.bottom)
+        make.left.equalTo(view).offset(GC.Margin.left)
+        make.right.equalTo(view).offset(GC.Margin.right)
+      }
+    
+    matchesTable.delegate = self
+    matchesTable.dataSource = self
+    matchesTable.register(MatchCell.self, forCellReuseIdentifier: matchCellIdentifier)
+    matchesTable.estimatedRowHeight = 100
+    matchesTable.rowHeight = UITableViewAutomaticDimension
+    matchesTable.backgroundColor = Color.background
+    view.addSubview(matchesTable)
+    
+      // Snapkit
+      matchesTable.snp.makeConstraints { make in
+        make.top.equalTo(view).offset(GC.Margin.top)
+        make.bottom.equalTo(exportButton.snp.top).offset(GC.Padding.vertical)
+        make.left.right.equalTo(view)
+      }
     
     // MARK: Make the matches table
     

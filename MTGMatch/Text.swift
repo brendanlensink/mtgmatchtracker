@@ -10,6 +10,7 @@
  *  Helper struct for all the text
  */
 struct Text {
+  static let name = "Event Name"
   static let format = "Format"
   static let rel = "REL"
   

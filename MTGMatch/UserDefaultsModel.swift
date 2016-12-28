@@ -16,6 +16,28 @@ class UserDefaultsModel {
   
   fileprivate let defaults = UserDefaults.standard
   
+  // MARK: - Event Name
+  
+  /**
+   *  Set the default event name for the next match
+   *
+   *  - Parameters:
+   *    - eventName: The eventName to set as the default
+   */
+  func setEventName(_ eventName: String) {
+    defaults.set(eventName, forKey: "eventName")
+  }
+  
+  /**
+   *  Get the default event name for a match
+   *
+   *  - Returns: The current default event name
+   */
+  func getEventName() -> String? {
+    return defaults.object(forKey: "eventName") != nil ?
+      (defaults.object(forKey: "eventName") as! String) : nil
+  }
+  
   // MARK: - Format
   
   /**
