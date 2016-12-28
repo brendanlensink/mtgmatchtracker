@@ -36,6 +36,7 @@ struct Color {
     static let four = UIColor(hex: "26A69A")
     static let one = UIColor(hex: "B2DFDB")
     static let zero = UIColor(hex: "E0F2F1")
+    static let almostWhite = UIColor(hex: "EAFCFB")
   }
   
   private struct GreenAccent {
@@ -47,10 +48,10 @@ struct Color {
   
   // MARK: Color Assignments
   
-  static let background = Green.zero
+  static let background = Green.almostWhite
   
   struct TabBar {
-    static let background = Green.one.alpha(0.02)
+    static let background = Green.zero
     static let text = Green.seven
   }
   
@@ -62,7 +63,13 @@ struct Color {
   
   struct GameCell {
     static let border = GreenAccent.four.alpha(0.3)
-    static let textFieldBackground = Green.one.alpha(0.2)
+    static let textFieldBackground = Green.zero.alpha(0.2)
+  
+    struct Switch {
+      static let on = Green.zero
+      static let off = Green.zero
+      static let text = Green.seven
+    }
   }
   
   struct MatchCell {

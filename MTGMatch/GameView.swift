@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import SevenSwitch
 import ReactiveSwift
 import enum Result.NoError
 
@@ -29,9 +30,9 @@ class GameView: UIView {
   
   // MARK: - UI Elements
   
-  let playDraw: UISwitch
+  let playDraw: SevenSwitch
   let playText: UILabel
-  let result: UISwitch
+  let result: SevenSwitch
   let resultText: UILabel
   let myHand: UIButton
   let theirHand: UIButton
@@ -59,9 +60,9 @@ class GameView: UIView {
     
     // MARK: Set up UI Elements
     
-    playDraw = UISwitch()
+    playDraw = SevenSwitch()
     playText = UILabel()
-    result = UISwitch()
+    result = SevenSwitch()
     resultText = UILabel()
     myHand = UIButton()
     theirHand = UIButton()
@@ -90,50 +91,44 @@ class GameView: UIView {
     
     self.game = game
     
-    playDraw.isOn = true
+    playDraw.isEnabled = true
+    playDraw.isRounded = false
+    playDraw.offLabel.text = Text.GameCell.draw
+    playDraw.onLabel.text = Text.GameCell.play
+    playDraw.onLabel.textColor = Color.GameCell.Switch.text
+    playDraw.offLabel.textColor = Color.GameCell.Switch.text
+    playDraw.onTintColor = Color.GameCell.Switch.on
+    playDraw.inactiveColor = Color.GameCell.Switch.off
     playDraw.addTarget(self, action: #selector(playDrawChanged(_:)), for: .valueChanged)
     self.addSubview(playDraw)
     
       // Snapkit
       playDraw.snp.makeConstraints { make in
+        make.width.equalTo(75)
+        make.height.equalTo(30)
         make.centerY.equalTo(self).multipliedBy(0.6)
         make.left.equalTo(self).offset(GC.Padding.horizontal)
       }
     
-    playText.text = Text.GameCell.play
-    playText.textColor = Color.TextField.text
-    playText.font = GC.Font.main
-    self.addSubview(playText)
-    
-      // Snapkit
-      playText.snp.makeConstraints { make in
-        make.centerY.equalTo(playDraw)
-        make.left.equalTo(playDraw.snp.right).offset(GC.Padding.horizontal)
-        make.width.equalTo(40)
-      }
-    
     // MARK: Make the win/loss switch
     
-    result.isOn = true
+    result.isEnabled = true
+    result.isRounded = false
+    result.offLabel.text = Text.GameCell.loss
+    result.onLabel.text = Text.GameCell.win
+    result.onLabel.textColor = Color.GameCell.Switch.text
+    result.offLabel.textColor = Color.GameCell.Switch.text
+    result.onTintColor = Color.GameCell.Switch.on
+    result.inactiveColor = Color.GameCell.Switch.off
     result.addTarget(self, action: #selector(resultChanged(_:)), for: .valueChanged)
     self.addSubview(result)
     
       // Snapkit
       result.snp.makeConstraints { make in
+        make.width.equalTo(75)
+        make.height.equalTo(30)
         make.centerY.equalTo(self).multipliedBy(1.4)
         make.left.equalTo(playDraw)
-      }
-    
-    resultText.text = Text.GameCell.win
-    resultText.textColor = Color.TextField.text
-    resultText.font = GC.Font.main
-    self.addSubview(resultText)
-    
-      // Snapkit
-      resultText.snp.makeConstraints { make in
-        make.centerY.equalTo(result)
-        make.left.equalTo(result.snp.right).offset(GC.Padding.horizontal)
-        make.width.equalTo(40)
       }
     
     // MARK: Make the my hand button
@@ -146,7 +141,7 @@ class GameView: UIView {
       // Snapkit
       myHand.snp.makeConstraints { make in
         make.centerY.equalTo(playDraw)
-        make.left.equalTo(playText.snp.right).offset(GC.Padding.horizontal)
+        make.left.equalTo(playDraw.snp.right).offset(GC.Padding.horizontal*2)
       }
     
     // MARK: Make the their hand button
@@ -159,7 +154,7 @@ class GameView: UIView {
       // Snapkit
       theirHand.snp.makeConstraints { make in
         make.centerY.equalTo(result)
-        make.left.equalTo(resultText.snp.right).offset(GC.Padding.horizontal)
+        make.left.equalTo(result.snp.right).offset(GC.Padding.horizontal*2)
       }
     
     // MARK: Make the notes view
@@ -227,7 +222,7 @@ class GameView: UIView {
   }
   
   func resultChanged(_ playSwitch: UISwitch) {
-    if result.isOn {
+    if result.isEnabled {
       self.resultStream.swap(GameResult.w)
     }else {
       self.resultStream.swap(GameResult.l)
