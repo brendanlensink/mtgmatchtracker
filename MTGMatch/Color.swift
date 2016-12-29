@@ -69,6 +69,8 @@ struct Color {
       static let on = Green.zero
       static let off = Green.zero
       static let text = Green.seven
+      static let border = Green.seven
+      static let selected = Green.four
     }
   }
   

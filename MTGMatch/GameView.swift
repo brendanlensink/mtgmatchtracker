@@ -30,9 +30,11 @@ class GameView: UIView {
   
   // MARK: - UI Elements
   
-  let playDraw: SevenSwitch
+  let playRadio: DLRadioButton
+  let drawRadio: DLRadioButton
   let playText: UILabel
-  let result: SevenSwitch
+  let winRadio: DLRadioButton
+  let lossRadio: DLRadioButton
   let resultText: UILabel
   let myHand: UIButton
   let theirHand: UIButton
@@ -60,9 +62,11 @@ class GameView: UIView {
     
     // MARK: Set up UI Elements
     
-    playDraw = SevenSwitch()
+    playRadio = DLRadioButton()
+    drawRadio = DLRadioButton()
     playText = UILabel()
-    result = SevenSwitch()
+    winRadio = DLRadioButton()
+    lossRadio = DLRadioButton()
     resultText = UILabel()
     myHand = UIButton()
     theirHand = UIButton()
@@ -87,48 +91,118 @@ class GameView: UIView {
    *    - game: The game number within the match
    */
   func initGame(vc: LogMatchViewController, game: Int) {
-    // MARK: Make the play/draw switch
+    
+    // MARK: Let's just set all the switch properties at the top
+    let iconHeight: CGFloat = 30
+    let iconWidth: CGFloat = 50
+    let iconStrokeWidth: CGFloat = 2
+    let iconColor = Color.GameCell.Switch.border
+    let indicatorColor = Color.GameCell.Switch.selected
+    
+    // MARK: Make the play/draw radio buttons
     
     self.game = game
     
-    playDraw.isEnabled = true
-    playDraw.isRounded = false
-    playDraw.offLabel.text = Text.GameCell.draw
-    playDraw.onLabel.text = Text.GameCell.play
-    playDraw.onLabel.textColor = Color.GameCell.Switch.text
-    playDraw.offLabel.textColor = Color.GameCell.Switch.text
-    playDraw.onTintColor = Color.GameCell.Switch.on
-    playDraw.inactiveColor = Color.GameCell.Switch.off
-    playDraw.addTarget(self, action: #selector(playDrawChanged(_:)), for: .valueChanged)
-    self.addSubview(playDraw)
+    playRadio.isIconSquare = true
+    playRadio.iconSize = iconWidth
+    playRadio.iconStrokeWidth = iconStrokeWidth
+    playRadio.iconColor = iconColor
+    playRadio.indicatorColor = indicatorColor
+    playRadio.otherButtons = [drawRadio]
+    self.addSubview(playRadio)
     
       // Snapkit
-      playDraw.snp.makeConstraints { make in
-        make.width.equalTo(75)
-        make.height.equalTo(30)
+      playRadio.snp.makeConstraints { make in
+        make.height.equalTo(iconHeight)
         make.centerY.equalTo(self).multipliedBy(0.6)
         make.left.equalTo(self).offset(GC.Padding.horizontal)
       }
     
-    // MARK: Make the win/loss switch
-    
-    result.isEnabled = true
-    result.isRounded = false
-    result.offLabel.text = Text.GameCell.loss
-    result.onLabel.text = Text.GameCell.win
-    result.onLabel.textColor = Color.GameCell.Switch.text
-    result.offLabel.textColor = Color.GameCell.Switch.text
-    result.onTintColor = Color.GameCell.Switch.on
-    result.inactiveColor = Color.GameCell.Switch.off
-    result.addTarget(self, action: #selector(resultChanged(_:)), for: .valueChanged)
-    self.addSubview(result)
+    let playLabel = UILabel()
+    playLabel.text = Text.GameCell.play
+    playLabel.textColor = Color.GameCell.Switch.text
+    self.addSubview(playLabel)
     
       // Snapkit
-      result.snp.makeConstraints { make in
-        make.width.equalTo(75)
-        make.height.equalTo(30)
-        make.centerY.equalTo(self).multipliedBy(1.4)
-        make.left.equalTo(playDraw)
+      playLabel.snp.makeConstraints { make in
+          make.centerX.centerY.equalTo(playRadio)
+      }
+    
+    drawRadio.isIconSquare = true
+    drawRadio.iconSize = iconWidth
+    drawRadio.iconStrokeWidth = iconStrokeWidth
+    drawRadio.iconColor = iconColor
+    drawRadio.indicatorColor = indicatorColor
+    drawRadio.otherButtons = [playRadio]
+    self.addSubview(drawRadio)
+    
+      // Snapkit
+      drawRadio.snp.makeConstraints { make in
+        make.height.equalTo(iconHeight)
+        make.centerY.equalTo(playRadio)
+        make.left.equalTo(playRadio.snp.right).offset(-2)
+      }
+    
+    let drawLabel = UILabel()
+    drawLabel.text = Text.GameCell.draw
+    drawLabel.textColor = Color.GameCell.Switch.text
+    self.addSubview(drawLabel)
+    
+      // Snapkit
+      drawLabel.snp.makeConstraints { make in
+        make.centerX.centerY.equalTo(drawRadio)
+      }
+
+    // MARK: Make the win/loss switch
+    
+    winRadio.isIconSquare = true
+    winRadio.iconSize = iconWidth
+    winRadio.iconStrokeWidth = iconStrokeWidth
+    winRadio.iconColor = iconColor
+    winRadio.indicatorColor = indicatorColor
+    winRadio.otherButtons = [lossRadio]
+    self.addSubview(winRadio)
+    
+      // Snapkit
+      winRadio.snp.makeConstraints { make in
+        make.height.equalTo(iconHeight)
+        make.top.equalTo(playRadio.snp.bottom).offset(GC.Padding.vertical)
+        make.left.equalTo(playRadio)
+      }
+    
+    let winLabel = UILabel()
+    winLabel.text = Text.GameCell.win
+    winLabel.textColor = Color.GameCell.Switch.text
+    self.addSubview(winLabel)
+    
+      // Snapkit
+      winLabel.snp.makeConstraints { make in
+        make.centerX.centerY.equalTo(winRadio)
+      }
+    
+    lossRadio.isIconSquare = true
+    lossRadio.iconSize = iconWidth
+    lossRadio.iconStrokeWidth = iconStrokeWidth
+    lossRadio.iconColor = iconColor
+    lossRadio.indicatorColor = indicatorColor
+    lossRadio.otherButtons = [winRadio]
+    self.addSubview(lossRadio)
+    
+      // Snapkit
+      lossRadio.snp.makeConstraints { make in
+        make.height.equalTo(iconHeight)
+        make.centerY.equalTo(winRadio)
+        make.left.equalTo(winRadio.snp.right).offset(-2)
+      }
+    
+    let lossLabel = UILabel()
+    lossLabel.text = Text.GameCell.loss
+    lossLabel.textColor = Color.GameCell.Switch.text
+    self.addSubview(lossLabel)
+    
+      // Snapkit
+      lossLabel.snp.makeConstraints { make in
+        make.centerX.centerY.equalTo(lossRadio)
       }
     
     // MARK: Make the my hand button
@@ -140,8 +214,8 @@ class GameView: UIView {
     
       // Snapkit
       myHand.snp.makeConstraints { make in
-        make.centerY.equalTo(playDraw)
-        make.left.equalTo(playDraw.snp.right).offset(GC.Padding.horizontal*2)
+        make.centerY.equalTo(drawRadio)
+        make.left.equalTo(drawRadio.snp.right).offset(GC.Padding.horizontal*2)
       }
     
     // MARK: Make the their hand button
@@ -153,8 +227,8 @@ class GameView: UIView {
     
       // Snapkit
       theirHand.snp.makeConstraints { make in
-        make.centerY.equalTo(result)
-        make.left.equalTo(result.snp.right).offset(GC.Padding.horizontal*2)
+        make.centerY.equalTo(lossRadio)
+        make.left.equalTo(lossRadio.snp.right).offset(GC.Padding.horizontal*2)
       }
     
     // MARK: Make the notes view
@@ -214,19 +288,19 @@ class GameView: UIView {
   // MARK: Switch Delegate Methods
   
   func playDrawChanged(_ playSwitch: UISwitch) {
-    if playSwitch.isOn {
-      self.startStream.swap(Start.play)
-    }else {
-      self.startStream.swap(Start.draw)
-    }
+//    if playSwitch.isOn {
+//      self.startStream.swap(Start.play)
+//    }else {
+//      self.startStream.swap(Start.draw)
+//    }
   }
   
   func resultChanged(_ playSwitch: UISwitch) {
-    if result.isEnabled {
-      self.resultStream.swap(GameResult.w)
-    }else {
-      self.resultStream.swap(GameResult.l)
-    }
+//    if result.isEnabled {
+//      self.resultStream.swap(GameResult.w)
+//    }else {
+//      self.resultStream.swap(GameResult.l)
+//    }
   }
   
   /**
