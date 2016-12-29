@@ -141,7 +141,6 @@ class LogMatchViewController: UIViewController {
     name.textColor = Color.TextField.text
     name.textAlignment = .left
     name.keyboardType = .default
-    name.autocapitalizationType = .none
     name.autocorrectionType = .no
     name.leftViewMode = .always
     name.leftView =
