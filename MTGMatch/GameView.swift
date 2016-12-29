@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-import SevenSwitch
+import DLRadioButton
 import ReactiveSwift
 import enum Result.NoError
 

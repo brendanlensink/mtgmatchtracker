@@ -9,7 +9,7 @@ target 'MTGMatch' do
   pod 'Hue'
   pod 'SnapKit', '~> 3.0.2'
   pod 'RealmSwift'
-  pod 'SevenSwitch', '~> 2.1'
+  pod 'DLRadioButton', '~> 1.4'
  
   target 'MTGMatchTests' do
     inherit! :search_paths
