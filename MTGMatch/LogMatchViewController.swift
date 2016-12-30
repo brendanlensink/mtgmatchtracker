@@ -68,6 +68,8 @@ class LogMatchViewController: UIViewController {
    */
   override func viewDidLoad() {
     
+    self.navigationController?.isNavigationBarHidden = true
+    
     // MARK: Attach a gesture recognizer to listen for taps outside the text field
     
     let tap: UITapGestureRecognizer =

@@ -35,19 +35,20 @@ class MatchCell: UITableViewCell {
     
       // Snapkit
       backgroundView.snp.makeConstraints { make in
-        make.top.equalTo(contentView).offset(GC.Margin.Cell.top)
-        make.bottom.equalTo(contentView).offset(GC.Margin.Cell.bottom)
+        make.top.equalTo(contentView)
+        make.bottom.equalTo(contentView)
         make.left.right.equalTo(contentView)
       }
     
     // MARK: Make the match title
     
     titleLabel.text = "Title"
+    titleLabel.textColor = Color.MatchCell.Text.primary
     contentView.addSubview(titleLabel)
     
       // Snapkit
       titleLabel.snp.makeConstraints { make in
-        make.top.equalTo(backgroundView)
+        make.top.equalTo(backgroundView).offset(GC.Padding.vertical)
         make.left.equalTo(backgroundView).offset(GC.Margin.left)
         make.right.equalTo(backgroundView).offset(GC.Margin.right)
       }
@@ -55,6 +56,7 @@ class MatchCell: UITableViewCell {
     // MARK: Make the match date
     
     dateLabel.text = "Date"
+    dateLabel.textColor = Color.MatchCell.Text.primary
     contentView.addSubview(dateLabel)
     
       dateLabel.snp.makeConstraints { make in
@@ -65,17 +67,18 @@ class MatchCell: UITableViewCell {
     // MARK: Make the formay and result labels
     
     formatLabel.text = "Format"
+    formatLabel.textColor = Color.MatchCell.Text.primary
     contentView.addSubview(formatLabel)
     
       // Snapkit
       formatLabel.snp.makeConstraints { make in
         make.top.equalTo(dateLabel.snp.bottom).offset(GC.Padding.vertical)
-        make.bottom.equalTo(backgroundView)
         make.left.equalTo(titleLabel)
         make.right.equalTo(contentView.snp.centerX)
       }
     
     resultLabel.text = "Result"
+    resultLabel.textColor = Color.MatchCell.Text.primary
     contentView.addSubview(resultLabel)
     
       // Snapkit
@@ -83,6 +86,21 @@ class MatchCell: UITableViewCell {
         make.centerY.equalTo(formatLabel)
         make.left.equalTo(formatLabel.snp.right)
         make.right.equalTo(backgroundView).offset(GC.Margin.right)
+      }
+    
+    // MARK: Make the little divider
+    
+    let divider = UIView()
+    divider.backgroundColor = Color.MatchCell.divider
+    contentView.addSubview(divider)
+    
+      // Snapkit
+      divider.snp.makeConstraints { make in
+        make.height.equalTo(1)
+        make.top.equalTo(resultLabel.snp.bottom).offset(GC.Padding.vertical)
+        make.bottom.equalTo(backgroundView)
+        make.left.equalTo(contentView)
+        make.right.equalTo(contentView)
       }
     
   }

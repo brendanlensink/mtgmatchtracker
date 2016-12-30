@@ -46,6 +46,8 @@ class MatchesViewController: UIViewController {
    */
   override func viewDidLoad() {
     
+    self.navigationController?.isNavigationBarHidden = true
+    
     // MARK: Make the background view and gradient
     
     let backgroundView = UIView()
@@ -78,7 +80,9 @@ class MatchesViewController: UIViewController {
     matchesTable.register(MatchCell.self, forCellReuseIdentifier: matchCellIdentifier)
     matchesTable.estimatedRowHeight = 100
     matchesTable.rowHeight = UITableViewAutomaticDimension
+    matchesTable.separatorColor = Color.background
     matchesTable.backgroundColor = Color.background
+    matchesTable.tableFooterView = UIView()
     view.addSubview(matchesTable)
     
       // Snapkit
@@ -138,7 +142,7 @@ extension MatchesViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    return 1
+    return 0
   }
 }
 

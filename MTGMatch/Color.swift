@@ -48,34 +48,40 @@ struct Color {
   
   // MARK: Color Assignments
   
-  static let background = Green.almostWhite
+  static let background = GreenAccent.seven
   
   struct TabBar {
-    static let background = Green.zero
-    static let text = Green.seven
+    static let background = GreenAccent.four
+    static let text = Slate.dark
   }
   
   struct TextField {
-    static let text = Green.seven
-    static let placeholder = Green.four
-    static let drawer = GreenAccent.four.alpha(0.3)
+    static let text = Green.almostWhite
+    static let placeholder = Green.one
+    static let drawer = GreenAccent.two.alpha(0.3)
   }
   
   struct GameCell {
     static let border = GreenAccent.four.alpha(0.3)
-    static let textFieldBackground = Green.zero.alpha(0.2)
+    static let textFieldBackground = GreenAccent.four.alpha(0.08)
   
     struct Switch {
       static let on = Green.zero
       static let off = Green.zero
-      static let text = Green.seven
+      static let text = Green.almostWhite
       static let border = Green.seven
-      static let selected = GreenAccent.two
+      static let selected = GreenAccent.four.alpha(0.5)
     }
   }
   
   struct MatchCell {
-    static let background = white
+    static let background = GreenAccent.seven
+    static let divider = GreenAccent.two
+    
+    struct Text {
+      static let primary = Green.almostWhite
+      static let secondary = Green.one
+    }
   }
   
   struct Button {
