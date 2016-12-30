@@ -95,8 +95,9 @@ class GameView: UIView {
     // MARK: Let's just set all the switch properties at the top
     let iconHeight: CGFloat = 30
     let iconWidth: CGFloat = 50
+    let indicatorSize: CGFloat = 40
     let iconStrokeWidth: CGFloat = 2
-    let iconColor = Color.GameCell.Switch.border
+    let iconColor = Color.background
     let indicatorColor = Color.GameCell.Switch.selected
     
     // MARK: Make the play/draw radio buttons
@@ -108,6 +109,8 @@ class GameView: UIView {
     playRadio.iconStrokeWidth = iconStrokeWidth
     playRadio.iconColor = iconColor
     playRadio.indicatorColor = indicatorColor
+    playRadio.indicatorSize = indicatorSize
+    playRadio.addTarget(self, action: #selector(GameView.playDrawChanged), for: .touchUpInside)
     playRadio.otherButtons = [drawRadio]
     self.addSubview(playRadio)
     
@@ -133,6 +136,8 @@ class GameView: UIView {
     drawRadio.iconStrokeWidth = iconStrokeWidth
     drawRadio.iconColor = iconColor
     drawRadio.indicatorColor = indicatorColor
+    drawRadio.indicatorSize = indicatorSize
+    drawRadio.addTarget(self, action: #selector(GameView.playDrawChanged), for: .touchUpInside)
     drawRadio.otherButtons = [playRadio]
     self.addSubview(drawRadio)
     
@@ -160,6 +165,8 @@ class GameView: UIView {
     winRadio.iconStrokeWidth = iconStrokeWidth
     winRadio.iconColor = iconColor
     winRadio.indicatorColor = indicatorColor
+    winRadio.indicatorSize = indicatorSize
+    winRadio.addTarget(self, action: #selector(GameView.resultChanged), for: .touchUpInside)
     winRadio.otherButtons = [lossRadio]
     self.addSubview(winRadio)
     
@@ -185,6 +192,8 @@ class GameView: UIView {
     lossRadio.iconStrokeWidth = iconStrokeWidth
     lossRadio.iconColor = iconColor
     lossRadio.indicatorColor = indicatorColor
+    lossRadio.indicatorSize = indicatorSize
+    lossRadio.addTarget(self, action: #selector(GameView.resultChanged), for: .touchUpInside)
     lossRadio.otherButtons = [winRadio]
     self.addSubview(lossRadio)
     
@@ -287,20 +296,20 @@ class GameView: UIView {
   
   // MARK: Switch Delegate Methods
   
-  func playDrawChanged(_ playSwitch: UISwitch) {
-//    if playSwitch.isOn {
-//      self.startStream.swap(Start.play)
-//    }else {
-//      self.startStream.swap(Start.draw)
-//    }
+  func playDrawChanged(_ sender: DLRadioButton) {
+    if sender == playRadio {
+      self.startStream.swap(Start.play)
+    }else {
+      self.startStream.swap(Start.draw)
+    }
   }
   
-  func resultChanged(_ playSwitch: UISwitch) {
-//    if result.isEnabled {
-//      self.resultStream.swap(GameResult.w)
-//    }else {
-//      self.resultStream.swap(GameResult.l)
-//    }
+  func resultChanged(_ sender: DLRadioButton) {
+    if sender == winRadio {
+      self.resultStream.swap(GameResult.w)
+    }else {
+      self.resultStream.swap(GameResult.l)
+    }
   }
   
   /**

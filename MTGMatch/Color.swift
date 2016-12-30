@@ -70,7 +70,7 @@ struct Color {
       static let off = Green.zero
       static let text = Green.seven
       static let border = Green.seven
-      static let selected = Green.four
+      static let selected = GreenAccent.two
     }
   }
   
