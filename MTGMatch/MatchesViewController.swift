@@ -119,11 +119,14 @@ class MatchesViewController: UIViewController {
   private func bindViewModel() {
     viewModel.getMatches()
     
-//    let emailViewController = viewModel.emailCSV(viewModel.exportCSV())
-    
-//    if MFMailComposeViewController.canSendMail() {
-//      self.present(emailViewController, animated: true, completion: nil)
-//    }
+    exportButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
+      let emailViewController = self.viewModel.emailCSV(self.viewModel.exportCSV())
+      emailViewController.mailComposeDelegate = self
+      
+      if MFMailComposeViewController.canSendMail() {
+        self.present(emailViewController, animated: true, completion: nil)
+      }
+    }
   }
 }
 
@@ -194,5 +197,17 @@ extension MatchesViewController: UITableViewDataSource {
       let match = viewModel.getMatchAt(index: indexPath.row)
       cell.setMatchInfo(match: match)
       return cell
+  }
+}
+
+// MARK: - MFMailComposeViewControllerDelegate Method
+
+extension MatchesViewController: MFMailComposeViewControllerDelegate {
+  
+  /**
+   *  Dismisses the mail view controller once it's done
+   */
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    controller.dismiss(animated: true, completion: nil)
   }
 }

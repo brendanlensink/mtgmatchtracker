@@ -81,7 +81,7 @@ class MatchesViewModel {
    *  Email the CSV to someone
    */
   func emailCSV(_ text: String) -> MFMailComposeViewController {
-    
+    print("email called")
     // MARK: Convert the string to data
     let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false)
     
