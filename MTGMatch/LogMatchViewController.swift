@@ -31,6 +31,7 @@ class LogMatchViewController: UIViewController {
   private let gameViewTwo: GameView
   private let gameViewThree: GameView
   private let plusButton: UIButton
+  private let saveButton: UIButton
   
   fileprivate let defaults = UserDefaultsModel.sharedInstance
   
@@ -53,6 +54,7 @@ class LogMatchViewController: UIViewController {
     gameViewTwo = GameView()
     gameViewThree = GameView()
     plusButton = UIButton()
+    saveButton = UIButton()
     
     super.init(nibName: nil, bundle: nil)
   }
@@ -91,6 +93,22 @@ class LogMatchViewController: UIViewController {
         make.edges.equalTo(view)
       }
     
+    // MARK: Make the save button to sit at the bottom
+    
+    saveButton.setTitle(Text.save, for: .normal)
+    saveButton.setTitleColor(Color.Button.Text.primary, for: .normal)
+    saveButton.backgroundColor = Color.Button.Background.primary
+    saveButton.isEnabled = false
+    saveButton.isHidden = true
+    view.addSubview(saveButton)
+    
+      // Snapkit
+      saveButton.snp.makeConstraints { make in
+        make.height.equalTo(60)
+        make.bottom.equalTo(view).offset(GC.Margin.bottom)
+        make.left.right.equalTo(view)
+      }
+    
     // MARK: Make the scroll view to put all the elements inside
     
     scrollView.isScrollEnabled = false
@@ -99,7 +117,7 @@ class LogMatchViewController: UIViewController {
       // Snapkit
       scrollView.snp.makeConstraints { make in
         make.top.equalTo(view).offset(GC.Margin.top + 10)
-        make.bottom.equalTo(view).offset(GC.Margin.bottom)
+        make.bottom.equalTo(saveButton.snp.top).offset(GC.Padding.vertical)
         make.left.equalTo(view).offset(GC.Margin.left)
         make.right.equalTo(view).offset(GC.Margin.right)
       }
@@ -202,7 +220,6 @@ class LogMatchViewController: UIViewController {
     myDeck.textColor = Color.TextField.text
     myDeck.textAlignment = .left
     myDeck.keyboardType = .default
-    myDeck.autocapitalizationType = .none
     myDeck.autocorrectionType = .no
     myDeck.leftViewMode = .always
     myDeck.leftView =
@@ -228,7 +245,6 @@ class LogMatchViewController: UIViewController {
     theirDeck.textColor = Color.TextField.text
     theirDeck.textAlignment = .left
     theirDeck.keyboardType = .default
-    theirDeck.autocapitalizationType = .none
     theirDeck.autocorrectionType = .no
     theirDeck.leftViewMode = .always
     theirDeck.leftView =
@@ -343,10 +359,44 @@ class LogMatchViewController: UIViewController {
       self.gameViewThree.isHidden = false
     }
     
+    saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
+      if(self.viewModel.saveMatch()) {
+        print("something something")
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.barTintColor = Color.TabBar.background
+        tabBarController.tabBar.tintColor = Color.TabBar.text
+        
+        let logController = UINavigationController(rootViewController: LogMatchViewController())
+        logController.navigationBar.barTintColor = Color.TabBar.background
+        logController.navigationBar.tintColor = Color.TabBar.text
+        logController.tabBarItem = UITabBarItem(
+          title: "Log A Match",
+          image: UIImage(named: "new"),
+          tag:  1
+        )
+        
+        let matchesController = UINavigationController(rootViewController: MatchesViewController())
+        matchesController.navigationBar.barTintColor = Color.TabBar.background
+        matchesController.navigationBar.tintColor = Color.TabBar.text
+        matchesController.tabBarItem = UITabBarItem(
+          title: "View Past Matches",
+          image: UIImage(named: "history"),
+          tag: 2
+        )
+        
+        let tabViewControllers = [
+          logController,
+          matchesController
+        ]
+        tabBarController.viewControllers = tabViewControllers
+        
+        self.present(tabBarController, animated: true, completion: {})
+      }
+    }
+    
     // MARK: If any of the fields are populated by user defaults we need to update the stream
     
     if(defaults.getEventName() != nil) {
-      print(defaults.getEventName())
       let nameText = defaults.getEventName()!
       name.text = nameText
       viewModel.eventName.swap(nameText)
@@ -373,8 +423,8 @@ class LogMatchViewController: UIViewController {
     // MARK: View Model Response Listeners
     
     viewModel.addButtonStream.observeValues { _ in
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain,
-        target: self, action: #selector(self.addTapped))
+      self.saveButton.isHidden = false
+      self.saveButton.isEnabled = true
     }
     
     viewModel.format.signal.observeValues { value in
@@ -405,13 +455,5 @@ class LogMatchViewController: UIViewController {
     print("dismiss called")
     //Causes the view (or one of its embedded text fields) to resign the first responder status.
     view.endEditing(true)
-  }
-  
-  // MARK: Navigation Bar Actions
-  
-  func addTapped(_ sender: UIButton) {
-    if(viewModel.saveMatch()) {
-      print("match saved")
-      self.present(LogMatchViewController(), animated: true, completion: {}) }
   }
 }

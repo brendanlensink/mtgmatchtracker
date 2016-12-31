@@ -86,11 +86,11 @@ struct Color {
   
   struct Button {
     struct Text {
-      static let primary = lightBlue
+      static let primary = Green.four
     }
     
     struct Background {
-      static let primary = grey
+      static let primary = Green.almostWhite
     }
   }
   
