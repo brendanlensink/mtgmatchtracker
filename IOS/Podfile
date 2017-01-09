@@ -10,6 +10,7 @@ target 'MTGMatch' do
   pod 'SnapKit', '~> 3.0.2'
   pod 'RealmSwift'
   pod 'DLRadioButton', '~> 1.4'
+  pod 'Alamofire', '~> 4.0'
  
   target 'MTGMatchTests' do
     inherit! :search_paths

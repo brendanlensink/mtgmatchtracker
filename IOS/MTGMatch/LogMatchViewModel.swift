@@ -27,6 +27,10 @@ class LogMatchViewModel {
   // MARK: - Outputs
   
   let addButtonStream: Signal<Bool, NoError>
+  let (serverResponseStream, serverResponseObserver) =
+    Signal<(Dictionary<String, AnyObject>, Int), NoError>.pipe()
+  let (successStream, successObserver) = Signal<Bool, NoError>.pipe()
+  let (errorStream, errorObserver) = Signal<String, NoError>.pipe()
   
   // MARK: - Initializer
   
@@ -99,7 +103,11 @@ class LogMatchViewModel {
     realm.add(newMatch)
     try! realm.commitWrite()
     
-    // MARK: Step 3: Save the info filled in to user defaults to populate the next match
+    // MARK: Attempt to send the match to the server
+    
+    _ = ApiModel.sharedInstance.sendMatch(match: newMatch)
+    
+    // MARK: Step 4: Save the info filled in to user defaults to populate the next match
     
     let defaults = UserDefaultsModel.sharedInstance
     defaults.setEventName(eventName.value!)

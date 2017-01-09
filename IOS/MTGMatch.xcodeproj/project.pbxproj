@@ -11,6 +11,7 @@
 		7A5A1923A73DC0C1098FF947 /* Pods_MTGMatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0118443A12E2107276DBEFB /* Pods_MTGMatchTests.framework */; };
 		9CF5B8381A711226A41AF9D0 /* Pods_MTGMatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF1844275A1C028259B2505 /* Pods_MTGMatch.framework */; };
 		D41D4D821E0F05F80034E535 /* UserDefaultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41D4D811E0F05F80034E535 /* UserDefaultsModel.swift */; };
+		D43AA3D51E209976009C82C1 /* ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43AA3D41E209976009C82C1 /* ApiModel.swift */; };
 		D4677D281E0BA0D70015F793 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4677D271E0BA0D70015F793 /* MatchCell.swift */; };
 		D4FB166A1E0A4A0C0063C0D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FB16691E0A4A0C0063C0D9 /* AppDelegate.swift */; };
 		D4FB166F1E0A4A0C0063C0D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4FB166D1E0A4A0C0063C0D9 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		C0118443A12E2107276DBEFB /* Pods_MTGMatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFF1844275A1C028259B2505 /* Pods_MTGMatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MTGMatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41D4D811E0F05F80034E535 /* UserDefaultsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsModel.swift; sourceTree = "<group>"; };
+		D43AA3D41E209976009C82C1 /* ApiModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiModel.swift; sourceTree = "<group>"; };
 		D4677D271E0BA0D70015F793 /* MatchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
 		D4FB16661E0A4A0C0063C0D9 /* MTGMatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MTGMatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4FB16691E0A4A0C0063C0D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				D41D4D811E0F05F80034E535 /* UserDefaultsModel.swift */,
+				D43AA3D41E209976009C82C1 /* ApiModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 			files = (
 				D4FB16A71E0A4B860063C0D9 /* MatchesViewModel.swift in Sources */,
 				D4FB16A91E0A4B860063C0D9 /* Game.swift in Sources */,
+				D43AA3D51E209976009C82C1 /* ApiModel.swift in Sources */,
 				D4FB166A1E0A4A0C0063C0D9 /* AppDelegate.swift in Sources */,
 				D4FB16A81E0A4B860063C0D9 /* MatchesViewController.swift in Sources */,
 				D4FB16B11E0A4B860063C0D9 /* Color.swift in Sources */,

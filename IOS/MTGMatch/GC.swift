@@ -12,6 +12,11 @@ import UIKit
  *  Helper struct for global constants
  */
 struct GC {
+  struct API {
+    static let key = "VO^dqt7*Eq!o"
+    static let endpoint = "https://api.brendanlensink.com/api.php/"
+  }
+  
   struct Padding {
     static let vertical = 7
     static let horizontal = 5
