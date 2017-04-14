@@ -17,7 +17,15 @@ struct Color {
         static let medium = UIColor(hex: "999999")
     }
     
+    struct Blue {
+        static let medium = UIColor(hex: "0000FF")
+    }
+    
     // MARK: Color assignments
     
     static let background = Grey.medium
+    
+    struct Cell {
+        static let background = Blue.medium
+    }
 }
