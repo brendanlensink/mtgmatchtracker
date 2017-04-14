@@ -18,7 +18,7 @@ struct GC {
     
     struct Padding{
         static let vertical = 8
-        static let horizontal = 5
+        static let horizontal = 8
     }
     
     // MARK: Font

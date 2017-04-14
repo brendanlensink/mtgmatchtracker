@@ -61,6 +61,7 @@ class NewMatchViewController: UIViewController {
         // MARK: Create the match specific info
         
         dateLabel.text = "Date:"
+        dateLabel.textColor = Color.Text.secondary
         dateLabel.font = GC.Font.main
         view.addSubview(dateLabel)
 
@@ -69,7 +70,10 @@ class NewMatchViewController: UIViewController {
                 make.leading.equalTo(view).offset(GC.Margin.left)
             }
         
+        dateButton.setTitle(String(describing: Date()), for: .normal)
+        dateButton.setTitleColor(Color.Text.main, for: .normal)
         dateButton.titleLabel?.font = GC.Font.main
+        dateButton.contentHorizontalAlignment = .left
         view.addSubview(dateButton)
         
             dateButton.snp.makeConstraints { make in
@@ -80,6 +84,7 @@ class NewMatchViewController: UIViewController {
             }
         
         nameLabel.text = "Event Name:"
+        nameLabel.textColor = Color.Text.secondary
         nameLabel.font = GC.Font.main
         view.addSubview(nameLabel)
         
@@ -89,26 +94,36 @@ class NewMatchViewController: UIViewController {
             }
 
         nameField.placeholder = "Event Name"
+        nameField.textColor = Color.Text.main
         nameField.font = GC.Font.main
         view.addSubview(nameField)
         
             nameField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(nameLabel)
                 make.leading.equalTo(nameLabel.snp.trailing).offset(GC.Padding.horizontal)
+                make.trailing.equalTo(view).offset(GC.Margin.right)
             }
         
         formatLabel.text = "Format:"
+        formatLabel.textColor = Color.Text.secondary
         formatLabel.font = GC.Font.main
         view.addSubview(formatLabel)
         
+        formatButton.setTitle("Format", for: .normal)
         formatButton.titleLabel?.font = GC.Font.main
+        formatButton.setTitleColor(Color.Text.main, for: .normal)
+        formatButton.contentHorizontalAlignment = .left
         view.addSubview(formatButton)
         
         relLabel.text = "REL"
+        relLabel.textColor = Color.Text.secondary
         relLabel.font = GC.Font.main
         view.addSubview(relLabel)
         
+        relButton.setTitle("REL", for: .normal)
         relButton.titleLabel?.font = GC.Font.main
+        relButton.setTitleColor(Color.Text.main, for: .normal)
+        relButton.contentHorizontalAlignment = .left
         view.addSubview(relButton)
         
             formatLabel.snp.makeConstraints { make in
@@ -134,18 +149,22 @@ class NewMatchViewController: UIViewController {
             }
         
         myDeckLabel.text = "My Deck:"
+        myDeckLabel.textColor = Color.Text.secondary
         myDeckLabel.font = GC.Font.main
         view.addSubview(myDeckLabel)
         
         myDeckField.placeholder = "My Deck"
+        myDeckField.textColor = Color.Text.main
         myDeckField.font = GC.Font.main
         view.addSubview(myDeckField)
         
         theirDeckLabel.text = "Their Deck:"
+        theirDeckLabel.textColor = Color.Text.secondary
         theirDeckLabel.font = GC.Font.main
         view.addSubview(theirDeckLabel)
         
         theirDeckField.placeholder = "Their Deck"
+        theirDeckField.textColor = Color.Text.main
         theirDeckField.font = GC.Font.main
         view.addSubview(theirDeckField)
         
@@ -174,6 +193,9 @@ class NewMatchViewController: UIViewController {
         // MARK: Make the game collection view
         
         gameCollection.dataSource = self
+        gameCollection.delegate = self
+        gameCollection.isScrollEnabled = false
+        gameCollection.separatorStyle = .none
         gameCollection.backgroundColor = UIColor.clear
         gameCollection.rowHeight = 112
         gameCollection.register(UINib(nibName: "GameCell", bundle: nil), forCellReuseIdentifier: "GameCell")
@@ -187,10 +209,18 @@ class NewMatchViewController: UIViewController {
     }
 }
 
-extension NewMatchViewController: UITableViewDataSource {
+extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return 2
+       return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -199,7 +229,7 @@ extension NewMatchViewController: UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
-        cell.backgroundColor = Color.Cell.background
+
         cell.myHandPicker.dataSource = self
         cell.myHandPicker.delegate = self
         cell.theirHandPicker.dataSource = self
@@ -227,6 +257,7 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
         
         label?.font = UIFont.systemFont(ofSize: 24)
+        label?.textColor = Color.Text.main
         label?.text = "\(7-row)"
         label?.textAlignment = .right
         return label!

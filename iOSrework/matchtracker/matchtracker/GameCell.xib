@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ITM-Sk-pUc" secondAttribute="bottom" constant="-5" id="3p5-rx-c03"/>
                             <constraint firstAttribute="width" constant="66" id="6Bl-sT-Lou"/>
@@ -56,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Xv8-g0-D4b" firstAttribute="leading" secondItem="ZBK-HA-sEX" secondAttribute="leading" id="2D3-Cb-8d0"/>
                             <constraint firstItem="hmV-H4-CeF" firstAttribute="leading" secondItem="ZBK-HA-sEX" secondAttribute="leading" constant="5" id="C1j-RM-rgR"/>
@@ -78,6 +78,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="66" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Win"/>
+                                        <connections>
+                                            <action selector="resultButtonTouched:" destination="Pw3-66-pxL" eventType="touchUpInside" id="lFh-Uv-x8d"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Loss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quy-Rh-gW6">
                                         <rect key="frame" x="0.0" y="32" width="66" height="12"/>
@@ -88,7 +91,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="sn2-T6-9iY" secondAttribute="bottom" id="5Zd-TA-Imf"/>
                             <constraint firstItem="sn2-T6-9iY" firstAttribute="top" secondItem="B5N-kx-uvR" secondAttribute="top" id="KzL-uW-SNr"/>
@@ -108,6 +111,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="66" height="32"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Play"/>
+                                        <connections>
+                                            <action selector="startButtonTouched:" destination="Pw3-66-pxL" eventType="touchUpInside" id="9sN-ag-LAy"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Draw" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5Y-TJ-bhw">
                                         <rect key="frame" x="0.0" y="32" width="66" height="12"/>
@@ -118,7 +124,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fNw-EQ-BsV" secondAttribute="trailing" id="Bdr-Ou-DR0"/>
                             <constraint firstItem="fNw-EQ-BsV" firstAttribute="top" secondItem="sKv-fb-mS2" secondAttribute="top" id="Lev-V1-och"/>
@@ -138,7 +144,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Bzl-ws-hej" secondAttribute="trailing" id="Jac-HM-qHd"/>
                             <constraint firstItem="Bzl-ws-hej" firstAttribute="leading" secondItem="9yg-XS-a8F" secondAttribute="leading" id="V4O-OP-prV"/>
@@ -147,7 +153,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="wU2-9T-Vou" firstAttribute="top" secondItem="ZBK-HA-sEX" secondAttribute="bottom" constant="8" id="31z-nl-HVZ"/>
                     <constraint firstItem="9yg-XS-a8F" firstAttribute="leading" secondItem="ZBK-HA-sEX" secondAttribute="trailing" constant="8" id="6tl-LM-KKj"/>
@@ -165,12 +171,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="myHandPicker" destination="Xv8-g0-D4b" id="GoW-Dh-otu"/>
+                <outlet property="myHandLabel" destination="hmV-H4-CeF" id="sZl-Me-epK"/>
+                <outlet property="myHandPicker" destination="Xv8-g0-D4b" id="EHW-th-C6A"/>
                 <outlet property="notesField" destination="Bzl-ws-hej" id="cdW-q6-1gU"/>
                 <outlet property="resultButton" destination="aAk-Z5-xDr" id="yfP-ex-5Qe"/>
                 <outlet property="resultLabel" destination="quy-Rh-gW6" id="h2s-fI-6hE"/>
                 <outlet property="startButton" destination="163-Nx-Xk7" id="jNo-Ls-URN"/>
                 <outlet property="startLabel" destination="g5Y-TJ-bhw" id="Bag-X3-V32"/>
+                <outlet property="theirHandLabel" destination="FJl-AT-4JJ" id="kun-5s-gHR"/>
                 <outlet property="theirHandPicker" destination="ITM-Sk-pUc" id="NT2-aJ-maW"/>
             </connections>
             <point key="canvasLocation" x="-19" y="-84"/>
