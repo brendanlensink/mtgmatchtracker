@@ -324,7 +324,7 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         case datePicker: return 8
         case formatPicker: return formats.count
         case relPicker: return rels.count
-        default: return 0
+        default: return 8
         }
     }
         
@@ -344,12 +344,11 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         label?.textAlignment = .center
         
         switch pickerView {
-        case datePicker:
-            label?.text = "\(7-row)"
-            label?.textAlignment = .right
         case formatPicker: label?.text = formats[row]
         case relPicker: label?.text = rels[row]
-        default: break
+        default:
+            label?.text = "\(7-row)"
+            label?.textAlignment = .right
         }
         
         return label!
