@@ -43,4 +43,15 @@ struct Color {
         static let main = white
         static let secondary = Grey.light
     }
+    
+    struct Button {
+        struct Main {
+            static let background = Blue.light
+        }
+    }
+    
+    struct Picker {
+        static let background = Blue.dark
+        static let text = white
+    }
 }

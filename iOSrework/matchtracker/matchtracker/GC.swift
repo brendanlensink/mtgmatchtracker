@@ -17,13 +17,13 @@ struct GC {
     }
     
     struct Padding{
-        static let vertical = 8
+        static let vertical = 11
         static let horizontal = 8
     }
     
     // MARK: Font
     
     struct Font {
-        static let main = UIFont.systemFont(ofSize: 14)
+        static let main = UIFont.systemFont(ofSize: 16)
     }
 }
