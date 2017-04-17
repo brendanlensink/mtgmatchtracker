@@ -20,10 +20,11 @@ class GameCell: UITableViewCell {
     @IBOutlet var theirHandLabel: UILabel!
     @IBOutlet var notesField: UITextView!
     
-
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        startButton.tag = 1
+        resultButton.tag = 2
 
     }
     

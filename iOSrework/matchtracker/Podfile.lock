@@ -1,5 +1,7 @@
 PODS:
   - Hue (2.0.1)
+  - ReactiveCocoa (5.0.1):
+    - ReactiveSwift (~> 1.1)
   - ReactiveSwift (1.1.1):
     - Result (~> 3.2)
   - Result (3.2.1)
@@ -7,15 +9,17 @@ PODS:
 
 DEPENDENCIES:
   - Hue
+  - ReactiveCocoa (~> 5.0.0)
   - ReactiveSwift (~> 1.1)
   - SnapKit (~> 3.2.0)
 
 SPEC CHECKSUMS:
   Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  ReactiveCocoa: f577006aa6c7b0b08020109ebaae3b77ada00adc
   ReactiveSwift: 2489549e3231a6ff68ec99f3d320bb264f10ba0a
   Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: 141669200aa4312871b66c2744942173e0b5f60f
+PODFILE CHECKSUM: 35961aef671ac04f8bb3fdc7f3a400a9f6a16c50
 
 COCOAPODS: 1.1.1

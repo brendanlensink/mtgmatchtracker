@@ -8,6 +8,8 @@
 
 import UIKit
 import SnapKit
+import ReactiveCocoa
+import ReactiveSwift
 
 class NewMatchViewController: UIViewController {
     
@@ -37,10 +39,13 @@ class NewMatchViewController: UIViewController {
     
     fileprivate let formats = ["Sealed", "Draft", "Standard", "Modern", "Legacy", "Commander"]
     fileprivate let rels = ["Casual", "Competitive", "Professional"]
+    fileprivate let viewModel: NewMatchViewModel
     
     // MARK: View Lifecycle
     
     init() {
+        viewModel = NewMatchViewModel()
+        
         dateLabel = UILabel()
         dateField = UITextField()
         nameLabel = UILabel()
@@ -263,6 +268,18 @@ class NewMatchViewController: UIViewController {
                 make.bottom.equalTo(saveButton.snp.top)
                 make.left.right.equalTo(view)
             }
+        
+        bindViewModel()
+    }
+    
+    // MARK: Reactive Binding
+    
+    func bindViewModel() {
+        viewModel.readySignal.observeValues { ready in
+            print(ready)
+        }
+        
+        viewModel.eventName <~ nameField.reactive.continuousTextValues
     }
     
     // MARK: Date Picker Functions
@@ -300,10 +317,37 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
 
+        cell.myHandPicker.tag = indexPath.section*10 + 11
         cell.myHandPicker.dataSource = self
         cell.myHandPicker.delegate = self
+        cell.theirHandPicker.tag = indexPath.section*10 + 12
         cell.theirHandPicker.dataSource = self
         cell.theirHandPicker.delegate = self
+        
+        cell.startButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
+            if let title = touch.titleLabel?.text {
+                switch title {
+                case "Play": self.viewModel.games[indexPath.section].start = Start.draw
+                case "Draw": self.viewModel.games[indexPath.section].start = Start.play
+                default: break
+                }
+            }
+        }
+        
+        cell.resultButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
+            if let title = touch.titleLabel?.text {
+                switch title {
+                case "Win": self.viewModel.games[indexPath.section].result = Result.loss
+                case "Loss": self.viewModel.games[indexPath.section].result = Result.win
+                default: break
+                }
+            }
+        }
+        
+        cell.notesField.reactive.continuousTextValues.observeValues { text in
+            self.viewModel.games[indexPath.section].notes = text
+        }
+        
         return cell
 
     }
@@ -314,8 +358,17 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case formatPicker: formatField.text = formats[row]
+            viewModel.format.swap(formats[row])
         case relPicker: relField.text = rels[row]
-        default: break
+            viewModel.rel.swap(rels[row])
+        default:
+            let gameNumber = pickerView.tag/10 - 1
+            let picker = pickerView.tag%10
+            switch picker {
+            case 1: viewModel.games[gameNumber].myHand = Hand(rawValue: Int8(7-picker))!
+            case 2: viewModel.games[gameNumber].theirHand = Hand(rawValue: Int8(7-picker))!
+            default: break
+            }
         }
     }
     
