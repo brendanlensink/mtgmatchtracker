@@ -58,8 +58,28 @@ class Game {
         self.gameNumber = Int8(gameNumber)
     }
     
-    func toString() -> String {
+    // MARK: Helper Functions
+    
+    func export() -> String {
+            return "000000\(gameNumber)\(result.rawValue)\(start.rawValue)\(binary(myHand.rawValue))\(binary(theirHand.rawValue))\(binary(hasNotes))"
+    }
+    
+    func toDebugString() -> String {
         return "\(gameNumber) \(result) \(start) \(myHand) \(theirHand) \(notes)"
+    }
+    
+    // MARK: Private Functions
+    
+    func binary(_ input: Int8) -> String {
+        return String(input, radix: 2)
+    }
+    
+    func binary(_ input: Bool) -> String {
+        if(input) {
+            return "1"
+        }else {
+            return "0"
+        }
     }
     
 }

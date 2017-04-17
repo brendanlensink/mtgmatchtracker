@@ -119,7 +119,7 @@ class NewMatchViewController: UIViewController {
         view.addSubview(dateLabel)
 
             dateLabel.snp.makeConstraints { make in
-                make.top.equalTo(view).offset(GC.Margin.top)
+                make.top.equalTo(view).offset(GC.Margin.top+50)
                 make.leading.equalTo(view).offset(GC.Margin.left)
             }
         
@@ -246,11 +246,12 @@ class NewMatchViewController: UIViewController {
         saveButton.setTitle("SAVE", for: .normal)
         saveButton.setTitleColor(Color.Text.main, for: .normal)
         saveButton.backgroundColor = Color.Button.Main.background
+        saveButton.isHidden = true
         view.addSubview(saveButton)
         
             saveButton.snp.makeConstraints { make in
-                make.height.equalTo(60)
-                make.bottom.equalTo(view)
+                make.height.equalTo(50)
+                make.top.equalTo(view).offset(20)
                 make.left.right.equalTo(view)
             }
         
@@ -265,7 +266,7 @@ class NewMatchViewController: UIViewController {
         
             gameCollection.snp.makeConstraints { make in
                 make.top.equalTo(myDeckLabel.snp.bottom).offset(GC.Padding.vertical*2)
-                make.bottom.equalTo(saveButton.snp.top)
+                make.bottom.equalTo(view)
                 make.left.right.equalTo(view)
             }
         
@@ -276,7 +277,8 @@ class NewMatchViewController: UIViewController {
     
     func bindViewModel() {
         viewModel.readySignal.observeValues { ready in
-            print(ready)
+            print("ready")
+            self.saveButton.isHidden = false
         }
         
         viewModel.eventName <~ nameField.reactive.continuousTextValues
@@ -292,7 +294,9 @@ class NewMatchViewController: UIViewController {
     }
     
     func handleDatePicker(sender: UIDatePicker) {
-        dateField.text = DateManager.sharedInstance.toString(date: sender.date)
+        let newText = DateManager.sharedInstance.toString(date: sender.date)
+        dateField.text = newText
+        viewModel.date.swap(newText)
     }
 }
 

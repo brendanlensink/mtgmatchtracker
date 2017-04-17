@@ -47,6 +47,7 @@ struct Color {
     struct Button {
         struct Main {
             static let background = Blue.light
+            static let inactive = UIColor.clear
         }
     }
     

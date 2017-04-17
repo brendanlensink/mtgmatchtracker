@@ -25,7 +25,6 @@ class GameCell: UITableViewCell {
         
         startButton.tag = 1
         resultButton.tag = 2
-
     }
     
     required init?(coder aDecoder: NSCoder) {
