@@ -48,15 +48,27 @@ enum REL: Int8 {
 
 class Match {
     var matchID: String
-    var created: Date?
+    var created: String?
+    var name: String?
     var format: Format?
     var REL: REL?
     var myDeck: String?
     var theirDeck: String?
+    var games: [Game]?
     
     init(id: String) {
         self.matchID = id
     }
     
+    func toDebugString() -> String {
+        var returnString = "\(matchID) \(name) \n"
+        
+        if let games = games {
+            for game in games {
+                returnString += game.toDebugString()
+            }
+        }
+        return returnString
+    }
 }
 

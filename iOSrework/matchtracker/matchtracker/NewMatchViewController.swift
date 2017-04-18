@@ -281,7 +281,9 @@ class NewMatchViewController: UIViewController {
             self.saveButton.isHidden = false
         }
         
-        viewModel.eventName <~ nameField.reactive.continuousTextValues
+        nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
+        
+        saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in self.viewModel.saveMatch() }
     }
     
     // MARK: Date Picker Functions
@@ -296,7 +298,7 @@ class NewMatchViewController: UIViewController {
     func handleDatePicker(sender: UIDatePicker) {
         let newText = DateManager.sharedInstance.toString(date: sender.date)
         dateField.text = newText
-        viewModel.date.swap(newText)
+        viewModel.dateObserver.send(value: newText)
     }
 }
 
@@ -360,11 +362,12 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
 extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let intRow = Int8(row)
         switch pickerView {
         case formatPicker: formatField.text = formats[row]
-            viewModel.format.swap(formats[row])
+        viewModel.formatObserver.send(value: Format(rawValue: intRow))
         case relPicker: relField.text = rels[row]
-            viewModel.rel.swap(rels[row])
+            viewModel.relObserver.send(value: REL(rawValue: intRow))
         default:
             let gameNumber = pickerView.tag/10 - 1
             let picker = pickerView.tag%10
@@ -409,6 +412,5 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
         
         return label!
-        
     }
 }

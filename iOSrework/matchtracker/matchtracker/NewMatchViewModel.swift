@@ -11,34 +11,54 @@ import enum Result.NoError
 
 class NewMatchViewModel {
     
-    // MARK: Properties
+    // MARK: Stored Properties
     
-    let date: MutableProperty<String?>
-    let eventName: MutableProperty<String?>
-    let format: MutableProperty<String?>
-    let rel: MutableProperty<String?>
-    let games: [Game]
+    private var matchId: String? = nil
+    private var date: String? = nil
+    private var eventName: String? = nil
+    private var format: Format? = nil
+    private var rel: REL? = nil
+    var games: [Game] = []
     
+    // MARK: Reactive Properties
+    
+    let (dateStream, dateObserver) = Signal<String?, NoError>.pipe()
+    let (eventStream, eventObserver) = Signal<String?, NoError>.pipe()
+    let (formatStream, formatObserver) = Signal<Format?, NoError>.pipe()
+    let (relStream, relObserver) = Signal<REL?, NoError>.pipe()
+
     let readySignal: Signal<Bool, NoError>
     
     // MARK: Lifecycle
     
     init() {
-        date = MutableProperty(nil)
-        eventName = MutableProperty(nil)
-        format = MutableProperty(nil)
-        rel = MutableProperty(nil)
-        
-        let matchId = "\(DateManager.sharedInstance.toString(date: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
-        games = [Game(id: matchId, gameNumber: 1),Game(id: matchId, gameNumber: 1), Game(id: matchId, gameNumber: 1)]
-        
         readySignal = Signal.combineLatest(
-            date.signal,
-            eventName.signal,
-            format.signal,
-            rel.signal
-        ).map { inputs in
-            return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil
+            dateStream,
+            eventStream,
+            formatStream,
+            relStream
+            ).map { inputs in
+                return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil
+        }
+        
+        dateStream.observeValues { value in self.date = value }
+        eventStream.observeValues { value in self.eventName = value }
+        formatStream.observeValues { value in self.format = value }
+        relStream.observeValues { value in self.rel = value }
+        
+        matchId = "\(DateManager.sharedInstance.toString(date: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
+        games = [Game(id: matchId!, gameNumber: 1),Game(id: matchId!, gameNumber: 1), Game(id: matchId!, gameNumber: 1)]
+        
+    }
+    
+    func saveMatch() {
+        if let matchId = self.matchId {
+            let newMatch = Match(id: matchId)
+            newMatch.created = self.date
+            newMatch.name = self.eventName
+            newMatch.format = self.format
+            newMatch.games = self.games
+            print(newMatch.toDebugString())
         }
     }
 }
