@@ -77,17 +77,20 @@ class NewMatchViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Color.background
-        
+
         // MARK: Set up the date picker view
         
         datePicker.sizeToFit()
+        datePicker.backgroundColor = Color.Picker.background
+        datePicker.tintColor = Color.Picker.text
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         dateField.inputView = datePicker
         
         let toolbar = UIToolbar()
         toolbar.barStyle = .black
         toolbar.isTranslucent = true
-        toolbar.tintColor = nil
+        toolbar.backgroundColor = Color.Picker.background
+        toolbar.tintColor = Color.Picker.text
         toolbar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(NewMatchViewController.dismissPicker))
@@ -126,6 +129,7 @@ class NewMatchViewController: UIViewController {
         dateField.text = DateManager.sharedInstance.toString(date: Date())
         dateField.textColor = Color.Text.main
         dateField.font = GC.Font.main
+        dateField.tintColor = Color.Text.tint
         dateField.contentHorizontalAlignment = .left
         view.addSubview(dateField)
         
@@ -149,6 +153,7 @@ class NewMatchViewController: UIViewController {
         nameField.placeholder = "Event Name"
         nameField.textColor = Color.Text.main
         nameField.font = GC.Font.main
+        nameField.tintColor = Color.Text.tint
         view.addSubview(nameField)
         
             nameField.snp.makeConstraints { make in
@@ -165,6 +170,7 @@ class NewMatchViewController: UIViewController {
         formatField.text = "Format"
         formatField.textColor = Color.Text.main
         formatField.font = GC.Font.main
+        formatField.tintColor = Color.Text.tint
         view.addSubview(formatField)
         
         relLabel.text = "REL"
@@ -175,6 +181,7 @@ class NewMatchViewController: UIViewController {
         relField.text = "REL"
         relField.textColor = Color.Text.main
         relField.font = GC.Font.main
+        relField.tintColor = Color.Text.tint
         view.addSubview(relField)
         
             formatLabel.snp.makeConstraints { make in
@@ -207,6 +214,7 @@ class NewMatchViewController: UIViewController {
         myDeckField.placeholder = "My Deck"
         myDeckField.textColor = Color.Text.main
         myDeckField.font = GC.Font.main
+        myDeckField.tintColor = Color.Text.tint
         view.addSubview(myDeckField)
         
         theirDeckLabel.text = "Their Deck:"
@@ -217,6 +225,7 @@ class NewMatchViewController: UIViewController {
         theirDeckField.placeholder = "Their Deck"
         theirDeckField.textColor = Color.Text.main
         theirDeckField.font = GC.Font.main
+        theirDeckField.tintColor = Color.Text.tint
         view.addSubview(theirDeckField)
         
             myDeckLabel.snp.makeConstraints { make in
@@ -282,6 +291,12 @@ class NewMatchViewController: UIViewController {
         }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
+        myDeckField.reactive.continuousTextValues.observeValues { value in
+            self.viewModel.myDeckObserver.send(value: value)
+        }
+        theirDeckField.reactive.continuousTextValues.observeValues { value in
+            self.viewModel.theirDeckObserver.send(value: value)
+        }
         
         saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in self.viewModel.saveMatch() }
     }
@@ -330,11 +345,13 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         cell.theirHandPicker.dataSource = self
         cell.theirHandPicker.delegate = self
         
+        let observer = self.viewModel.gamesObserver
+        let game = indexPath.section
         cell.startButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
             if let title = touch.titleLabel?.text {
                 switch title {
-                case "Play": self.viewModel.games[indexPath.section].start = Start.draw
-                case "Draw": self.viewModel.games[indexPath.section].start = Start.play
+                case "Play": observer.send(value: (game, .start, Start.draw))
+                case "Draw": observer.send(value: (game, .start, Start.play))
                 default: break
                 }
             }
@@ -343,15 +360,15 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         cell.resultButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
             if let title = touch.titleLabel?.text {
                 switch title {
-                case "Win": self.viewModel.games[indexPath.section].result = Result.loss
-                case "Loss": self.viewModel.games[indexPath.section].result = Result.win
+                case "Win": observer.send(value: (game, .result, Result.loss))
+                case "Loss": observer.send(value: (game, .result, Result.win))
                 default: break
                 }
             }
         }
         
         cell.notesField.reactive.continuousTextValues.observeValues { text in
-            self.viewModel.games[indexPath.section].notes = text
+            observer.send(value: (game, .notes, text))
         }
         
         return cell
@@ -370,10 +387,13 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
             viewModel.relObserver.send(value: REL(rawValue: intRow))
         default:
             let gameNumber = pickerView.tag/10 - 1
+            let observer = viewModel.gamesObserver
             let picker = pickerView.tag%10
+            
+            // TODO: I ca do better for the hand raw values. think about it.
             switch picker {
-            case 1: viewModel.games[gameNumber].myHand = Hand(rawValue: Int8(7-picker))!
-            case 2: viewModel.games[gameNumber].theirHand = Hand(rawValue: Int8(7-picker))!
+            case 1: observer.send(value: (gameNumber, .myHand, Hand(rawValue: Int8(7-picker))!))
+            case 2: observer.send(value: (gameNumber, .theirHand, Hand(rawValue: Int8(7-picker))!))
             default: break
             }
         }
@@ -400,7 +420,7 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
         
         label?.font = UIFont.systemFont(ofSize: 24)
-        label?.textColor = Color.Text.main
+        label?.textColor = Color.Picker.text
         label?.textAlignment = .center
         
         switch pickerView {
@@ -409,6 +429,7 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         default:
             label?.text = "\(7-row)"
             label?.textAlignment = .right
+            label?.textColor = Color.Picker.altText
         }
         
         return label!

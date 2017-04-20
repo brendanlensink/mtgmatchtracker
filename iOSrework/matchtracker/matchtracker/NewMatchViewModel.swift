@@ -6,6 +6,7 @@
 //  Copyright © 2017 blensink. All rights reserved.
 //
 
+import RealmSwift
 import ReactiveSwift
 import enum Result.NoError
 
@@ -18,7 +19,9 @@ class NewMatchViewModel {
     private var eventName: String? = nil
     private var format: Format? = nil
     private var rel: REL? = nil
-    var games: [Game] = []
+    private var myDeck: String? = nil
+    private var theirDeck: String? = nil
+    private var games: [Game] = []
     
     // MARK: Reactive Properties
     
@@ -26,6 +29,9 @@ class NewMatchViewModel {
     let (eventStream, eventObserver) = Signal<String?, NoError>.pipe()
     let (formatStream, formatObserver) = Signal<Format?, NoError>.pipe()
     let (relStream, relObserver) = Signal<REL?, NoError>.pipe()
+    let (myDeckStream, myDeckObserver) = Signal<String?, NoError>.pipe()
+    let (theirDeckStream, theirDeckObserver) = Signal<String?, NoError>.pipe()
+    let (gamesStream, gamesObserver) = Signal<(Int, UpdateType, Any), NoError>.pipe()
 
     let readySignal: Signal<Bool, NoError>
     
@@ -45,20 +51,59 @@ class NewMatchViewModel {
         eventStream.observeValues { value in self.eventName = value }
         formatStream.observeValues { value in self.format = value }
         relStream.observeValues { value in self.rel = value }
+        myDeckStream.observeValues { value in self.myDeck = value }
+        theirDeckStream.observeValues { value in self.theirDeck = value }
+        gamesStream.observeValues { (id, type, value) in
+            switch type {
+            case UpdateType.result:
+                self.games[id].result = value as! Result
+            case UpdateType.start:
+                self.games[id].start = value as! Start
+            case UpdateType.myHand:
+                self.games[id].myHand = value as! Hand
+            case UpdateType.theirHand:
+                self.games[id].theirHand = value as! Hand
+            case UpdateType.notes:
+                self.games[id].notes = value as? String
+            }
+        }
         
-        matchId = "\(DateManager.sharedInstance.toString(date: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
+        matchId = "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
         games = [Game(id: matchId!, gameNumber: 1),Game(id: matchId!, gameNumber: 1), Game(id: matchId!, gameNumber: 1)]
         
+        let realm = try! Realm()
+        let matches = realm.objects(StorableMatch.self)
+    
+        for match in matches {
+            print( "\n\n \(match)")
+        }
+//        try! realm.write {
+//            print("writing")
+//            realm.deleteAll()
+//        }
     }
     
     func saveMatch() {
         if let matchId = self.matchId {
-            let newMatch = Match(id: matchId)
+            let newMatch = StorableMatch()
+            newMatch.matchID = matchId
             newMatch.created = self.date
             newMatch.name = self.eventName
-            newMatch.format = self.format
-            newMatch.games = self.games
-            print(newMatch.toDebugString())
+            newMatch.format = self.format?.title
+            newMatch.REL = self.rel?.title
+            newMatch.myDeck = self.myDeck
+            newMatch.theirDeck = self.theirDeck
+            for game in self.games {
+                let newGame = StorableGame()
+                newGame.value = game.toHex()
+                newMatch.games.append(newGame)
+            }
+            
+            let realm = try! Realm()
+            try! realm.write {
+                print("writing")
+                realm.add(newMatch)
+            }
         }
     }
 }

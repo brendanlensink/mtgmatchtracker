@@ -40,6 +40,14 @@ enum Hand: Int8 {
     case one = 1, two, three, four, five, six, seven
 }
 
+enum UpdateType {
+    case result
+    case start
+    case myHand
+    case theirHand
+    case notes
+}
+
 // MARK: Class Declaration
 
 class Game {
@@ -60,26 +68,31 @@ class Game {
     
     // MARK: Helper Functions
     
-    func export() -> String {
-            return "000000\(gameNumber)\(result.rawValue)\(start.rawValue)\(binary(myHand.rawValue))\(binary(theirHand.rawValue))\(binary(hasNotes))"
+    /*
+     000000         00      0     0    000       000        0
+     unused gameNumber result start myHand theirHand hasNotes
+     */
+    func toHex() -> String {
+        let num = toBinary().withCString { strtoul($0, nil, 2) }
+        return String(num, radix: 16, uppercase: true) // (or false)
     }
-    
+
     func toDebugString() -> String {
         return "\(gameNumber) \(result) \(start) \(myHand) \(theirHand) \(notes)"
     }
     
     // MARK: Private Functions
     
-    func binary(_ input: Int8) -> String {
+    private func toBinary() -> String {
+        return "000000\(b(gameNumber))\(b(result.rawValue))\(b(start.rawValue))\(b(myHand.rawValue))\(b(theirHand.rawValue))\(b(hasNotes))"
+    }
+    
+    private func b(_ input: Int8) -> String {
         return String(input, radix: 2)
     }
     
-    func binary(_ input: Bool) -> String {
-        if(input) {
-            return "1"
-        }else {
-            return "0"
-        }
+    private func b(_ input: Bool) -> String {
+        if input { return "1"}
+        return "0"
     }
-    
 }

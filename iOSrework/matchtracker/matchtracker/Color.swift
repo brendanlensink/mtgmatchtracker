@@ -42,6 +42,8 @@ struct Color {
     struct Text {
         static let main = white
         static let secondary = Grey.light
+        static let tint = white
+        static let picker = Blue.dark
     }
     
     struct Button {
@@ -52,7 +54,8 @@ struct Color {
     }
     
     struct Picker {
-        static let background = Blue.dark
-        static let text = white
+        static let background = white
+        static let text = Blue.dark
+        static let altText = white
     }
 }

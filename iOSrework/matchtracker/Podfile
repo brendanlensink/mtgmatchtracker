@@ -10,5 +10,6 @@ target 'matchtracker' do
   pod 'ReactiveSwift', '~> 1.1'
   pod 'ReactiveCocoa', '~> 5.0.0'
   pod 'Hue'
-
+  pod 'RealmSwift'
+  pod 'SwiftyUserDefaults'
 end

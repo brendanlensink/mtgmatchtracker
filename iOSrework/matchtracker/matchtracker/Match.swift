@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyUserDefaults
 
 // MARK: Enums
 
@@ -59,7 +60,7 @@ class Match {
     init(id: String) {
         self.matchID = id
     }
-    
+
     func toDebugString() -> String {
         var returnString = "\(matchID) \(name) \n"
         
