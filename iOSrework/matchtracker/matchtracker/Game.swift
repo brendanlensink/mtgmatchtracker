@@ -52,8 +52,8 @@ enum UpdateType {
 
 class Game {
     
-    var matchID: String
-    var gameNumber: Int8
+    var matchID: String = ""
+    var gameNumber: Int8 = 0
     var result: Result = Result.win
     var start: Start = Start.play
     var myHand: Hand = Hand.seven
@@ -61,9 +61,8 @@ class Game {
     var hasNotes: Bool = false
     var notes: String?
     
-    init(id: String, gameNumber: Int) {
-        matchID = id
-        self.gameNumber = Int8(gameNumber)
+    init() {
+
     }
     
     // MARK: Helper Functions

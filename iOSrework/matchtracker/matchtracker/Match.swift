@@ -29,6 +29,8 @@ enum Format: Int8 {
         case .edh: return "Commander"
         }
     }
+    
+    static let allValues = ["Sealed", "Draft", "Standard", "Modern", "Legacy", "Commander"]
 }
 
 enum REL: Int8 {
@@ -43,6 +45,8 @@ enum REL: Int8 {
         case .professional: return "Professional"
         }
     }
+    
+    static let allValues = ["Casual", "Competitive", "Professional"]
 }
 
 // MARK: Class Declaration

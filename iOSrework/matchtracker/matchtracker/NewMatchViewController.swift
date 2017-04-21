@@ -10,35 +10,34 @@ import UIKit
 import SnapKit
 import ReactiveCocoa
 import ReactiveSwift
+import SwiftyUserDefaults
 
 class NewMatchViewController: UIViewController {
     
     // MARK: UI Elements
     
-    private let dateLabel: UILabel
+    fileprivate let dateLabel: UILabel
     fileprivate let dateField: UITextField
-    private let nameLabel: UILabel
-    private let nameField: UITextField
-    private let formatLabel: UILabel
+    fileprivate let nameLabel: UILabel
+    fileprivate let nameField: UITextField
+    fileprivate let formatLabel: UILabel
     fileprivate let formatField: UITextField
-    private let relLabel: UILabel
+    fileprivate let relLabel: UILabel
     fileprivate let relField: UITextField
-    private let myDeckLabel: UILabel
-    private let myDeckField: UITextField
-    private let theirDeckLabel: UILabel
-    private let theirDeckField: UITextField
+    fileprivate let myDeckLabel: UILabel
+    fileprivate let myDeckField: UITextField
+    fileprivate let theirDeckLabel: UILabel
+    fileprivate let theirDeckField: UITextField
     
-    private let gameCollection: UITableView
+    fileprivate let gameCollection: UITableView
     fileprivate let datePicker: UIDatePicker
     fileprivate let formatPicker: UIPickerView
     fileprivate let relPicker: UIPickerView
     
-    private let saveButton: UIButton
+    fileprivate let saveButton: UIButton
     
     // MARK: Properties
     
-    fileprivate let formats = ["Sealed", "Draft", "Standard", "Modern", "Legacy", "Commander"]
-    fileprivate let rels = ["Casual", "Competitive", "Professional"]
     fileprivate let viewModel: NewMatchViewModel
     
     // MARK: View Lifecycle
@@ -87,7 +86,7 @@ class NewMatchViewController: UIViewController {
         dateField.inputView = datePicker
         
         let toolbar = UIToolbar()
-        toolbar.barStyle = .black
+        toolbar.barStyle = .default
         toolbar.isTranslucent = true
         toolbar.backgroundColor = Color.Picker.background
         toolbar.tintColor = Color.Picker.text
@@ -126,7 +125,6 @@ class NewMatchViewController: UIViewController {
                 make.leading.equalTo(view).offset(GC.Margin.left)
             }
         
-        dateField.text = DateManager.sharedInstance.toString(date: Date())
         dateField.textColor = Color.Text.main
         dateField.font = GC.Font.main
         dateField.tintColor = Color.Text.tint
@@ -285,10 +283,7 @@ class NewMatchViewController: UIViewController {
     // MARK: Reactive Binding
     
     func bindViewModel() {
-        viewModel.readySignal.observeValues { ready in
-            print("ready")
-            self.saveButton.isHidden = false
-        }
+        viewModel.readySignal.observeValues { ready in self.saveButton.isHidden = false }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
         myDeckField.reactive.continuousTextValues.observeValues { value in
@@ -299,12 +294,19 @@ class NewMatchViewController: UIViewController {
         }
         
         saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in self.viewModel.saveMatch() }
+        
+        // Set defaults from previous match
+        dateField.text = DateManager.sharedInstance.toString(date: Date())
+        if let name = Defaults[.eventName] { nameField.text = name }
+        if let format = Defaults[.format] { formatField.text = format.title }
+        if let rel = Defaults[.REL] { relField.text = rel.title }
+        if let myDeck = Defaults[.myDeck] { myDeckField.text = myDeck }
     }
     
     // MARK: Date Picker Functions
     
     func dismissPicker() {
-        // TODO: PRetty sure I can pass a reference to the caller in and not just blindly call resign on all 3 fields
+        // TODO: Pretty sure I can pass a reference to the caller in and not just blindly call resign on all 3 fields
         dateField.resignFirstResponder()
         formatField.resignFirstResponder()
         relField.resignFirstResponder()
@@ -337,40 +339,11 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
-
-        cell.myHandPicker.tag = indexPath.section*10 + 11
-        cell.myHandPicker.dataSource = self
-        cell.myHandPicker.delegate = self
-        cell.theirHandPicker.tag = indexPath.section*10 + 12
-        cell.theirHandPicker.dataSource = self
-        cell.theirHandPicker.delegate = self
-        
-        let observer = self.viewModel.gamesObserver
-        let game = indexPath.section
-        cell.startButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
-            if let title = touch.titleLabel?.text {
-                switch title {
-                case "Play": observer.send(value: (game, .start, Start.draw))
-                case "Draw": observer.send(value: (game, .start, Start.play))
-                default: break
-                }
+        cell.gameReadySignal.observeValues { game in
+            if let game = game {
+                viewModel.gamesObserver.send(value: (indexPath.section, game))
             }
         }
-        
-        cell.resultButton.reactive.controlEvents(.touchUpInside).observeValues { touch in
-            if let title = touch.titleLabel?.text {
-                switch title {
-                case "Win": observer.send(value: (game, .result, Result.loss))
-                case "Loss": observer.send(value: (game, .result, Result.win))
-                default: break
-                }
-            }
-        }
-        
-        cell.notesField.reactive.continuousTextValues.observeValues { text in
-            observer.send(value: (game, .notes, text))
-        }
-        
         return cell
 
     }
@@ -381,30 +354,19 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let intRow = Int8(row)
         switch pickerView {
-        case formatPicker: formatField.text = formats[row]
-        viewModel.formatObserver.send(value: Format(rawValue: intRow))
-        case relPicker: relField.text = rels[row]
+        case formatPicker: formatField.text = Format.allValues[row]
+            viewModel.formatObserver.send(value: Format(rawValue: intRow))
+        case relPicker: relField.text = REL.allValues[row]
             viewModel.relObserver.send(value: REL(rawValue: intRow))
-        default:
-            let gameNumber = pickerView.tag/10 - 1
-            let observer = viewModel.gamesObserver
-            let picker = pickerView.tag%10
-            
-            // TODO: I ca do better for the hand raw values. think about it.
-            switch picker {
-            case 1: observer.send(value: (gameNumber, .myHand, Hand(rawValue: Int8(7-picker))!))
-            case 2: observer.send(value: (gameNumber, .theirHand, Hand(rawValue: Int8(7-picker))!))
-            default: break
-            }
+        default: return
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView {
-        case datePicker: return 8
-        case formatPicker: return formats.count
-        case relPicker: return rels.count
-        default: return 8
+        case formatPicker: return Format.allValues.count
+        case relPicker: return REL.allValues.count
+        default: return 0
         }
     }
         
@@ -424,12 +386,9 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         label?.textAlignment = .center
         
         switch pickerView {
-        case formatPicker: label?.text = formats[row]
-        case relPicker: label?.text = rels[row]
-        default:
-            label?.text = "\(7-row)"
-            label?.textAlignment = .right
-            label?.textColor = Color.Picker.altText
+        case formatPicker: label?.text = Format.allValues[row]
+        case relPicker: label?.text = REL.allValues[row]
+        default: break
         }
         
         return label!

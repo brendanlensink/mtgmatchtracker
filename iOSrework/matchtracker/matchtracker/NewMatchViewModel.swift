@@ -8,6 +8,7 @@
 
 import RealmSwift
 import ReactiveSwift
+import SwiftyUserDefaults
 import enum Result.NoError
 
 class NewMatchViewModel {
@@ -21,7 +22,7 @@ class NewMatchViewModel {
     private var rel: REL? = nil
     private var myDeck: String? = nil
     private var theirDeck: String? = nil
-    private var games: [Game] = []
+    private var games: [Game?] = [nil, nil, nil]
     
     // MARK: Reactive Properties
     
@@ -31,7 +32,7 @@ class NewMatchViewModel {
     let (relStream, relObserver) = Signal<REL?, NoError>.pipe()
     let (myDeckStream, myDeckObserver) = Signal<String?, NoError>.pipe()
     let (theirDeckStream, theirDeckObserver) = Signal<String?, NoError>.pipe()
-    let (gamesStream, gamesObserver) = Signal<(Int, UpdateType, Any), NoError>.pipe()
+    let (gamesStream, gamesObserver) = Signal<(Int, Game), NoError>.pipe()
 
     let readySignal: Signal<Bool, NoError>
     
@@ -53,23 +54,12 @@ class NewMatchViewModel {
         relStream.observeValues { value in self.rel = value }
         myDeckStream.observeValues { value in self.myDeck = value }
         theirDeckStream.observeValues { value in self.theirDeck = value }
-        gamesStream.observeValues { (id, type, value) in
-            switch type {
-            case UpdateType.result:
-                self.games[id].result = value as! Result
-            case UpdateType.start:
-                self.games[id].start = value as! Start
-            case UpdateType.myHand:
-                self.games[id].myHand = value as! Hand
-            case UpdateType.theirHand:
-                self.games[id].theirHand = value as! Hand
-            case UpdateType.notes:
-                self.games[id].notes = value as? String
-            }
+        gamesStream.observeValues { (id, game) in
+            games[id] = game
         }
         
         matchId = "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
-        games = [Game(id: matchId!, gameNumber: 1),Game(id: matchId!, gameNumber: 1), Game(id: matchId!, gameNumber: 1)]
+        
         
         let realm = try! Realm()
         let matches = realm.objects(StorableMatch.self)
@@ -104,6 +94,12 @@ class NewMatchViewModel {
                 print("writing")
                 realm.add(newMatch)
             }
+            
+            // Save the defaults
+            Defaults[.eventName] = self.eventName
+            Defaults[.format] = self.format
+            Defaults[.REL] = self.rel
+            Defaults[.myDeck] = self.myDeck
         }
     }
 }
