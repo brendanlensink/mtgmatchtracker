@@ -15,18 +15,11 @@ class NewMatchViewModel {
     
     // MARK: Stored Properties
     
-    private var matchId: String? = nil
-    private var date: String? = nil
-    private var eventName: String? = nil
-    private var format: Format? = nil
-    private var rel: REL? = nil
-    private var myDeck: String? = nil
-    private var theirDeck: String? = nil
-    var games: [Game?] = [nil, nil]
+    var match: Match
     
     // MARK: Reactive Properties
     
-    let (dateStream, dateObserver) = Signal<String?, NoError>.pipe()
+    let (dateStream, dateObserver) = Signal<Date?, NoError>.pipe()
     let (eventStream, eventObserver) = Signal<String?, NoError>.pipe()
     let (formatStream, formatObserver) = Signal<Format?, NoError>.pipe()
     let (relStream, relObserver) = Signal<REL?, NoError>.pipe()
@@ -39,6 +32,8 @@ class NewMatchViewModel {
     // MARK: Lifecycle
     
     init() {
+        match = Match(id: "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)")
+        
         readySignal = Signal.combineLatest(
             dateStream,
             eventStream,
@@ -48,16 +43,13 @@ class NewMatchViewModel {
             return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil
         }
         
-        dateStream.observeValues { value in self.date = value }
-        eventStream.observeValues { value in self.eventName = value }
-        formatStream.observeValues { value in self.format = value }
-        relStream.observeValues { value in self.rel = value }
-        myDeckStream.observeValues { value in self.myDeck = value }
-        theirDeckStream.observeValues { value in self.theirDeck = value }
-        gamesStream.observeValues { (id, game) in self.games[id] = game }
-        
-        matchId = "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
-        
+        dateStream.observeValues { value in self.match.created = value }
+        eventStream.observeValues { value in self.match.name = value }
+        formatStream.observeValues { value in self.match.format = value }
+        relStream.observeValues { value in self.match.REL = value }
+        myDeckStream.observeValues { value in self.match.myDeck = value }
+        theirDeckStream.observeValues { value in self.match.theirDeck = value }
+        gamesStream.observeValues { (id, game) in self.match.games[id] = game }
         
         let realm = try! Realm()
         let matches = realm.objects(StorableMatch.self)
@@ -72,34 +64,16 @@ class NewMatchViewModel {
     }
     
     func saveMatch() {
-        if let matchId = self.matchId {
-            let newMatch = StorableMatch()
-            newMatch.matchID = matchId
-            newMatch.created = self.date
-            newMatch.name = self.eventName
-            newMatch.format = self.format?.title
-            newMatch.REL = self.rel?.title
-            newMatch.myDeck = self.myDeck
-            newMatch.theirDeck = self.theirDeck
-            for game in self.games {
-                let newGame = StorableGame()
-                if let game = game {
-                    newGame.value = game.toHex()
-                    newMatch.games.append(newGame)
-                }
-            }
-            
-            let realm = try! Realm()
-            try! realm.write {
-                print("writing")
-                realm.add(newMatch)
-            }
-            
-            // Save the defaults
-            Defaults[.eventName] = self.eventName
-            Defaults[.format] = self.format
-            Defaults[.REL] = self.rel
-            Defaults[.myDeck] = self.myDeck
+        let realm = try! Realm()
+        try! realm.write {
+            print("writing")
+            // realm.add(newMatch)
         }
+        
+        // Save the defaults
+//        Defaults[.eventName] = self.eventName
+//        Defaults[.format] = self.format
+//        Defaults[.REL] = self.rel
+//        Defaults[.myDeck] = self.myDeck
     }
 }

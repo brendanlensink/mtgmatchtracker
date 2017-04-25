@@ -354,17 +354,15 @@ class NewMatchViewController: UIViewController {
             make.left.right.equalTo(theirDeckField)
         }
         
-        
-        
         bindViewModel()
     }
     
     // MARK: Events
     
     func addButtonPressed() {
-        if viewModel.games.count == 2 {
+        if viewModel.match.games.count == 2 {
             addButton.isHidden = true
-            viewModel.games.append(nil)
+            viewModel.match.games.append(nil)
             gameCollection.reloadData()
         }
     }
@@ -372,7 +370,20 @@ class NewMatchViewController: UIViewController {
     // MARK: Reactive Binding
     
     private func bindViewModel() {
-        viewModel.readySignal.observeValues { ready in self.saveButton.isHidden = false }
+        viewModel.readySignal.observeValues { ready in
+            var gameStatus = false
+            let games = self.viewModel.match.games
+            if let game1 = games[0], let game2 = games[1] {
+                if game1.result == game2.result {
+                    gameStatus = true
+                } else if games.count > 2 {
+                    gameStatus = games[2] != nil
+                }
+            }
+            print("heard this signal \(gameStatus) \(games[0]?.result) \(games[1]?.result))")
+
+            self.saveButton.isHidden = !gameStatus
+        }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
         myDeckField.reactive.continuousTextValues.observeValues { value in
@@ -387,9 +398,10 @@ class NewMatchViewController: UIViewController {
             self.present(NewMatchViewController(), animated: true)
         }
                 
-        // Set defaults from previous match
+        // MARK: Set defaults from previous match
+        
         dateField.text = DateManager.sharedInstance.toString(date: Date())
-        viewModel.dateObserver.send(value: dateField.text)
+        viewModel.dateObserver.send(value: Date())
         if let name = Defaults[.eventName] {
             nameField.text = name
             viewModel.eventObserver.send(value: name)
@@ -409,6 +421,25 @@ class NewMatchViewController: UIViewController {
             viewModel.myDeckObserver.send(value: myDeck)
         }
         
+        /****
+         We're going to fake a whole bunch of data to test exporting.
+        */
+            let testGame = Game()
+            testGame.result = Result.loss
+            testGame.start = Start.draw
+            testGame.myHand = Hand.seven
+            testGame.theirHand = Hand.seven
+            viewModel.gamesObserver.send(value: (0, testGame))
+            viewModel.gamesObserver.send(value: (1,testGame))
+            
+            viewModel.eventObserver.send(value: "Test Event")
+            viewModel.formatObserver.send(value: Format.legacy)
+            viewModel.relObserver.send(value: REL.professional)
+            viewModel.myDeckObserver.send(value: "Test Deck")
+            viewModel.theirDeckObserver.send(value: "Test Deck")
+        /**
+         End of fake testing data
+         */
     }
     
     // MARK: Date Picker Functions
@@ -423,7 +454,7 @@ class NewMatchViewController: UIViewController {
     func handleDatePicker(sender: UIDatePicker) {
         let newText = DateManager.sharedInstance.toString(date: sender.date)
         dateField.text = newText
-        viewModel.dateObserver.send(value: newText)
+        viewModel.dateObserver.send(value: sender.date)
     }
 }
 
@@ -438,7 +469,7 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return viewModel.games.count
+       return viewModel.match.games.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
