@@ -53,17 +53,14 @@ class GameCell: UITableViewCell {
             myHandStream,
             theirHandStream,
             noteStream
-            ).map { inputs in
-                if let gameNumber = self.gameNumber {
-                    let game = Game()
-                    game.start = inputs.0
-                    game.result = inputs.1
-                    game.myHand = inputs.2
-                    game.theirHand = inputs.3
-                    game.notes = inputs.4
-                    return game
-                }
-                return nil
+        ).map { inputs in
+            let game = Game()
+            game.start = inputs.0
+            game.result = inputs.1
+            game.myHand = inputs.2
+            game.theirHand = inputs.3
+            game.notes = inputs.4
+            return game
         }
         
         // TODO: There's got to be a better way to do this part. Ideally all the streams just start non-empty

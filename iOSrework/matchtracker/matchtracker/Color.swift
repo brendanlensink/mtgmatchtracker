@@ -14,6 +14,7 @@ struct Color {
     // MARK: Private Color Declarations
     
     struct Grey {
+        static let dark = UIColor(hex: "333333")
         static let medium = UIColor(hex: "999999")
         static let light = UIColor(hex: "FFFFFF").alpha(0.5)
     }
@@ -42,6 +43,7 @@ struct Color {
     struct Text {
         static let main = white
         static let secondary = Grey.light
+        static let placeholder = Grey.dark
         static let tint = white
         static let picker = Blue.dark
     }

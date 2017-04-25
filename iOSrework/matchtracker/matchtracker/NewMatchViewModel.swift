@@ -22,7 +22,7 @@ class NewMatchViewModel {
     private var rel: REL? = nil
     private var myDeck: String? = nil
     private var theirDeck: String? = nil
-    private var games: [Game?] = [nil, nil, nil]
+    var games: [Game?] = [nil, nil]
     
     // MARK: Reactive Properties
     
@@ -44,8 +44,8 @@ class NewMatchViewModel {
             eventStream,
             formatStream,
             relStream
-            ).map { inputs in
-                return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil
+        ).map { inputs in
+            return inputs.0 != nil && inputs.1 != nil && inputs.2 != nil && inputs.3 != nil
         }
         
         dateStream.observeValues { value in self.date = value }
@@ -54,9 +54,7 @@ class NewMatchViewModel {
         relStream.observeValues { value in self.rel = value }
         myDeckStream.observeValues { value in self.myDeck = value }
         theirDeckStream.observeValues { value in self.theirDeck = value }
-        gamesStream.observeValues { (id, game) in
-            games[id] = game
-        }
+        gamesStream.observeValues { (id, game) in self.games[id] = game }
         
         matchId = "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"
         
@@ -85,8 +83,10 @@ class NewMatchViewModel {
             newMatch.theirDeck = self.theirDeck
             for game in self.games {
                 let newGame = StorableGame()
-                newGame.value = game.toHex()
-                newMatch.games.append(newGame)
+                if let game = game {
+                    newGame.value = game.toHex()
+                    newMatch.games.append(newGame)
+                }
             }
             
             let realm = try! Realm()

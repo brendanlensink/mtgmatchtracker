@@ -28,6 +28,7 @@ class NewMatchViewController: UIViewController {
     fileprivate let myDeckField: UITextField
     fileprivate let theirDeckLabel: UILabel
     fileprivate let theirDeckField: UITextField
+    fileprivate let addButton: UIButton
     
     fileprivate let gameCollection: UITableView
     fileprivate let datePicker: UIDatePicker
@@ -57,6 +58,7 @@ class NewMatchViewController: UIViewController {
         myDeckField = UITextField()
         theirDeckLabel = UILabel()
         theirDeckField = UITextField()
+        addButton = UIButton()
         
         gameCollection = UITableView()
         datePicker = UIDatePicker()
@@ -166,18 +168,18 @@ class NewMatchViewController: UIViewController {
         view.addSubview(formatLabel)
         
         formatField.text = "Format"
-        formatField.textColor = Color.Text.main
+        formatField.textColor = Color.Text.placeholder
         formatField.font = GC.Font.main
         formatField.tintColor = Color.Text.tint
         view.addSubview(formatField)
         
         relLabel.text = "REL"
-        relLabel.textColor = Color.Text.secondary
+        relLabel.textColor = Color.Text.placeholder
         relLabel.font = GC.Font.main
         view.addSubview(relLabel)
         
         relField.text = "REL"
-        relField.textColor = Color.Text.main
+        relField.textColor = Color.Text.secondary
         relField.font = GC.Font.main
         relField.tintColor = Color.Text.tint
         view.addSubview(relField)
@@ -277,12 +279,35 @@ class NewMatchViewController: UIViewController {
                 make.left.right.equalTo(view)
             }
         
+        // MARK: Make the add button
+        
+        addButton.setTitle("+", for: .normal)
+        addButton.setTitleColor(Color.Text.main, for: .normal)
+        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        addButton.addTarget(self, action: #selector(NewMatchViewController.addButtonPressed), for: .touchUpInside)
+        view.addSubview(addButton)
+        
+        addButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.top.equalTo(gameCollection.snp.top).offset(270)
+        }
+        
         bindViewModel()
+    }
+    
+    // MARK: Events
+    
+    func addButtonPressed() {
+        if viewModel.games.count == 2 {
+            addButton.isHidden = true
+            viewModel.games.append(nil)
+            gameCollection.reloadData()
+        }
     }
     
     // MARK: Reactive Binding
     
-    func bindViewModel() {
+    private func bindViewModel() {
         viewModel.readySignal.observeValues { ready in self.saveButton.isHidden = false }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
@@ -293,14 +318,33 @@ class NewMatchViewController: UIViewController {
             self.viewModel.theirDeckObserver.send(value: value)
         }
         
-        saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in self.viewModel.saveMatch() }
-        
+        saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
+            self.viewModel.saveMatch()
+            self.present(NewMatchViewController(), animated: true)
+        }
+                
         // Set defaults from previous match
         dateField.text = DateManager.sharedInstance.toString(date: Date())
-        if let name = Defaults[.eventName] { nameField.text = name }
-        if let format = Defaults[.format] { formatField.text = format.title }
-        if let rel = Defaults[.REL] { relField.text = rel.title }
-        if let myDeck = Defaults[.myDeck] { myDeckField.text = myDeck }
+        viewModel.dateObserver.send(value: dateField.text)
+        if let name = Defaults[.eventName] {
+            nameField.text = name
+            viewModel.eventObserver.send(value: name)
+        }
+        if let format = Defaults[.format] {
+            formatField.text = format.title
+            formatField.textColor = Color.Text.main
+            viewModel.formatObserver.send(value: format)
+        }
+        if let rel = Defaults[.REL] {
+            relField.text = rel.title
+            relField.textColor = Color.Text.main
+            viewModel.relObserver.send(value: rel)
+        }
+        if let myDeck = Defaults[.myDeck] {
+            myDeckField.text = myDeck
+            viewModel.myDeckObserver.send(value: myDeck)
+        }
+        
     }
     
     // MARK: Date Picker Functions
@@ -330,7 +374,7 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return 3
+       return viewModel.games.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -341,7 +385,7 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
         cell.gameReadySignal.observeValues { game in
             if let game = game {
-                viewModel.gamesObserver.send(value: (indexPath.section, game))
+                self.viewModel.gamesObserver.send(value: (indexPath.section, game))
             }
         }
         return cell
@@ -355,8 +399,10 @@ extension NewMatchViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         let intRow = Int8(row)
         switch pickerView {
         case formatPicker: formatField.text = Format.allValues[row]
+            formatField.textColor = Color.Text.main
             viewModel.formatObserver.send(value: Format(rawValue: intRow))
         case relPicker: relField.text = REL.allValues[row]
+            relField.textColor = Color.Text.main
             viewModel.relObserver.send(value: REL(rawValue: intRow))
         default: return
         }
