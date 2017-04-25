@@ -136,7 +136,7 @@ class NewMatchViewController: UIViewController {
             dateField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(dateLabel)
                 make.left.equalTo(dateLabel.snp.right).offset(GC.Padding.horizontal)
-                make.width.equalTo(view).multipliedBy(0.85)
+                make.width.equalTo(view).multipliedBy(0.76)
                 make.right.equalTo(view).offset(GC.Margin.right)
             }
         
@@ -174,12 +174,12 @@ class NewMatchViewController: UIViewController {
         view.addSubview(formatField)
         
         relLabel.text = "REL"
-        relLabel.textColor = Color.Text.placeholder
+        relLabel.textColor = Color.Text.secondary
         relLabel.font = GC.Font.main
         view.addSubview(relLabel)
         
         relField.text = "REL"
-        relField.textColor = Color.Text.secondary
+        relField.textColor = Color.Text.placeholder
         relField.font = GC.Font.main
         relField.tintColor = Color.Text.tint
         view.addSubview(relField)
@@ -274,7 +274,7 @@ class NewMatchViewController: UIViewController {
         view.addSubview(gameCollection)
         
             gameCollection.snp.makeConstraints { make in
-                make.top.equalTo(myDeckLabel.snp.bottom).offset(GC.Padding.vertical*2)
+                make.top.equalTo(myDeckLabel.snp.bottom).offset(GC.Padding.vertical)
                 make.bottom.equalTo(view)
                 make.left.right.equalTo(view)
             }
@@ -287,10 +287,74 @@ class NewMatchViewController: UIViewController {
         addButton.addTarget(self, action: #selector(NewMatchViewController.addButtonPressed), for: .touchUpInside)
         view.addSubview(addButton)
         
-        addButton.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.top.equalTo(gameCollection.snp.top).offset(270)
+            addButton.snp.makeConstraints { make in
+                make.centerX.equalTo(view)
+                make.top.equalTo(gameCollection.snp.top).offset(270)
+            }
+        
+        // MARK: Make all the text field underlines
+        
+        let dateLine = UIView()
+        dateLine.backgroundColor = Color.TextField.underline
+        view.addSubview(dateLine)
+        
+            dateLine.snp.makeConstraints { make in
+                make.height.equalTo(1)
+                make.top.equalTo(dateField.snp.bottom).offset(GC.Padding.underline)
+                make.left.right.equalTo(dateField)
+            }
+        
+        let eventLine = UIView()
+        eventLine.backgroundColor = Color.TextField.underline
+        view.addSubview(eventLine)
+        
+            eventLine.snp.makeConstraints { make in
+                make.height.equalTo(1)
+                make.top.equalTo(nameField.snp.bottom).offset(GC.Padding.underline)
+                make.left.right.equalTo(nameField)
+            }
+        
+        let formatLine = UIView()
+        formatLine.backgroundColor = Color.TextField.underline
+        view.addSubview(formatLine)
+        
+        formatLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(formatField.snp.bottom).offset(GC.Padding.underline)
+            make.left.right.equalTo(formatField)
         }
+        
+        let relLine = UIView()
+        relLine.backgroundColor = Color.TextField.underline
+        view.addSubview(relLine)
+        
+        relLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(relField.snp.bottom).offset(GC.Padding.underline)
+            make.left.right.equalTo(relField)
+        }
+        
+        let myDeckLine = UIView()
+        myDeckLine.backgroundColor = Color.TextField.underline
+        view.addSubview(myDeckLine)
+        
+        myDeckLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(myDeckField.snp.bottom).offset(GC.Padding.underline)
+            make.left.right.equalTo(myDeckField)
+        }
+        
+        let theirDeckLine = UIView()
+        theirDeckLine.backgroundColor = Color.TextField.underline
+        view.addSubview(theirDeckLine)
+        
+        theirDeckLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(theirDeckField.snp.bottom).offset(GC.Padding.underline)
+            make.left.right.equalTo(theirDeckField)
+        }
+        
+        
         
         bindViewModel()
     }

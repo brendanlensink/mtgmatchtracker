@@ -11,19 +11,20 @@ import UIKit
 struct GC {
     struct Margin {
         static let top = 40
-        static let left = 5
-        static let right = -5
+        static let left = 15
+        static let right = -15
         static let bottom = 40
     }
     
     struct Padding{
-        static let vertical = 11
+        static let vertical = 20
         static let horizontal = 8
+        static let underline = 0
     }
     
     // MARK: Font
     
     struct Font {
-        static let main = UIFont.systemFont(ofSize: 16)
+        static let main = UIFont.systemFont(ofSize: 14)
     }
 }

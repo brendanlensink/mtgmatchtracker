@@ -108,6 +108,9 @@ class GameCell: UITableViewCell {
         theirHandLabel.textColor = Color.Text.secondary
         
         notesField.backgroundColor = Color.TextView.background
+        notesField.textColor = Color.Text.main
+        notesField.tintColor = Color.Text.main
+        notesField.autocorrectionType = .no
         notesField.layer.borderColor = Color.TextView.border
         notesField.layer.cornerRadius = 4
         notesField.layer.borderWidth = 1
