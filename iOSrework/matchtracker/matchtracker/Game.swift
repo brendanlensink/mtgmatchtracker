@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: Enums
 
@@ -40,18 +41,18 @@ enum Hand: Int8 {
     case one = 1, two, three, four, five, six, seven
 }
 
-enum UpdateType {
-    case result
-    case start
-    case myHand
-    case theirHand
-    case notes
+class RealmGame: Object {
+    let gameNumber = RealmOptional<Int8>()
+    let result = RealmOptional<Int8>()
+    let start = RealmOptional<Int8>()
+    let myHand = RealmOptional<Int8>()
+    let theirHand = RealmOptional<Int8>()
+    dynamic var notes: String?
 }
-
-// MARK: Class Declaration
 
 class Game {
     
+    // TODO: Figure out if I have to have all these initalize to real values or can do it in init
     var matchID: String = ""
     var gameNumber: Int8 = 0
     var result: Result = Result.win

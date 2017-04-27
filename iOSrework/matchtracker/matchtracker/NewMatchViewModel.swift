@@ -76,9 +76,7 @@ class NewMatchViewModel {
         try! realm.write {
             
             if let created = match.created, let name = match.name, let format = match.format, let rel = match.REL, let myDeck = match.myDeck, let theirDeck = match.theirDeck {
-                print("CREATING: \(match.matchID)")
-                let games = match.storeGames()
-                print(games)
+                
                 let newMatch = RealmMatch(value: [
                     "matchID": match.matchID,
                     "created": created,
@@ -87,11 +85,23 @@ class NewMatchViewModel {
                     "REL": rel.rawValue,
                     "myDeck": myDeck,
                     "theirDeck": theirDeck,
-                    "games": games.0,
-                    "notes": games.1
                     ])
-                print("writing")
-                //realm.add(newMatch)
+                
+                for game in match.games {
+                    if let game = game {
+                        let newGame = RealmGame(value: [
+                            "gameNumber": game.gameNumber,
+                            "result": game.result.rawValue,
+                            "start": game.start.rawValue,
+                            "myHand": game.myHand.rawValue,
+                            "theirHand": game.theirHand.rawValue,
+                            "notes": game.notes
+                        ])
+                        newMatch.games.append(newGame)
+                    }
+                }
+
+                realm.add(newMatch)
             }
            
         }
