@@ -73,11 +73,7 @@ class Game {
      */
     func toHex() -> String {
         let num = toBinary().withCString { strtoul($0, nil, 2) }
-        return String(num, radix: 16, uppercase: true) // (or false)
-    }
-
-    func toDebugString() -> String {
-        return "\(gameNumber) \(result) \(start) \(myHand) \(theirHand) \(notes)"
+        return String(num, radix: 16, uppercase: true)
     }
     
     // MARK: Private Functions

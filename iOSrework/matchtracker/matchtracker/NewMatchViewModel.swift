@@ -51,6 +51,11 @@ class NewMatchViewModel {
         theirDeckStream.observeValues { value in self.match.theirDeck = value }
         gamesStream.observeValues { (id, game) in self.match.games[id] = game }
         
+        /******************************
+         
+         Debugging info
+         
+         */
         let realm = try! Realm()
         let matches = realm.objects(StorableMatch.self)
     
@@ -61,6 +66,9 @@ class NewMatchViewModel {
 //            print("writing")
 //            realm.deleteAll()
 //        }
+        /**********************************
+         
+                */
     }
     
     func saveMatch() {
