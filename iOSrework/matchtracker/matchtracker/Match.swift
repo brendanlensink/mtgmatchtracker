@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 import SwiftyUserDefaults
 
 // MARK: Enums
@@ -64,5 +65,35 @@ class Match {
     init(id: String) {
         self.matchID = id
     }
+    
+    func storeGames() -> (String,String) {
+        var toReturnGame = ""
+        var toReturnNote = ""
+        
+        for game in games {
+            if let game = game {
+                toReturnGame += game.toHex() + " "
+                toReturnNote += game.notes + ",,,/,,,"
+            }
+        }
+        return(toReturnGame, toReturnNote)
+    }
 }
+
+// MARK: Realm Class
+
+class RealmMatch: Object {
+    dynamic var matchID: String?
+    dynamic var created: Date?
+    dynamic var name: String?
+    let format = RealmOptional<Int>()
+    let REL = RealmOptional<Int>()
+    dynamic var myDeck: String?
+    dynamic var theirDeck: String?
+    dynamic var games: String?
+    dynamic var notes: String?
+    
+    // TODO: Figure out if/what I want to index
+}
+
 

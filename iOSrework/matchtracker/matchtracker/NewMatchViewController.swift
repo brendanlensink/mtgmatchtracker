@@ -380,8 +380,6 @@ class NewMatchViewController: UIViewController {
                     gameStatus = games[2] != nil
                 }
             }
-            print("heard this signal \(gameStatus) \(games[0]?.result) \(games[1]?.result))")
-
             self.saveButton.isHidden = !gameStatus
         }
         
@@ -395,7 +393,7 @@ class NewMatchViewController: UIViewController {
         
         saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
             self.viewModel.saveMatch()
-            self.present(NewMatchViewController(), animated: true)
+            //self.present(NewMatchViewController(), animated: true)
         }
                 
         // MARK: Set defaults from previous match
@@ -430,7 +428,7 @@ class NewMatchViewController: UIViewController {
             testGame.myHand = Hand.seven
             testGame.theirHand = Hand.seven
             viewModel.gamesObserver.send(value: (0, testGame))
-            viewModel.gamesObserver.send(value: (1,testGame))
+            viewModel.gamesObserver.send(value: (1, testGame))
             
             viewModel.eventObserver.send(value: "Test Event")
             viewModel.formatObserver.send(value: Format.legacy)

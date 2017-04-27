@@ -13,7 +13,6 @@
 		D426C2771E9EF5E200C333D2 /* NewMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426C2761E9EF5E200C333D2 /* NewMatchViewController.swift */; };
 		D426C27E1E9EF65E00C333D2 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426C27D1E9EF65E00C333D2 /* Color.swift */; };
 		D426C2801E9EF9C900C333D2 /* GC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426C27F1E9EF9C900C333D2 /* GC.swift */; };
-		D43E24771EA85ED70018E1D5 /* StorableMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E24761EA85ED70018E1D5 /* StorableMatch.swift */; };
 		D43E24791EA86B320018E1D5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E24781EA86B320018E1D5 /* UserDefaults.swift */; };
 		D4707A471EA2B1630038D4B7 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707A461EA2B1620038D4B7 /* DateManager.swift */; };
 		D4707A4B1EA2B7B20038D4B7 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707A4A1EA2B7B20038D4B7 /* CustomPicker.swift */; };
@@ -37,7 +36,6 @@
 		D426C2761E9EF5E200C333D2 /* NewMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMatchViewController.swift; sourceTree = "<group>"; };
 		D426C27D1E9EF65E00C333D2 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D426C27F1E9EF9C900C333D2 /* GC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GC.swift; sourceTree = "<group>"; };
-		D43E24761EA85ED70018E1D5 /* StorableMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorableMatch.swift; sourceTree = "<group>"; };
 		D43E24781EA86B320018E1D5 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		D4707A461EA2B1620038D4B7 /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		D4707A4A1EA2B7B20038D4B7 /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 			children = (
 				D4B8668C1EA3E554003D3A1D /* Game.swift */,
 				D4B8668E1EA3E574003D3A1D /* Match.swift */,
-				D43E24761EA85ED70018E1D5 /* StorableMatch.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -289,7 +286,6 @@
 				D4707A471EA2B1630038D4B7 /* DateManager.swift in Sources */,
 				D426C2651E9EF53100C333D2 /* AppDelegate.swift in Sources */,
 				D426C2801E9EF9C900C333D2 /* GC.swift in Sources */,
-				D43E24771EA85ED70018E1D5 /* StorableMatch.swift in Sources */,
 				D43E24791EA86B320018E1D5 /* UserDefaults.swift in Sources */,
 				D4B8668B1EA3DE79003D3A1D /* NewMatchViewModel.swift in Sources */,
 				D426C2771E9EF5E200C333D2 /* NewMatchViewController.swift in Sources */,

@@ -57,7 +57,7 @@ class NewMatchViewModel {
          
          */
         let realm = try! Realm()
-        let matches = realm.objects(StorableMatch.self)
+        let matches = realm.objects(RealmMatch.self)
     
         for match in matches {
             print( "\n\n \(match)")
@@ -74,8 +74,26 @@ class NewMatchViewModel {
     func saveMatch() {
         let realm = try! Realm()
         try! realm.write {
-            print("writing")
-            // realm.add(newMatch)
+            
+            if let created = match.created, let name = match.name, let format = match.format, let rel = match.REL, let myDeck = match.myDeck, let theirDeck = match.theirDeck {
+                print("CREATING: \(match.matchID)")
+                let games = match.storeGames()
+                print(games)
+                let newMatch = RealmMatch(value: [
+                    "matchID": match.matchID,
+                    "created": created,
+                    "name": name,
+                    "format": format.rawValue,
+                    "REL": rel.rawValue,
+                    "myDeck": myDeck,
+                    "theirDeck": theirDeck,
+                    "games": games.0,
+                    "notes": games.1
+                    ])
+                print("writing")
+                //realm.add(newMatch)
+            }
+           
         }
         
         // Save the defaults

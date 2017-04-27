@@ -59,7 +59,7 @@ class Game {
     var myHand: Hand = Hand.seven
     var theirHand: Hand = Hand.seven
     var hasNotes: Bool = false
-    var notes: String?
+    var notes: String = ""
     
     init() {
 
