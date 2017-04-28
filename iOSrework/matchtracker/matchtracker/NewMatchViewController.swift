@@ -76,6 +76,8 @@ class NewMatchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.navigationBar.isHidden = true
+        
         view.backgroundColor = Color.background
 
         // MARK: Set up the date picker view

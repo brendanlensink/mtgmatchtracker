@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         newMatch.navigationBar.tintColor = Color.TabBar.text
         newMatch.tabBarItem = UITabBarItem(
             title: "Log A Match",
-            image: UIImage(named: "new"),
+            image: UIImage(named: "tab_new"),
             tag:  1
         )
         
@@ -31,13 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         matchHistory.navigationBar.tintColor = Color.TabBar.text
         matchHistory.tabBarItem = UITabBarItem(
             title: "View Past Matches",
-            image: UIImage(named: "history"),
+            image: UIImage(named: "tab_history"),
             tag: 2
         )
         
         let tabViews = [
-            NewMatchViewController(),
-            MatchHistoryViewController()
+            newMatch,
+            matchHistory
         ]
         let tabBar = UITabBarController()
         tabBar.viewControllers = tabViews
