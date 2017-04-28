@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import SwiftyUserDefaults
 
-// MARK: Enums
+// MARK: Match Enums
 
 enum Format: Int8 {
     case sealed = 0

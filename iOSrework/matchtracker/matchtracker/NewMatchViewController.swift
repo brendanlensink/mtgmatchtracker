@@ -392,7 +392,7 @@ class NewMatchViewController: UIViewController {
         
         saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
             self.viewModel.saveMatch()
-            //self.present(NewMatchViewController(), animated: true)
+            self.present(NewMatchViewController(), animated: true)
         }
                 
         // MARK: Set defaults from previous match
@@ -418,9 +418,11 @@ class NewMatchViewController: UIViewController {
             viewModel.myDeckObserver.send(value: myDeck)
         }
         
-        /****
+        /***************************
+         
          We're going to fake a whole bunch of data to test exporting.
-        */
+         
+        ****************************/
             let testGame = Game()
             testGame.gameNumber.value = 0
             testGame.result.value = Result.loss.rawValue

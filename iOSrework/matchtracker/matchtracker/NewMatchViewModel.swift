@@ -80,9 +80,9 @@ class NewMatchViewModel {
         }
         
         // Save the defaults
-//        Defaults[.eventName] = self.eventName
-//        Defaults[.format] = self.format
-//        Defaults[.REL] = self.rel
-//        Defaults[.myDeck] = self.myDeck
+        Defaults[.eventName] = self.match.name
+        Defaults[.format] = self.match.format
+        Defaults[.REL] = self.match.rel
+        Defaults[.myDeck] = self.match.myDeck
     }
 }
