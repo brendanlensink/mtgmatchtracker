@@ -32,7 +32,7 @@ class NewMatchViewModel {
     // MARK: Lifecycle
     
     init() {
-        match = Match(value: ["matchID": "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"])
+        match = Match(value: ["matchID": "\(DateManager.shared.toMS(date: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"])
         
         readySignal = Signal.combineLatest(
             dateStream,

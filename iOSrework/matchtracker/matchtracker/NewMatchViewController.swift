@@ -397,7 +397,7 @@ class NewMatchViewController: UIViewController {
                 
         // MARK: Set defaults from previous match
         
-        dateField.text = DateManager.sharedInstance.toString(date: Date())
+        dateField.text = DateManager.shared.toString(date: Date())
         viewModel.dateObserver.send(value: Date())
         if let name = Defaults[.eventName] {
             nameField.text = name
@@ -450,7 +450,7 @@ class NewMatchViewController: UIViewController {
     }
     
     func handleDatePicker(sender: UIDatePicker) {
-        let newText = DateManager.sharedInstance.toString(date: sender.date)
+        let newText = DateManager.shared.toString(date: sender.date)
         dateField.text = newText
         viewModel.dateObserver.send(value: sender.date)
     }

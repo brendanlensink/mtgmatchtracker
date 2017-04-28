@@ -9,7 +9,7 @@
 import Foundation
 
 class DateManager {
-    static let sharedInstance = DateManager()
+    static let shared = DateManager()
     
     private let formatter = DateFormatter()
     
@@ -20,5 +20,9 @@ class DateManager {
     
     func toString(date: Date) -> String {
         return formatter.string(from: date)
+    }
+    
+    func toMS(date: Date) -> String {
+        return String(describing: (date.timeIntervalSince1970 * 1000).rounded())
     }
 }
