@@ -15,6 +15,7 @@
 		D426C2801E9EF9C900C333D2 /* GC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D426C27F1E9EF9C900C333D2 /* GC.swift */; };
 		D43E24791EA86B320018E1D5 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E24781EA86B320018E1D5 /* UserDefaults.swift */; };
 		D4707A471EA2B1630038D4B7 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707A461EA2B1620038D4B7 /* DateManager.swift */; };
+		D4ACE2171EB2EB790009B6A8 /* MatchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACE2161EB2EB790009B6A8 /* MatchHistoryViewController.swift */; };
 		D4B8668B1EA3DE79003D3A1D /* NewMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B8668A1EA3DE79003D3A1D /* NewMatchViewModel.swift */; };
 		D4B8668D1EA3E554003D3A1D /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B8668C1EA3E554003D3A1D /* Game.swift */; };
 		D4B8668F1EA3E574003D3A1D /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B8668E1EA3E574003D3A1D /* Match.swift */; };
@@ -37,6 +38,7 @@
 		D426C27F1E9EF9C900C333D2 /* GC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GC.swift; sourceTree = "<group>"; };
 		D43E24781EA86B320018E1D5 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		D4707A461EA2B1620038D4B7 /* DateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		D4ACE2161EB2EB790009B6A8 /* MatchHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHistoryViewController.swift; sourceTree = "<group>"; };
 		D4B8668A1EA3DE79003D3A1D /* NewMatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMatchViewModel.swift; sourceTree = "<group>"; };
 		D4B8668C1EA3E554003D3A1D /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		D4B8668E1EA3E574003D3A1D /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				D426C2761E9EF5E200C333D2 /* NewMatchViewController.swift */,
+				D4ACE2161EB2EB790009B6A8 /* MatchHistoryViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4DF7FF61EA0A0D00050456B /* GameCell.swift in Sources */,
+				D4ACE2171EB2EB790009B6A8 /* MatchHistoryViewController.swift in Sources */,
 				D4B8668D1EA3E554003D3A1D /* Game.swift in Sources */,
 				D4B8668F1EA3E574003D3A1D /* Match.swift in Sources */,
 				D4707A471EA2B1630038D4B7 /* DateManager.swift in Sources */,

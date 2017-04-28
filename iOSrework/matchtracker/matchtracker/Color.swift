@@ -64,4 +64,9 @@ struct Color {
         static let text = Blue.dark
         static let altText = white
     }
+    
+    struct TabBar {
+        static let background = white
+        static let text = Blue.dark
+    }
 }
