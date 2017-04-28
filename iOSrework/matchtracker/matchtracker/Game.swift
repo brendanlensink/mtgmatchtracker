@@ -41,7 +41,7 @@ enum Hand: Int8 {
     case one = 1, two, three, four, five, six, seven
 }
 
-class RealmGame: Object {
+class Game: Object {
     let gameNumber = RealmOptional<Int8>()
     let result = RealmOptional<Int8>()
     let start = RealmOptional<Int8>()
@@ -50,7 +50,7 @@ class RealmGame: Object {
     dynamic var notes: String?
 }
 
-class Game {
+class OldGame {
     
     // TODO: Figure out if I have to have all these initalize to real values or can do it in init
     var matchID: String = ""

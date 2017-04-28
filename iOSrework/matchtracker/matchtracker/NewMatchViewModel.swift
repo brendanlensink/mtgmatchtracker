@@ -32,7 +32,7 @@ class NewMatchViewModel {
     // MARK: Lifecycle
     
     init() {
-        match = Match(id: "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)")
+        match = Match(value: ["matchID": "\(String(describing: Date()))_\(UIDevice.current.identifierForVendor!.uuidString)"])
         
         readySignal = Signal.combineLatest(
             dateStream,
@@ -46,7 +46,7 @@ class NewMatchViewModel {
         dateStream.observeValues { value in self.match.created = value }
         eventStream.observeValues { value in self.match.name = value }
         formatStream.observeValues { value in self.match.format = value }
-        relStream.observeValues { value in self.match.REL = value }
+        relStream.observeValues { value in self.match.rel = value }
         myDeckStream.observeValues { value in self.match.myDeck = value }
         theirDeckStream.observeValues { value in self.match.theirDeck = value }
         gamesStream.observeValues { (id, game) in self.match.games[id] = game }
@@ -57,7 +57,7 @@ class NewMatchViewModel {
          
          */
         let realm = try! Realm()
-        let matches = realm.objects(RealmMatch.self)
+        let matches = realm.objects(Match.self)
     
         for match in matches {
             print( "\n\n \(match)")
@@ -74,36 +74,9 @@ class NewMatchViewModel {
     func saveMatch() {
         let realm = try! Realm()
         try! realm.write {
-            
-            if let created = match.created, let name = match.name, let format = match.format, let rel = match.REL, let myDeck = match.myDeck, let theirDeck = match.theirDeck {
-                
-                let newMatch = RealmMatch(value: [
-                    "matchID": match.matchID,
-                    "created": created,
-                    "name": name,
-                    "format": format.rawValue,
-                    "REL": rel.rawValue,
-                    "myDeck": myDeck,
-                    "theirDeck": theirDeck,
-                    ])
-                
-                for game in match.games {
-                    if let game = game {
-                        let newGame = RealmGame(value: [
-                            "gameNumber": game.gameNumber,
-                            "result": game.result.rawValue,
-                            "start": game.start.rawValue,
-                            "myHand": game.myHand.rawValue,
-                            "theirHand": game.theirHand.rawValue,
-                            "notes": game.notes
-                        ])
-                        newMatch.games.append(newGame)
-                    }
-                }
-
-                realm.add(newMatch)
-            }
-           
+        
+            match.storeGames()
+            realm.add(match)
         }
         
         // Save the defaults

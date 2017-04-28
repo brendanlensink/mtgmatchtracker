@@ -42,8 +42,7 @@ class NewMatchViewController: UIViewController {
     fileprivate let viewModel: NewMatchViewModel
     
     // MARK: View Lifecycle
-    
-    init() {
+        init() {
         viewModel = NewMatchViewModel()
         
         dateLabel = UILabel()
@@ -374,7 +373,7 @@ class NewMatchViewController: UIViewController {
             var gameStatus = false
             let games = self.viewModel.match.games
             if let game1 = games[0], let game2 = games[1] {
-                if game1.result == game2.result {
+                if game1.result.value == game2.result.value {
                     gameStatus = true
                 } else if games.count > 2 {
                     gameStatus = games[2] != nil
@@ -423,10 +422,11 @@ class NewMatchViewController: UIViewController {
          We're going to fake a whole bunch of data to test exporting.
         */
             let testGame = Game()
-            testGame.result = Result.loss
-            testGame.start = Start.draw
-            testGame.myHand = Hand.seven
-            testGame.theirHand = Hand.seven
+            testGame.gameNumber.value = 0
+            testGame.result.value = Result.loss.rawValue
+            testGame.start.value = Start.draw.rawValue
+            testGame.myHand.value = Hand.seven.rawValue
+            testGame.theirHand.value = Hand.seven.rawValue
             viewModel.gamesObserver.send(value: (0, testGame))
             viewModel.gamesObserver.send(value: (1, testGame))
             
@@ -478,6 +478,7 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
         cell.gameReadySignal.observeValues { game in
             if let game = game {
+                game.gameNumber.value = Int8(indexPath.section)
                 self.viewModel.gamesObserver.send(value: (indexPath.section, game))
             }
         }

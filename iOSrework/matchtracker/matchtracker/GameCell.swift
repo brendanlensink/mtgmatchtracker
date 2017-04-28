@@ -54,12 +54,13 @@ class GameCell: UITableViewCell {
             theirHandStream,
             noteStream
         ).map { inputs in
-            let game = Game()
-            game.start = inputs.0
-            game.result = inputs.1
-            game.myHand = inputs.2
-            game.theirHand = inputs.3
-            game.notes = inputs.4
+            let game = Game(value: [
+                "start": inputs.0.rawValue,
+                "result": inputs.1.rawValue,
+                "myHand": inputs.2.rawValue,
+                "theirHand": inputs.3.rawValue,
+                "notes": inputs.4
+            ])
             return game
         }
         

@@ -52,32 +52,34 @@ enum REL: Int8 {
 
 // MARK: Class Declaration
 
-class Match {
-    var matchID: String
-    var created: Date?
-    var name: String?
-    var format: Format?
-    var REL: REL?
-    var myDeck: String?
-    var theirDeck: String?
+class Match: Object {
+    private let rGames = List<Game>()
     var games: [Game?] = [nil, nil]
     
-    init(id: String) {
-        self.matchID = id
+    private let rFormat = RealmOptional<Int8>()
+    var format: Format? {
+        get { return Format(rawValue: rFormat.value!)! }
+        set { rFormat.value = newValue?.rawValue ?? nil }
     }
-}
+    
+    private let rREL = RealmOptional<Int8>()
+    var rel: REL? {
+        get { return REL(rawValue: rREL.value!)! }
+        set { rREL.value = newValue?.rawValue ?? nil }
+    }
 
-// MARK: Realm Class
-
-class RealmMatch: Object {
     dynamic var matchID: String?
     dynamic var created: Date?
     dynamic var name: String?
-    let format = RealmOptional<Int8>()
-    let REL = RealmOptional<Int8>()
     dynamic var myDeck: String?
     dynamic var theirDeck: String?
-    let games = List<RealmGame>()
+    
+    // TODO: This can be better
+    func storeGames() {
+        for game in games {
+            if let game = game { rGames.append(game) }
+        }
+    }
     
     // TODO: Figure out if/what I want to index
 }
