@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="matchCell" rowHeight="120" id="aj4-S0-K2v" customClass="MatchCell" customModule="matchtracker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aj4-S0-K2v" id="9hX-mg-t07">
+                <rect key="frame" x="0.0" y="0.0" width="365" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ICj-wf-uSA">
+                        <rect key="frame" x="18" y="8" width="327" height="63.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSr-VS-UKa" customClass="MatchLabel" customModule="matchtracker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="327" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bdj-P2-zbd">
+                                <rect key="frame" x="0.0" y="29.5" width="327" height="34"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dui-8z-6HY">
+                                        <rect key="frame" x="0.0" y="0.0" width="163.5" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgg-uo-qbc" customClass="MatchLabel" customModule="matchtracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="163.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Format" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gD-Dd-5Qh" customClass="MatchLabel" customModule="matchtracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="17" width="163.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Njf-BX-BYf">
+                                        <rect key="frame" x="163.5" y="0.0" width="163.5" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyDeck" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKc-fb-WgN" customClass="MatchLabel" customModule="matchtracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="163.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheirDeck" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNY-jy-1dH" customClass="MatchLabel" customModule="matchtracker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="17" width="163.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="bdj-P2-zbd" firstAttribute="leading" secondItem="ICj-wf-uSA" secondAttribute="leading" id="696-TI-xE7"/>
+                            <constraint firstAttribute="trailing" secondItem="bdj-P2-zbd" secondAttribute="trailing" id="8bf-Iv-6pC"/>
+                            <constraint firstAttribute="trailing" secondItem="GSr-VS-UKa" secondAttribute="trailing" id="m4i-mY-yKD"/>
+                        </constraints>
+                    </stackView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron" translatesAutoresizingMaskIntoConstraints="NO" id="RmV-Bl-Uoj">
+                        <rect key="frame" x="345" y="30" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="87F-g9-CfI"/>
+                            <constraint firstAttribute="width" constant="20" id="WfJ-Ur-v6Z"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ICj-wf-uSA" firstAttribute="leading" secondItem="9hX-mg-t07" secondAttribute="leadingMargin" constant="10" id="4ap-zj-qCq"/>
+                    <constraint firstItem="RmV-Bl-Uoj" firstAttribute="centerY" secondItem="9hX-mg-t07" secondAttribute="centerY" id="PRD-VO-8LR"/>
+                    <constraint firstItem="RmV-Bl-Uoj" firstAttribute="trailing" secondItem="9hX-mg-t07" secondAttribute="trailing" id="QeF-X3-56V"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="ICj-wf-uSA" secondAttribute="bottom" id="ZO1-3S-6T2"/>
+                    <constraint firstItem="ICj-wf-uSA" firstAttribute="top" secondItem="9hX-mg-t07" secondAttribute="topMargin" id="cKW-2R-pGU"/>
+                    <constraint firstItem="RmV-Bl-Uoj" firstAttribute="leading" secondItem="ICj-wf-uSA" secondAttribute="trailing" id="jdo-mO-KSF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="formatLabel" destination="8gD-Dd-5Qh" id="hg3-OQ-GcB"/>
+                <outlet property="myDeckLabel" destination="mKc-fb-WgN" id="30U-My-eoa"/>
+                <outlet property="resultLabel" destination="vgg-uo-qbc" id="aTm-qk-PYT"/>
+                <outlet property="theirDeckLabel" destination="eNY-jy-1dH" id="D4Y-oI-Fl3"/>
+                <outlet property="timeLabel" destination="GSr-VS-UKa" id="0Sd-dw-fAQ"/>
+            </connections>
+            <point key="canvasLocation" x="-203.5" y="39"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chevron" width="48" height="48"/>
+    </resources>
+</document>

@@ -21,6 +21,9 @@
 		D4B8668F1EA3E574003D3A1D /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B8668E1EA3E574003D3A1D /* Match.swift */; };
 		D4DF7FF41EA0A0C60050456B /* GameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4DF7FF31EA0A0C60050456B /* GameCell.xib */; };
 		D4DF7FF61EA0A0D00050456B /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DF7FF51EA0A0D00050456B /* GameCell.swift */; };
+		D4EED4B91EB4125300DBB802 /* MatchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EED4B81EB4125300DBB802 /* MatchHistoryViewModel.swift */; };
+		D4EED4BB1EB4150000DBB802 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EED4BA1EB4150000DBB802 /* MatchCell.swift */; };
+		D4EED4BD1EB4150D00DBB802 /* MatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4EED4BC1EB4150D00DBB802 /* MatchCell.xib */; };
 		E44C3EBF0D4ECB3EA08E61C0 /* Pods_matchtracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59912F42ADEC5E1F2B2D8C /* Pods_matchtracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +47,9 @@
 		D4B8668E1EA3E574003D3A1D /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		D4DF7FF31EA0A0C60050456B /* GameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameCell.xib; sourceTree = "<group>"; };
 		D4DF7FF51EA0A0D00050456B /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
+		D4EED4B81EB4125300DBB802 /* MatchHistoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHistoryViewModel.swift; sourceTree = "<group>"; };
+		D4EED4BA1EB4150000DBB802 /* MatchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
+		D4EED4BC1EB4150D00DBB802 /* MatchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				D426C27C1E9EF60000C333D2 /* Helper */,
-				D426C27B1E9EF5F500C333D2 /* Element */,
+				D426C27B1E9EF5F500C333D2 /* View */,
 				D426C27A1E9EF5F200C333D2 /* Model */,
 				D426C2791E9EF5EC00C333D2 /* ViewModel */,
 				D426C2781E9EF5E600C333D2 /* ViewController */,
@@ -113,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				D4B8668A1EA3DE79003D3A1D /* NewMatchViewModel.swift */,
+				D4EED4B81EB4125300DBB802 /* MatchHistoryViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -126,13 +133,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		D426C27B1E9EF5F500C333D2 /* Element */ = {
+		D426C27B1E9EF5F500C333D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				D4DF7FF51EA0A0D00050456B /* GameCell.swift */,
 				D4DF7FF31EA0A0C60050456B /* GameCell.xib */,
+				D4EED4BA1EB4150000DBB802 /* MatchCell.swift */,
+				D4EED4BC1EB4150D00DBB802 /* MatchCell.xib */,
 			);
-			name = Element;
+			name = View;
 			sourceTree = "<group>";
 		};
 		D426C27C1E9EF60000C333D2 /* Helper */ = {
@@ -221,6 +230,7 @@
 				D426C26F1E9EF53100C333D2 /* LaunchScreen.storyboard in Resources */,
 				D426C26C1E9EF53100C333D2 /* Assets.xcassets in Resources */,
 				D4DF7FF41EA0A0C60050456B /* GameCell.xib in Resources */,
+				D4EED4BD1EB4150D00DBB802 /* MatchCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +294,8 @@
 				D4B8668D1EA3E554003D3A1D /* Game.swift in Sources */,
 				D4B8668F1EA3E574003D3A1D /* Match.swift in Sources */,
 				D4707A471EA2B1630038D4B7 /* DateManager.swift in Sources */,
+				D4EED4BB1EB4150000DBB802 /* MatchCell.swift in Sources */,
+				D4EED4B91EB4125300DBB802 /* MatchHistoryViewModel.swift in Sources */,
 				D426C2651E9EF53100C333D2 /* AppDelegate.swift in Sources */,
 				D426C2801E9EF9C900C333D2 /* GC.swift in Sources */,
 				D43E24791EA86B320018E1D5 /* UserDefaults.swift in Sources */,

@@ -82,6 +82,26 @@ class Match: Object {
     }
     
     // TODO: Figure out if/what I want to index
+    
+    // MARK: Helper Functions
+    
+    func getResult() -> String {
+        var numWins = 0
+        var numLosses = 0
+        var numDraws = 0
+        
+        for game in rGames {
+            if let result = game.result.value {
+                switch Int(result) {
+                case 0: numLosses += 1
+                case 1: numWins += 1
+                case 2: numDraws += 1
+                default: break
+                }
+            }
+        }
+        return "\(numWins)-\(numLosses)"
+    }
 }
 
 

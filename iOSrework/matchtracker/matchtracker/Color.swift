@@ -33,6 +33,7 @@ struct Color {
     
     struct Cell {
         static let background = Blue.light
+        static let border = white.alpha(0.2)
     }
     
     struct TextView {
