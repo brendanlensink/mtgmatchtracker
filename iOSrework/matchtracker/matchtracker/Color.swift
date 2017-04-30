@@ -29,10 +29,10 @@ struct Color {
     
     // MARK: Color assignments
     
-    static let background = Blue.medium
+    static let background = Blue.dark
     
     struct Cell {
-        static let background = Blue.light
+        static let background = Blue.medium
         static let border = white.alpha(0.2)
     }
     
@@ -43,14 +43,14 @@ struct Color {
     
     struct Text {
         static let main = white
-        static let secondary = Grey.light
-        static let placeholder = Grey.dark
+        static let secondary = white
+        static let placeholder = white.alpha(0.5)
         static let tint = white
         static let picker = Blue.dark
     }
     
     struct TextField {
-        static let underline = Grey.light
+        static let underline = white.alpha(0.2)
     }
     
     struct Button {

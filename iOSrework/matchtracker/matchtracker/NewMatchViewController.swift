@@ -151,7 +151,7 @@ class NewMatchViewController: UIViewController {
                 make.leading.equalTo(dateLabel)
             }
 
-        nameField.placeholder = "Event Name"
+        nameField.attributedPlaceholder = NSAttributedString(string: "Event Name", attributes: [NSForegroundColorAttributeName: Color.Text.placeholder])
         nameField.textColor = Color.Text.main
         nameField.font = GC.Font.main
         nameField.tintColor = Color.Text.tint
@@ -212,7 +212,7 @@ class NewMatchViewController: UIViewController {
         myDeckLabel.font = GC.Font.main
         view.addSubview(myDeckLabel)
         
-        myDeckField.placeholder = "My Deck"
+        myDeckField.attributedPlaceholder = NSAttributedString(string: "My Deck", attributes: [NSForegroundColorAttributeName: Color.Text.placeholder])
         myDeckField.textColor = Color.Text.main
         myDeckField.font = GC.Font.main
         myDeckField.tintColor = Color.Text.tint
@@ -223,7 +223,7 @@ class NewMatchViewController: UIViewController {
         theirDeckLabel.font = GC.Font.main
         view.addSubview(theirDeckLabel)
         
-        theirDeckField.placeholder = "Their Deck"
+        theirDeckField.attributedPlaceholder = NSAttributedString(string: "Their Deck", attributes: [NSForegroundColorAttributeName: Color.Text.placeholder])
         theirDeckField.textColor = Color.Text.main
         theirDeckField.font = GC.Font.main
         theirDeckField.tintColor = Color.Text.tint
