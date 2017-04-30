@@ -41,13 +41,13 @@ struct Color {
     }
     
     struct TextView {
-        static let background = Blue.medium.alpha(0.8)
-        static let border = white.alpha(0.7).cgColor
+        static let background = Blue.dark.alpha(0.2)
+        static let border = white.alpha(0.3).cgColor
     }
     
     struct Text {
         static let main = white
-        static let secondary = white
+        static let secondary = white.alpha(0.5)
         static let placeholder = white.alpha(0.5)
         static let tint = white
         static let picker = Blue.dark

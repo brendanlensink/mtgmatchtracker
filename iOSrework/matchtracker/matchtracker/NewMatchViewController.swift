@@ -78,10 +78,10 @@ class NewMatchViewController: UIViewController {
         
         view.backgroundColor = Color.background
         
+        self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
         
         saveButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(NewMatchViewController.saveMatch))
-        self.navigationItem.rightBarButtonItem = saveButton
 
         // MARK: Set up the date picker view
         
@@ -372,7 +372,7 @@ class NewMatchViewController: UIViewController {
                     gameStatus = games[2] != nil
                 }
             }
-            // self.saveButton.isHidden = !gameStatus
+            if gameStatus { self.navigationItem.rightBarButtonItem = self.saveButton }
         }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
@@ -419,7 +419,7 @@ class NewMatchViewController: UIViewController {
             testGame.theirHand.value = Hand.seven.rawValue
             viewModel.gamesObserver.send(value: (0, testGame))
             viewModel.gamesObserver.send(value: (1, testGame))
-            
+        
             viewModel.eventObserver.send(value: "Test Event")
             viewModel.formatObserver.send(value: Format.legacy)
             viewModel.relObserver.send(value: REL.professional)
@@ -434,7 +434,8 @@ class NewMatchViewController: UIViewController {
     
     @objc private func saveMatch() {
         self.viewModel.saveMatch()
-        self.present(NewMatchViewController(), animated: true)
+        navigationController?.pushViewController(NewMatchViewController(), animated: true)
+        // self.present(NewMatchViewController(), animated: true)
     }
     
     // MARK: Date Picker Functions
