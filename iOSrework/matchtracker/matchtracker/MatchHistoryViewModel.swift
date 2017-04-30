@@ -26,6 +26,17 @@ class MatchHistoryViewModel {
         }
     }
     
+    // MARK: Helper Functions
+    
+    func exportCSV() {
+        var returnString = "id,created,name,format,rel,mydeck,theirdeck,game,start,result,myhand,theirhand,notes,game,start,result,myhand,theirhand,notes,game,start,result,myhand,theirhand,notes\n"
+        for match in matches {
+            returnString += match.toCSV()
+        }
+        
+        print(returnString)
+    }
+    
     // MARK: UITableViewDataSource Methods
     
     func getMatchCount() -> Int {

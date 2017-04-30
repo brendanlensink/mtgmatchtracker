@@ -30,6 +30,9 @@ class MatchHistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let exportButton = UIBarButtonItem(title: "EXPORT", style: .done, target: self, action: #selector(MatchHistoryViewController.exportCSV))
+        self.navigationItem.rightBarButtonItem = exportButton
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = Color.background
@@ -41,6 +44,12 @@ class MatchHistoryViewController: UIViewController {
             tableView.snp.makeConstraints { make in
                 make.edges.equalTo(view)
             }
+    }
+    
+    // MARK: Helper Functions
+    
+    @objc private func exportCSV() {
+        viewModel.exportCSV()
     }
 }
 

@@ -50,4 +50,15 @@ class Game: Object {
     let myHand = RealmOptional<Int8>()
     let theirHand = RealmOptional<Int8>()
     dynamic var notes: String?
+    
+    func toCSV() -> String {
+        var returnString = ""
+        if let number = gameNumber.value { returnString += "\(number)," } else { returnString += "," }
+        if let result = result.value { returnString += "\(result)," } else { returnString += "," }
+        if let start = start.value { returnString += "\(start)," } else { returnString += "," }
+        if let myHand = myHand.value { returnString += "\(myHand)," } else { returnString += "," }
+        if let theirHand = theirHand.value { returnString += "\(theirHand)," } else { returnString += "," }
+        if let notes = self.notes  { returnString += "\(notes)," } else { returnString += "," }
+        return returnString
+    }
 }

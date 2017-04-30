@@ -74,14 +74,14 @@ class Match: Object {
     dynamic var myDeck: String?
     dynamic var theirDeck: String?
     
+    // TODO: Figure out if/what I want to index
+
     // TODO: This can be better
     func storeGames() {
         for game in games {
             if let game = game { rGames.append(game) }
         }
     }
-    
-    // TODO: Figure out if/what I want to index
     
     // MARK: Helper Functions
     
@@ -101,6 +101,22 @@ class Match: Object {
             }
         }
         return "\(numWins)-\(numLosses)"
+    }
+    
+    func toCSV() -> String {
+        var returnString = ""
+        if let id = matchID { returnString += "\(id)," } else { returnString += "," }
+        if let created = created { returnString += "\(created)," } else { returnString += "," }
+        if let name = name { returnString += "\(name)," } else { returnString += "," }
+        if let format = format { returnString += "\(format)," } else { returnString += "," }
+        if let rel = rel { returnString += "\(rel)," } else { returnString += "," }
+        if let myDeck = myDeck { returnString += "\(myDeck)," } else { returnString += "," }
+        if let theirDeck = theirDeck { returnString += "\(theirDeck)," } else { returnString += "," }
+        
+        for game in rGames {
+            returnString += game.toCSV()
+        }
+        return returnString + "\n"
     }
 }
 
