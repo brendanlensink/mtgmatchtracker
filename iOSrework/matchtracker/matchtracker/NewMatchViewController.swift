@@ -35,7 +35,7 @@ class NewMatchViewController: UIViewController {
     fileprivate let formatPicker: UIPickerView
     fileprivate let relPicker: UIPickerView
     
-    fileprivate let saveButton: UIButton
+    fileprivate var saveButton: UIBarButtonItem
     
     // MARK: Properties
     
@@ -64,7 +64,7 @@ class NewMatchViewController: UIViewController {
         formatPicker = UIPickerView()
         relPicker = UIPickerView()
         
-        saveButton = UIButton()
+        saveButton = UIBarButtonItem()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -75,10 +75,13 @@ class NewMatchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.navigationBar.isHidden = true
         
         view.backgroundColor = Color.background
+        
+        self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
+        
+        saveButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(NewMatchViewController.saveMatch))
+        self.navigationItem.rightBarButtonItem = saveButton
 
         // MARK: Set up the date picker view
         
@@ -174,7 +177,7 @@ class NewMatchViewController: UIViewController {
         formatField.tintColor = Color.Text.tint
         view.addSubview(formatField)
         
-        relLabel.text = "REL"
+        relLabel.text = "REL:"
         relLabel.textColor = Color.Text.secondary
         relLabel.font = GC.Font.main
         view.addSubview(relLabel)
@@ -252,18 +255,6 @@ class NewMatchViewController: UIViewController {
             }
         
         // MARK: Make the game collection view and save button
-        
-        saveButton.setTitle("SAVE", for: .normal)
-        saveButton.setTitleColor(Color.Text.main, for: .normal)
-        saveButton.backgroundColor = Color.Button.Main.background
-        saveButton.isHidden = true
-        view.addSubview(saveButton)
-        
-            saveButton.snp.makeConstraints { make in
-                make.height.equalTo(50)
-                make.top.equalTo(view).offset(20)
-                make.left.right.equalTo(view)
-            }
         
         gameCollection.dataSource = self
         gameCollection.delegate = self
@@ -360,7 +351,7 @@ class NewMatchViewController: UIViewController {
     
     // MARK: Events
     
-    func addButtonPressed() {
+    @objc private func addButtonPressed() {
         if viewModel.match.games.count == 2 {
             addButton.isHidden = true
             viewModel.match.games.append(nil)
@@ -381,7 +372,7 @@ class NewMatchViewController: UIViewController {
                     gameStatus = games[2] != nil
                 }
             }
-            self.saveButton.isHidden = !gameStatus
+            // self.saveButton.isHidden = !gameStatus
         }
         
         nameField.reactive.continuousTextValues.observeValues { value in self.viewModel.eventObserver.send(value: value) }
@@ -390,11 +381,6 @@ class NewMatchViewController: UIViewController {
         }
         theirDeckField.reactive.continuousTextValues.observeValues { value in
             self.viewModel.theirDeckObserver.send(value: value)
-        }
-        
-        saveButton.reactive.controlEvents(.touchUpInside).observeValues { _ in
-            self.viewModel.saveMatch()
-            self.present(NewMatchViewController(), animated: true)
         }
                 
         // MARK: Set defaults from previous match
@@ -444,16 +430,23 @@ class NewMatchViewController: UIViewController {
          */
     }
     
+    // MARK: Actions
+    
+    @objc private func saveMatch() {
+        self.viewModel.saveMatch()
+        self.present(NewMatchViewController(), animated: true)
+    }
+    
     // MARK: Date Picker Functions
     
-    func dismissPicker() {
+    @objc private func dismissPicker() {
         // TODO: Pretty sure I can pass a reference to the caller in and not just blindly call resign on all 3 fields
         dateField.resignFirstResponder()
         formatField.resignFirstResponder()
         relField.resignFirstResponder()
     }
     
-    func handleDatePicker(sender: UIDatePicker) {
+    @objc private func handleDatePicker(sender: UIDatePicker) {
         let newText = DateManager.shared.toString(date: sender.date)
         dateField.text = newText
         viewModel.dateObserver.send(value: sender.date)

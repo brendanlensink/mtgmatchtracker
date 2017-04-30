@@ -31,6 +31,10 @@ struct Color {
     
     static let background = Blue.dark
     
+    struct NavBar {
+        static let background = Blue.medium
+    }
+    
     struct Cell {
         static let background = Blue.medium
         static let border = white.alpha(0.2)

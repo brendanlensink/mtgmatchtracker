@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             matchHistory
         ]
         let tabBar = UITabBarController()
+        tabBar.tabBar.tintColor = UIColor.white
+        tabBar.tabBar.barTintColor = Color.NavBar.background
         tabBar.viewControllers = tabViews
         
         self.window?.rootViewController = tabBar
