@@ -40,10 +40,12 @@ class NewMatchViewController: UIViewController {
     // MARK: Properties
     
     fileprivate let viewModel: NewMatchViewModel
+    fileprivate let match: Match?
     
     // MARK: View Lifecycle
     init(match: Match?) {
         viewModel = NewMatchViewModel()
+        self.match = match
         
         dateLabel = UILabel()
         dateField = UITextField()
@@ -78,10 +80,12 @@ class NewMatchViewController: UIViewController {
         
         view.backgroundColor = Color.background
         
-        self.navigationItem.hidesBackButton = true
-        self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
+        if match == nil {
+            self.navigationItem.hidesBackButton = true
+            self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
 
-        saveButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(NewMatchViewController.saveMatch))
+            saveButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(NewMatchViewController.saveMatch))
+        }
 
         // MARK: Set up the date picker view
         
@@ -383,34 +387,35 @@ class NewMatchViewController: UIViewController {
             self.viewModel.theirDeckObserver.send(value: value)
         }
                 
-        // MARK: Set defaults from previous match
+        // MARK: Set defaults from previous match or fill in provided match details
         
-        dateField.text = DateManager.shared.toString(date: Date())
-        viewModel.dateObserver.send(value: Date())
-        if let name = Defaults[.eventName] {
-            nameField.text = name
-            viewModel.eventObserver.send(value: name)
-        }
-        if let format = Defaults[.format] {
-            formatField.text = format.title
-            formatField.textColor = Color.Text.main
-            viewModel.formatObserver.send(value: format)
-        }
-        if let rel = Defaults[.REL] {
-            relField.text = rel.title
-            relField.textColor = Color.Text.main
-            viewModel.relObserver.send(value: rel)
-        }
-        if let myDeck = Defaults[.myDeck] {
-            myDeckField.text = myDeck
-            viewModel.myDeckObserver.send(value: myDeck)
-        }
-        
-        /***************************
-         
-         We're going to fake a whole bunch of data to test exporting.
-         
-        ****************************/
+        if match == nil {
+            dateField.text = DateManager.shared.toString(date: Date())
+            viewModel.dateObserver.send(value: Date())
+            if let name = Defaults[.eventName] {
+                nameField.text = name
+                viewModel.eventObserver.send(value: name)
+            }
+            if let format = Defaults[.format] {
+                formatField.text = format.title
+                formatField.textColor = Color.Text.main
+                viewModel.formatObserver.send(value: format)
+            }
+            if let rel = Defaults[.REL] {
+                relField.text = rel.title
+                relField.textColor = Color.Text.main
+                viewModel.relObserver.send(value: rel)
+            }
+            if let myDeck = Defaults[.myDeck] {
+                myDeckField.text = myDeck
+                viewModel.myDeckObserver.send(value: myDeck)
+            }
+            
+            /***************************
+             
+             We're going to fake a whole bunch of data to test exporting.
+             
+             ****************************/
             let testGame = Game()
             testGame.gameNumber.value = 0
             testGame.result.value = Result.loss.rawValue
@@ -419,22 +424,51 @@ class NewMatchViewController: UIViewController {
             testGame.theirHand.value = Hand.seven.rawValue
             viewModel.gamesObserver.send(value: (0, testGame))
             viewModel.gamesObserver.send(value: (1, testGame))
-        
+            
             viewModel.eventObserver.send(value: "Test Event")
             viewModel.formatObserver.send(value: Format.legacy)
             viewModel.relObserver.send(value: REL.professional)
             viewModel.myDeckObserver.send(value: "Test Deck")
             viewModel.theirDeckObserver.send(value: "Test Deck")
-        /**
-         End of fake testing data
-         */
+            /**
+             End of fake testing data
+             */
+
+        }else {
+            guard let match = self.match else { return }
+            
+            dateField.text = DateManager.shared.toString(date: Date())
+            viewModel.dateObserver.send(value: match.created)
+            if let name = match.name {
+                nameField.text = name
+                viewModel.eventObserver.send(value: name)
+            }
+            if let format = match.format {
+                formatField.text = format.title
+                formatField.textColor = Color.Text.main
+                viewModel.formatObserver.send(value: format)
+            }
+            if let rel = match.rel {
+                relField.text = rel.title
+                relField.textColor = Color.Text.main
+                viewModel.relObserver.send(value: rel)
+            }
+            if let myDeck = match.myDeck {
+                myDeckField.text = myDeck
+                viewModel.myDeckObserver.send(value: myDeck)
+            }
+            if let theirDeck = match.theirDeck {
+                theirDeckField.text = theirDeck
+                viewModel.theirDeckObserver.send(value: theirDeck)
+            }
+        }
     }
     
     // MARK: Actions
     
     @objc private func saveMatch() {
         self.viewModel.saveMatch()
-        navigationController?.pushViewController(NewMatchViewController(match: nil), animated: true)
+        //navigationController?.pushViewController(NewMatchViewController(match: nil), animated: true)
         // self.present(NewMatchViewController(), animated: true)
     }
     
@@ -474,6 +508,11 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
+        
+        if let game = match?.rGames[indexPath.section] {
+            print("Sending: \(indexPath.row),\(game)")
+            cell.game = game
+        }
         cell.gameReadySignal.observeValues { game in
             if let game = game {
                 game.gameNumber.value = Int8(indexPath.section)

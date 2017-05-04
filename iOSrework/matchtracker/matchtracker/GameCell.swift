@@ -24,6 +24,10 @@ class GameCell: UITableViewCell {
     @IBOutlet private var theirHandLabel: UILabel!
     @IBOutlet private var notesField: UITextView!
     
+    // MARK: Properties
+    
+    var game: Game?
+    
     // MARK: Reactive Elements
     
     var (gameReadySignal, gameReadyObserver) = Signal<Game?, NoError>.pipe()
@@ -38,61 +42,90 @@ class GameCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        bindGameCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    
-        bindReactive()
+        
+        bindGameCell()
     }
     
-    func bindReactive() {
+    func bindGameCell() {
         gameReadySignal = Signal.combineLatest(
             startStream,
             resultStream,
             myHandStream,
             theirHandStream,
             noteStream
-        ).map { inputs in
-            let game = Game(value: [
-                "start": inputs.0.rawValue,
-                "result": inputs.1.rawValue,
-                "myHand": inputs.2.rawValue,
-                "theirHand": inputs.3.rawValue,
-                "notes": inputs.4
-            ])
-            return game
+            ).map { inputs in
+                let game = Game(value: [
+                    "start": inputs.0.rawValue,
+                    "result": inputs.1.rawValue,
+                    "myHand": inputs.2.rawValue,
+                    "theirHand": inputs.3.rawValue,
+                    "notes": inputs.4
+                    ])
+                return game
+        }
+    }
+    
+    func bindReactive() {
+
+        startStream.observeValues { value in
+            self.startLabel.text = self.startButton.titleLabel?.text
+            self.startButton.setTitle(value.title, for: .normal)
         }
         
-        // TODO: There's got to be a better way to do this part. Ideally all the streams just start non-empty
-        startObserver.send(value: Start.play)
-        resultObserver.send(value: Result.win)
-        myHandObserver.send(value: Hand.seven)
-        theirHandObserver.send(value: Hand.seven)
-        noteObserver.send(value: "")
+        resultStream.observeValues { value in
+            self.resultLabel.text = self.resultButton.titleLabel?.text
+            self.resultButton.setTitle(value.title, for: .normal)
+        }
+        
+        if let game = self.game {
+            if let startRawValue = game.start.value {
+                startObserver.send(value: Start(rawValue: startRawValue)!)
+            }
+            if let resultRawValue = game.result.value {
+                resultObserver.send(value: Result(rawValue: resultRawValue)!)
+            }
+            print("My hand: \(game.myHand.value), their hand: \(game.theirHand.value)")
+            if let myHand = game.myHand.value {
+                myHandPicker.selectRow(Int(7-myHand), inComponent: 0, animated: true)
+                myHandObserver.send(value: Hand(rawValue: myHand)!)
+            }
+            if let theirHand = game.theirHand.value {
+                theirHandPicker.selectRow(Int(7-theirHand), inComponent: 0, animated: true)
+                theirHandObserver.send(value: Hand(rawValue: theirHand)!)
+            }
+
+            if let notes = game.notes {
+                notesField.text = notes
+                noteObserver.send(value: notes)
+            }
+        } else {
+            startObserver.send(value: Start.play)
+            resultObserver.send(value: Result.win)
+            myHandObserver.send(value: Hand.seven)
+            theirHandObserver.send(value: Hand.seven)
+            noteObserver.send(value: "")
+        }
     }
     
     @IBAction func resultButtonTouched(_ sender: UIButton) {
         if sender.titleLabel!.text == "Win" {
             resultObserver.send(value: Result.loss)
-            sender.setTitle("Loss", for: .normal)
-            resultLabel.text = "Win"
         }else {
             resultObserver.send(value: Result.win)
-            sender.setTitle("Win", for: .normal)
-            resultLabel.text = "Loss"
         }
     }
     
     @IBAction func startButtonTouched(_ sender: UIButton) {
         if sender.titleLabel!.text == "Play" {
             startObserver.send(value: Start.draw)
-            sender.setTitle("Draw", for: .normal)
-            startLabel.text = "Play"
         }else {
             startObserver.send(value: Start.play)
-            sender.setTitle("Play", for: .normal)
-            startLabel.text = "Draw"
         }
     }
     
@@ -128,6 +161,8 @@ class GameCell: UITableViewCell {
                 self.noteObserver.send(value: text)
             }
         }
+        
+        bindReactive()
     }
 }
 

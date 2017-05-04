@@ -60,7 +60,6 @@ extension MatchHistoryViewController: MFMailComposeViewControllerDelegate {
         guard MFMailComposeViewController.canSendMail() else { return }
         
         if let data = viewModel.exportCSV() {
-            print("\(data)")
             composeVC.addAttachmentData(data, mimeType: "text/csv", fileName: "history.csv")
             navigationController?.present(composeVC, animated: true, completion: nil)
         }
@@ -80,6 +79,9 @@ extension MatchHistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // TODO: Handle table cell selection
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        let selectedMatch = viewModel.matches[indexPath.row]
+        navigationController?.pushViewController(NewMatchViewController(match: selectedMatch), animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

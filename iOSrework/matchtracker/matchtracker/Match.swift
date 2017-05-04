@@ -53,7 +53,7 @@ enum REL: Int8 {
 // MARK: Class Declaration
 
 class Match: Object {
-    private let rGames = List<Game>()
+    let rGames = List<Game>()
     var games: [Game?] = [nil, nil]
     
     private let rFormat = RealmOptional<Int8>()
@@ -79,8 +79,11 @@ class Match: Object {
     // TODO: This can be better
     func storeGames() {
         for game in games {
+            print("\t [Match, storeGames] game:",game)
             if let game = game { rGames.append(game) }
         }
+        
+        print("\t [Match, storeGames] rgames:",rGames)
     }
     
     // MARK: Helper Functions
