@@ -468,8 +468,7 @@ class NewMatchViewController: UIViewController {
     
     @objc private func saveMatch() {
         self.viewModel.saveMatch()
-        //navigationController?.pushViewController(NewMatchViewController(match: nil), animated: true)
-        // self.present(NewMatchViewController(), animated: true)
+        navigationController?.pushViewController(NewMatchViewController(match: nil), animated: true)
     }
     
     // MARK: Date Picker Functions

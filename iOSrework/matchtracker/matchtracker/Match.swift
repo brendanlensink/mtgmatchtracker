@@ -79,11 +79,8 @@ class Match: Object {
     // TODO: This can be better
     func storeGames() {
         for game in games {
-            print("\t [Match, storeGames] game:",game)
             if let game = game { rGames.append(game) }
         }
-        
-        print("\t [Match, storeGames] rgames:",rGames)
     }
     
     // MARK: Helper Functions
