@@ -42,7 +42,7 @@ class NewMatchViewController: UIViewController {
     fileprivate let viewModel: NewMatchViewModel
     
     // MARK: View Lifecycle
-        init() {
+    init(match: Match?) {
         viewModel = NewMatchViewModel()
         
         dateLabel = UILabel()
@@ -80,7 +80,7 @@ class NewMatchViewController: UIViewController {
         
         self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
-        
+
         saveButton = UIBarButtonItem(title: "SAVE", style: .done, target: self, action: #selector(NewMatchViewController.saveMatch))
 
         // MARK: Set up the date picker view
@@ -434,7 +434,7 @@ class NewMatchViewController: UIViewController {
     
     @objc private func saveMatch() {
         self.viewModel.saveMatch()
-        navigationController?.pushViewController(NewMatchViewController(), animated: true)
+        navigationController?.pushViewController(NewMatchViewController(match: nil), animated: true)
         // self.present(NewMatchViewController(), animated: true)
     }
     

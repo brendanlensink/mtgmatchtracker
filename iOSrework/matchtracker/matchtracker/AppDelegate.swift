@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        let newMatch = UINavigationController(rootViewController: NewMatchViewController())
+        let newMatch = UINavigationController(rootViewController: NewMatchViewController(match: nil))
         newMatch.navigationBar.barTintColor = Color.TabBar.background
         newMatch.navigationBar.tintColor = Color.TabBar.text
         newMatch.tabBarItem = UITabBarItem(

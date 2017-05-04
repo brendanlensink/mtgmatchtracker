@@ -28,13 +28,13 @@ class MatchHistoryViewModel {
     
     // MARK: Helper Functions
     
-    func exportCSV() {
+    func exportCSV() -> Data? {
         var returnString = "id,created,name,format,rel,mydeck,theirdeck,game,start,result,myhand,theirhand,notes,game,start,result,myhand,theirhand,notes,game,start,result,myhand,theirhand,notes\n"
         for match in matches {
             returnString += match.toCSV()
         }
         
-        print(returnString)
+        return returnString.data(using: .utf8, allowLossyConversion: false)
     }
     
     // MARK: UITableViewDataSource Methods

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class MatchHistoryViewController: UIViewController {
     
@@ -32,6 +33,7 @@ class MatchHistoryViewController: UIViewController {
         
         let exportButton = UIBarButtonItem(title: "EXPORT", style: .done, target: self, action: #selector(MatchHistoryViewController.exportCSV))
         self.navigationItem.rightBarButtonItem = exportButton
+        self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,11 +47,27 @@ class MatchHistoryViewController: UIViewController {
                 make.edges.equalTo(view)
             }
     }
+}
+
+extension MatchHistoryViewController: MFMailComposeViewControllerDelegate {
+    @objc fileprivate func exportCSV() {        
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        composeVC.setSubject("Match History CSV")
+        composeVC.setMessageBody("Have a nice day.", isHTML: false)
+        composeVC.mailComposeDelegate = self
+        
+        guard MFMailComposeViewController.canSendMail() else { return }
+        
+        if let data = viewModel.exportCSV() {
+            print("\(data)")
+            composeVC.addAttachmentData(data, mimeType: "text/csv", fileName: "history.csv")
+            navigationController?.present(composeVC, animated: true, completion: nil)
+        }
+    }
     
-    // MARK: Helper Functions
-    
-    @objc private func exportCSV() {
-        viewModel.exportCSV()
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 
