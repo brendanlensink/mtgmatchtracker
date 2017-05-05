@@ -509,7 +509,6 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
         
         if let game = match?.rGames[indexPath.section] {
-            print("Sending: \(indexPath.row),\(game)")
             cell.game = game
         }
         cell.gameReadySignal.observeValues { game in

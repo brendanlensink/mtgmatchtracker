@@ -19,11 +19,7 @@ class MatchHistoryViewModel {
     init() {
         // TODO: All of the realm nonsense should be in a model, that make a lot more sense
         self.matches = []
-        let realm = try! Realm()
-        let matches = realm.objects(Match.self)
-        for match in matches {
-            self.matches.append(match)
-        }
+        refreshMatchHistory()
     }
     
     // MARK: Helper Functions
@@ -38,6 +34,14 @@ class MatchHistoryViewModel {
     }
     
     // MARK: UITableViewDataSource Methods
+    
+    func refreshMatchHistory() {
+        let realm = try! Realm()
+        let matches = realm.objects(Match.self)
+        for match in matches {
+            self.matches.append(match)
+        }
+    }
     
     func getMatchCount() -> Int {
         return matches.count

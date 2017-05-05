@@ -47,6 +47,11 @@ class MatchHistoryViewController: UIViewController {
                 make.edges.equalTo(view)
             }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.refreshMatchHistory()
+        tableView.reloadData()
+    }
 }
 
 extension MatchHistoryViewController: MFMailComposeViewControllerDelegate {

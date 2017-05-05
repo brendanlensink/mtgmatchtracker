@@ -90,7 +90,6 @@ class GameCell: UITableViewCell {
             if let resultRawValue = game.result.value {
                 resultObserver.send(value: Result(rawValue: resultRawValue)!)
             }
-            print("My hand: \(game.myHand.value), their hand: \(game.theirHand.value)")
             if let myHand = game.myHand.value {
                 myHandPicker.selectRow(Int(7-myHand), inComponent: 0, animated: true)
                 myHandObserver.send(value: Hand(rawValue: myHand)!)
