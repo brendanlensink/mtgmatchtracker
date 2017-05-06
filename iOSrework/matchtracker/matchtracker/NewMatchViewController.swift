@@ -16,6 +16,8 @@ class NewMatchViewController: UIViewController {
     
     // MARK: UI Elements
     
+    fileprivate let scrollView: UIView
+    
     fileprivate let dateLabel: UILabel
     fileprivate let dateField: UITextField
     fileprivate let nameLabel: UILabel
@@ -50,6 +52,8 @@ class NewMatchViewController: UIViewController {
             didSetMatch = true
         }
         
+        scrollView = UIView()
+        
         dateLabel = UILabel()
         dateField = UITextField()
         nameLabel = UILabel()
@@ -82,6 +86,13 @@ class NewMatchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Color.background
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(view)
+            make.height.equalTo(view)
+            make.left.right.equalTo(view)
+        }
         
         if !didSetMatch {
             self.navigationItem.hidesBackButton = true
@@ -131,30 +142,30 @@ class NewMatchViewController: UIViewController {
         dateLabel.text = "Date:"
         dateLabel.textColor = Color.Text.secondary
         dateLabel.font = GC.Font.main
-        view.addSubview(dateLabel)
+        scrollView.addSubview(dateLabel)
 
             dateLabel.snp.makeConstraints { make in
-                make.top.equalTo(view).offset(GC.Margin.top+50)
-                make.leading.equalTo(view).offset(GC.Margin.left)
+                make.top.equalTo(scrollView).offset(GC.Margin.top+50)
+                make.leading.equalTo(scrollView).offset(GC.Margin.left)
             }
         
         dateField.textColor = Color.Text.main
         dateField.font = GC.Font.main
         dateField.tintColor = Color.Text.tint
         dateField.contentHorizontalAlignment = .left
-        view.addSubview(dateField)
+        scrollView.addSubview(dateField)
         
             dateField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(dateLabel)
                 make.left.equalTo(dateLabel.snp.right).offset(GC.Padding.horizontal)
-                make.width.equalTo(view).multipliedBy(0.76)
-                make.right.equalTo(view).offset(GC.Margin.right)
+                make.width.equalTo(scrollView).multipliedBy(0.76)
+                make.right.equalTo(scrollView).offset(GC.Margin.right)
             }
         
         nameLabel.text = "Event Name:"
         nameLabel.textColor = Color.Text.secondary
         nameLabel.font = GC.Font.main
-        view.addSubview(nameLabel)
+        scrollView.addSubview(nameLabel)
         
             nameLabel.snp.makeConstraints { make in
                 make.top.equalTo(dateLabel.snp.bottom).offset(GC.Padding.vertical)
@@ -165,35 +176,35 @@ class NewMatchViewController: UIViewController {
         nameField.textColor = Color.Text.main
         nameField.font = GC.Font.main
         nameField.tintColor = Color.Text.tint
-        view.addSubview(nameField)
+        scrollView.addSubview(nameField)
         
             nameField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(nameLabel)
                 make.leading.equalTo(nameLabel.snp.trailing).offset(GC.Padding.horizontal)
-                make.trailing.equalTo(view).offset(GC.Margin.right)
+                make.trailing.equalTo(scrollView).offset(GC.Margin.right)
             }
         
         formatLabel.text = "Format:"
         formatLabel.textColor = Color.Text.secondary
         formatLabel.font = GC.Font.main
-        view.addSubview(formatLabel)
+        scrollView.addSubview(formatLabel)
         
         formatField.text = "Format"
         formatField.textColor = Color.Text.placeholder
         formatField.font = GC.Font.main
         formatField.tintColor = Color.Text.tint
-        view.addSubview(formatField)
+        scrollView.addSubview(formatField)
         
         relLabel.text = "REL:"
         relLabel.textColor = Color.Text.secondary
         relLabel.font = GC.Font.main
-        view.addSubview(relLabel)
+        scrollView.addSubview(relLabel)
         
         relField.text = "REL"
         relField.textColor = Color.Text.placeholder
         relField.font = GC.Font.main
         relField.tintColor = Color.Text.tint
-        view.addSubview(relField)
+        scrollView.addSubview(relField)
         
             formatLabel.snp.makeConstraints { make in
                 make.left.equalTo(dateLabel)
@@ -201,7 +212,7 @@ class NewMatchViewController: UIViewController {
             }
             
             relLabel.snp.makeConstraints { make in
-                make.left.equalTo(view.snp.centerX)
+                make.left.equalTo(scrollView.snp.centerX)
                 make.top.bottom.equalTo(formatLabel)
             }
             
@@ -214,30 +225,30 @@ class NewMatchViewController: UIViewController {
             relField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(formatLabel)
                 make.left.equalTo(relLabel.snp.right).offset(GC.Padding.horizontal)
-                make.right.equalTo(view).offset(GC.Margin.right)
+                make.right.equalTo(scrollView).offset(GC.Margin.right)
             }
         
         myDeckLabel.text = "My Deck:"
         myDeckLabel.textColor = Color.Text.secondary
         myDeckLabel.font = GC.Font.main
-        view.addSubview(myDeckLabel)
+        scrollView.addSubview(myDeckLabel)
         
         myDeckField.attributedPlaceholder = NSAttributedString(string: "My Deck", attributes: [NSForegroundColorAttributeName: Color.Text.placeholder])
         myDeckField.textColor = Color.Text.main
         myDeckField.font = GC.Font.main
         myDeckField.tintColor = Color.Text.tint
-        view.addSubview(myDeckField)
+        scrollView.addSubview(myDeckField)
         
         theirDeckLabel.text = "Their Deck:"
         theirDeckLabel.textColor = Color.Text.secondary
         theirDeckLabel.font = GC.Font.main
-        view.addSubview(theirDeckLabel)
+        scrollView.addSubview(theirDeckLabel)
         
         theirDeckField.attributedPlaceholder = NSAttributedString(string: "Their Deck", attributes: [NSForegroundColorAttributeName: Color.Text.placeholder])
         theirDeckField.textColor = Color.Text.main
         theirDeckField.font = GC.Font.main
         theirDeckField.tintColor = Color.Text.tint
-        view.addSubview(theirDeckField)
+        scrollView.addSubview(theirDeckField)
         
             myDeckLabel.snp.makeConstraints { make in
                 make.left.equalTo(dateLabel)
@@ -245,7 +256,7 @@ class NewMatchViewController: UIViewController {
             }
             
             theirDeckLabel.snp.makeConstraints { make in
-                make.left.equalTo(view.snp.centerX)
+                make.left.equalTo(scrollView.snp.centerX)
                 make.top.bottom.equalTo(myDeckLabel)
             }
             
@@ -258,7 +269,7 @@ class NewMatchViewController: UIViewController {
             theirDeckField.snp.makeConstraints { make in
                 make.top.bottom.equalTo(myDeckLabel)
                 make.left.equalTo(theirDeckLabel.snp.right).offset(GC.Padding.horizontal)
-                make.right.equalTo(view).offset(GC.Margin.right)
+                make.right.equalTo(scrollView).offset(GC.Margin.right)
             }
         
         // MARK: Make the game collection view and save button
@@ -270,12 +281,12 @@ class NewMatchViewController: UIViewController {
         gameCollection.backgroundColor = UIColor.clear
         gameCollection.rowHeight = 112
         gameCollection.register(UINib(nibName: "GameCell", bundle: nil), forCellReuseIdentifier: "GameCell")
-        view.addSubview(gameCollection)
+        scrollView.addSubview(gameCollection)
         
             gameCollection.snp.makeConstraints { make in
                 make.top.equalTo(myDeckLabel.snp.bottom).offset(GC.Padding.vertical)
-                make.bottom.equalTo(view)
-                make.left.right.equalTo(view)
+                make.bottom.equalTo(scrollView)
+                make.left.right.equalTo(scrollView)
             }
         
         // MARK: Make the add button
@@ -285,10 +296,10 @@ class NewMatchViewController: UIViewController {
             addButton.setTitleColor(Color.Text.main, for: .normal)
             addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
             addButton.addTarget(self, action: #selector(NewMatchViewController.addButtonPressed), for: .touchUpInside)
-            view.addSubview(addButton)
+            scrollView.addSubview(addButton)
             
                 addButton.snp.makeConstraints { make in
-                    make.centerX.equalTo(view)
+                    make.centerX.equalTo(scrollView)
                     make.top.equalTo(gameCollection.snp.top).offset(270)
                 }
         }
@@ -297,7 +308,7 @@ class NewMatchViewController: UIViewController {
         
         let dateLine = UIView()
         dateLine.backgroundColor = Color.TextField.underline
-        view.addSubview(dateLine)
+        scrollView.addSubview(dateLine)
         
             dateLine.snp.makeConstraints { make in
                 make.height.equalTo(1)
@@ -307,7 +318,7 @@ class NewMatchViewController: UIViewController {
         
         let eventLine = UIView()
         eventLine.backgroundColor = Color.TextField.underline
-        view.addSubview(eventLine)
+        scrollView.addSubview(eventLine)
         
             eventLine.snp.makeConstraints { make in
                 make.height.equalTo(1)
@@ -317,7 +328,7 @@ class NewMatchViewController: UIViewController {
         
         let formatLine = UIView()
         formatLine.backgroundColor = Color.TextField.underline
-        view.addSubview(formatLine)
+        scrollView.addSubview(formatLine)
         
         formatLine.snp.makeConstraints { make in
             make.height.equalTo(1)
@@ -327,7 +338,7 @@ class NewMatchViewController: UIViewController {
         
         let relLine = UIView()
         relLine.backgroundColor = Color.TextField.underline
-        view.addSubview(relLine)
+        scrollView.addSubview(relLine)
         
         relLine.snp.makeConstraints { make in
             make.height.equalTo(1)
@@ -337,7 +348,7 @@ class NewMatchViewController: UIViewController {
         
         let myDeckLine = UIView()
         myDeckLine.backgroundColor = Color.TextField.underline
-        view.addSubview(myDeckLine)
+        scrollView.addSubview(myDeckLine)
         
         myDeckLine.snp.makeConstraints { make in
             make.height.equalTo(1)
@@ -347,7 +358,7 @@ class NewMatchViewController: UIViewController {
         
         let theirDeckLine = UIView()
         theirDeckLine.backgroundColor = Color.TextField.underline
-        view.addSubview(theirDeckLine)
+        scrollView.addSubview(theirDeckLine)
         
         theirDeckLine.snp.makeConstraints { make in
             make.height.equalTo(1)
@@ -361,7 +372,7 @@ class NewMatchViewController: UIViewController {
     // MARK: Events
     
     @objc private func addButtonPressed() {
-        if viewModel.match.games[2] == nil {
+            if viewModel.match.games[2] == nil {
             addButton.isHidden = true
             viewModel.match.games[2] = Game()
             gameCollection.reloadData()
