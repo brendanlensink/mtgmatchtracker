@@ -82,10 +82,10 @@ extension MatchHistoryViewController: UITableViewDelegate {
 extension MatchHistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: Handle table cell selection
         tableView.deselectRow(at: indexPath, animated: false)
         
         let selectedMatch = viewModel.matches[indexPath.row]
+        print("selected match,", selectedMatch.games)
         navigationController?.pushViewController(NewMatchViewController(match: selectedMatch), animated: true)
     }
     

@@ -40,12 +40,15 @@ class NewMatchViewController: UIViewController {
     // MARK: Properties
     
     fileprivate let viewModel: NewMatchViewModel
-    fileprivate let match: Match?
+    fileprivate var didSetMatch: Bool = false
     
     // MARK: View Lifecycle
     init(match: Match?) {
         viewModel = NewMatchViewModel()
-        self.match = match
+        if let match = match {
+            viewModel.match = match
+            didSetMatch = true
+        }
         
         dateLabel = UILabel()
         dateField = UITextField()
@@ -80,7 +83,7 @@ class NewMatchViewController: UIViewController {
         
         view.backgroundColor = Color.background
         
-        if match == nil {
+        if !didSetMatch {
             self.navigationItem.hidesBackButton = true
             self.navigationController?.navigationBar.barTintColor = Color.NavBar.background
 
@@ -277,17 +280,19 @@ class NewMatchViewController: UIViewController {
         
         // MARK: Make the add button
         
-        addButton.setTitle("+", for: .normal)
-        addButton.setTitleColor(Color.Text.main, for: .normal)
-        addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        addButton.addTarget(self, action: #selector(NewMatchViewController.addButtonPressed), for: .touchUpInside)
-        view.addSubview(addButton)
-        
-            addButton.snp.makeConstraints { make in
-                make.centerX.equalTo(view)
-                make.top.equalTo(gameCollection.snp.top).offset(270)
-            }
-        
+        if !didSetMatch {
+            addButton.setTitle("+", for: .normal)
+            addButton.setTitleColor(Color.Text.main, for: .normal)
+            addButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+            addButton.addTarget(self, action: #selector(NewMatchViewController.addButtonPressed), for: .touchUpInside)
+            view.addSubview(addButton)
+            
+                addButton.snp.makeConstraints { make in
+                    make.centerX.equalTo(view)
+                    make.top.equalTo(gameCollection.snp.top).offset(270)
+                }
+        }
+
         // MARK: Make all the text field underlines
         
         let dateLine = UIView()
@@ -356,9 +361,9 @@ class NewMatchViewController: UIViewController {
     // MARK: Events
     
     @objc private func addButtonPressed() {
-        if viewModel.match.games.count == 2 {
+        if viewModel.match.games[2] == nil {
             addButton.isHidden = true
-            viewModel.match.games.append(nil)
+            viewModel.match.games[2] = Game()
             gameCollection.reloadData()
         }
     }
@@ -389,7 +394,7 @@ class NewMatchViewController: UIViewController {
                 
         // MARK: Set defaults from previous match or fill in provided match details
         
-        if match == nil {
+        if !didSetMatch {
             dateField.text = DateManager.shared.toString(date: Date())
             viewModel.dateObserver.send(value: Date())
             if let name = Defaults[.eventName] {
@@ -435,7 +440,7 @@ class NewMatchViewController: UIViewController {
              */
 
         }else {
-            guard let match = self.match else { return }
+            let match = viewModel.match
             
             dateField.text = DateManager.shared.toString(date: Date())
             viewModel.dateObserver.send(value: match.created)
@@ -498,7 +503,11 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return viewModel.match.games.count
+        var count = 2
+        if viewModel.match.games.count == 3 {
+        if viewModel.match.games[2] != nil { count = 3 }
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -507,10 +516,7 @@ extension NewMatchViewController: UITableViewDataSource, UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as! GameCell
-        
-        if let game = match?.rGames[indexPath.section] {
-            cell.game = game
-        }
+        cell.game = viewModel.match.games[indexPath.section]
         cell.gameReadySignal.observeValues { game in
             if let game = game {
                 game.gameNumber.value = Int8(indexPath.section)

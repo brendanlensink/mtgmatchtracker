@@ -54,7 +54,7 @@ enum REL: Int8 {
 
 class Match: Object {
     let rGames = List<Game>()
-    var games: [Game?] = [nil, nil]
+    var games: [Game?] = [nil, nil, nil]
     
     private let rFormat = RealmOptional<Int8>()
     var format: Format? {

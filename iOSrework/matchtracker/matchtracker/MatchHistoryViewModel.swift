@@ -38,7 +38,12 @@ class MatchHistoryViewModel {
     func refreshMatchHistory() {
         let realm = try! Realm()
         let matches = realm.objects(Match.self)
+        self.matches = []
         for match in matches {
+            match.games = []
+            for game in match.rGames {
+                match.games.append(game)
+            }
             self.matches.append(match)
         }
     }

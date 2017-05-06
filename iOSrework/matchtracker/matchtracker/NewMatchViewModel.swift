@@ -58,10 +58,10 @@ class NewMatchViewModel {
          */
         let realm = try! Realm()
         let matches = realm.objects(Match.self)
-    
-        for match in matches {
-            print( "\n\n \(match)")
-        }
+//    
+//        for match in matches {
+//            print( "\n\n \(match.rGames.count)\(match)")
+//        }
 //        try! realm.write {
 //            print("writing")
 //            realm.deleteAll()
