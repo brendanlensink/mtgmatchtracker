@@ -72,7 +72,7 @@ class MatchViewController: FormViewController {
                 $0.title = "Save"
             }
             .onCellSelection { (cell, row) in
-                let (result, message) = self.viewModel.storeMatch(values: self.form.values())
+                let (result, message) = self.viewModel.storeMatch(values: self.form.valuesNonNil())
                 if !result {
                     // TODO: Show an error message
                     
