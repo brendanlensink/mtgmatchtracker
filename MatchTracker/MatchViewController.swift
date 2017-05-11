@@ -16,8 +16,8 @@ class MatchViewController: FormViewController {
     
     // MARK: View Lifecycle
     
-    init() {
-        viewModel = MatchViewModel()
+    init(match: Match?) {
+        viewModel = MatchViewModel(match: match)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -79,7 +79,7 @@ class MatchViewController: FormViewController {
                     self.present(AlertController.showAlert(title: "Uh Oh!", message: message)
                         , animated: true, completion: {})
                 }else {
-                    self.navigationController?.pushViewController(MatchViewController(), animated: true)
+                    self.navigationController?.pushViewController(MatchViewController(match: nil), animated: true)
                 }
             }
     }

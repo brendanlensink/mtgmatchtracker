@@ -12,7 +12,10 @@ import SwiftyUserDefaults
 
 class MatchViewModel {
     
-    init() {
+    var match: Match?
+    
+    init(match: Match?) {
+        self.match = match
     }
     
     func storeMatch(values: [String:Any]) -> (Bool, String) {

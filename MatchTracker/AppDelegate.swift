@@ -17,14 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        let newMatch = UINavigationController(rootViewController: MatchViewController())
+        let newMatch = UINavigationController(rootViewController: MatchViewController(match: nil))
         newMatch.tabBarItem = UITabBarItem(
             title: "Log A Match",
             image: UIImage(named: "tab_new"),
             tag:  1
         )
         
-        let matchHistory = UINavigationController(rootViewController: MatchViewController())
+        let matchHistory = UINavigationController(rootViewController: MatchViewController(match: nil))
         matchHistory.tabBarItem = UITabBarItem(
             title: "View Past Matches",
             image: UIImage(named: "tab_history"),
