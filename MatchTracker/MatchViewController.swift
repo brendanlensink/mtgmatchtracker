@@ -79,9 +79,8 @@ class MatchViewController: FormViewController {
                     self.present(AlertController.showAlert(title: "Uh Oh!", message: message)
                         , animated: true, completion: {})
                 }else {
-                    print(message)
+                    self.navigationController?.pushViewController(MatchViewController(), animated: true)
                 }
-                
             }
     }
 }
