@@ -17,7 +17,6 @@ class HistoryViewModel {
     // MARK: Lifecycle
     
     init() {
-        // TODO: All of the realm nonsense should be in a model, that make a lot more sense
         self.matches = []
         refreshMatchHistory()
     }
@@ -36,12 +35,7 @@ class HistoryViewModel {
     // MARK: UITableViewDataSource Methods
     
     func refreshMatchHistory() {
-        let realm = try! Realm()
-        let matches = realm.objects(Match.self)
-        self.matches = []
-        for match in matches {
-            self.matches.append(match)
-        }
+        self.matches = RealmModel.shared.getMatches()
     }
     
     func getMatchCount() -> Int {

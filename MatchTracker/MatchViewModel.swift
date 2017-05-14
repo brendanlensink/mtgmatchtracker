@@ -35,10 +35,7 @@ class MatchViewModel {
         }
         let isReady = newMatch.isReady()
         if(isReady.0) {
-            let realm = try! Realm()
-            try! realm.write {
-                realm.add(newMatch)
-            }
+            RealmModel.shared.saveMatch(newMatch)
             
             // Save the defaults
             Defaults[.eventName] = newMatch.name
