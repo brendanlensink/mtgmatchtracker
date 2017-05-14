@@ -76,4 +76,35 @@ class Match: Object {
         
         return isReady
     }
+    
+    func getResult() -> String {
+        var wins = 0
+        var losses = 0
+        
+        for game in games {
+            if game.result == Result.win.rawValue {
+                wins += 1
+            }else {
+                losses += 1
+            }
+        }
+        
+        return "\(wins) - \(losses)"
+    }
+    
+    func toCSV() -> String {
+        var returnString = ""
+        if let id = matchID { returnString += "\(id)," } else { returnString += "," }
+        if let created = created { returnString += "\(created)," } else { returnString += "," }
+        if let name = name { returnString += "\(name)," } else { returnString += "," }
+        if let format = format { returnString += "\(format)," } else { returnString += "," }
+        if let rel = rel { returnString += "\(rel)," } else { returnString += "," }
+        if let myDeck = myDeck { returnString += "\(myDeck)," } else { returnString += "," }
+        if let theirDeck = theirDeck { returnString += "\(theirDeck)," } else { returnString += "," }
+        
+        for game in games {
+            returnString += game.toCSV()
+        }
+        return returnString + "\n"
+    }
 }

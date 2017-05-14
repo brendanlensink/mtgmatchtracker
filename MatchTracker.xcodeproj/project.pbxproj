@@ -21,6 +21,10 @@
 		B3D0F80D1EBF913E00FDF7CA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F80C1EBF913E00FDF7CA /* DataManager.swift */; };
 		B3D0F80F1EC019E000FDF7CA /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F80E1EC019E000FDF7CA /* AlertViewController.swift */; };
 		B3D0F8111EC0229B00FDF7CA /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8101EC0229B00FDF7CA /* UserDefaults.swift */; };
+		B3D2C9CF1EC77521006166E0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D2C9CE1EC77521006166E0 /* HistoryViewController.swift */; };
+		B3D2C9D11EC775BC006166E0 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D2C9D01EC775BC006166E0 /* HistoryViewModel.swift */; };
+		B3D2C9D31EC77CE0006166E0 /* MatchSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D2C9D21EC77CE0006166E0 /* MatchSummaryCell.swift */; };
+		B3D2C9D71EC78B75006166E0 /* MatchSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D2C9D61EC78B75006166E0 /* MatchSummaryCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +45,10 @@
 		B3D0F80C1EBF913E00FDF7CA /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B3D0F80E1EC019E000FDF7CA /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		B3D0F8101EC0229B00FDF7CA /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		B3D2C9CE1EC77521006166E0 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		B3D2C9D01EC775BC006166E0 /* HistoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		B3D2C9D21EC77CE0006166E0 /* MatchSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchSummaryCell.swift; sourceTree = "<group>"; };
+		B3D2C9D61EC78B75006166E0 /* MatchSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchSummaryCell.xib; sourceTree = "<group>"; };
 		B661B5BA9986ACE0159BCEB3 /* Pods-MatchTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchTracker/Pods-MatchTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				B30E13481EBE95A600294EE6 /* MatchViewController.swift */,
+				B3D2C9CE1EC77521006166E0 /* HistoryViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -98,6 +107,8 @@
 			children = (
 				B30E13521EBEA93200294EE6 /* GameCell.swift */,
 				B30E13541EBEAC2B00294EE6 /* GameCell.xib */,
+				B3D2C9D21EC77CE0006166E0 /* MatchSummaryCell.swift */,
+				B3D2C9D61EC78B75006166E0 /* MatchSummaryCell.xib */,
 			);
 			name = Form;
 			sourceTree = "<group>";
@@ -114,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				B30E13591EBECE7900294EE6 /* MatchViewModel.swift */,
+				B3D2C9D01EC775BC006166E0 /* HistoryViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -215,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D2C9D71EC78B75006166E0 /* MatchSummaryCell.xib in Resources */,
 				B30FA9C01EBE8E4C005E4027 /* LaunchScreen.storyboard in Resources */,
 				B30FA9BD1EBE8E4C005E4027 /* Assets.xcassets in Resources */,
 				B30E13551EBEAC2B00294EE6 /* GameCell.xib in Resources */,
@@ -277,11 +290,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30E13531EBEA93200294EE6 /* GameCell.swift in Sources */,
+				B3D2C9D31EC77CE0006166E0 /* MatchSummaryCell.swift in Sources */,
 				B30E13491EBE95A600294EE6 /* MatchViewController.swift in Sources */,
 				B30E134D1EBE992A00294EE6 /* Game.swift in Sources */,
 				B3D0F80F1EC019E000FDF7CA /* AlertViewController.swift in Sources */,
 				B3D0F80D1EBF913E00FDF7CA /* DataManager.swift in Sources */,
+				B3D2C9CF1EC77521006166E0 /* HistoryViewController.swift in Sources */,
 				B3D0F8111EC0229B00FDF7CA /* UserDefaults.swift in Sources */,
+				B3D2C9D11EC775BC006166E0 /* HistoryViewModel.swift in Sources */,
 				B30FA9B61EBE8E4C005E4027 /* AppDelegate.swift in Sources */,
 				B3CFC2841EC40CFE008A294A /* Form.swift in Sources */,
 				B30E135A1EBECE7900294EE6 /* MatchViewModel.swift in Sources */,

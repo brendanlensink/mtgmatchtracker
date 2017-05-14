@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tag:  1
         )
         
-        let matchHistory = UINavigationController(rootViewController: MatchViewController(match: nil))
+        let matchHistory = UINavigationController(rootViewController: HistoryViewController())
         matchHistory.tabBarItem = UITabBarItem(
             title: "View Past Matches",
             image: UIImage(named: "tab_history"),
