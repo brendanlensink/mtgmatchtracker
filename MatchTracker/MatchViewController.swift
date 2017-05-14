@@ -72,7 +72,20 @@ class MatchViewController: FormViewController {
             <<< GameRow("gameThree") {
                 $0.cell.game.gameNumber.value = 2
                 $0.value = $0.cell.game
-
+                $0.hidden = Eureka.Condition.function(["addButton"], { (form) -> Bool in
+                    let row: ButtonRow? = form.rowBy(tag: "addButton")
+                    return row?.value == nil
+                })
+            }
+            <<< ButtonRow("addButton") {
+                $0.title = "Add"
+            }
+            .onCellSelection { cell, row in
+                row.value = "true?"
+                row.hidden = true
+                for row in self.form.rows {
+                    row.evaluateHidden()
+                }
             }
         +++ Section()
             <<< ButtonRow() {
@@ -81,7 +94,7 @@ class MatchViewController: FormViewController {
             .onCellSelection { (cell, row) in
                 let (result, message) = self.viewModel.storeMatch(values: self.form.valuesNonNil())
                 if !result {
-                    // TODO: Show an error message
+                    // TODO: Show a better error message
                     
                     self.present(AlertController.showAlert(title: "Uh Oh!", message: message)
                         , animated: true, completion: {})
