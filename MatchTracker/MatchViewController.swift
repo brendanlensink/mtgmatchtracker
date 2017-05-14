@@ -13,11 +13,13 @@ class MatchViewController: FormViewController {
     // MARK: Properties
     
     var viewModel: MatchViewModel
+    let match: Match?
     
     // MARK: View Lifecycle
     
     init(match: Match?) {
         viewModel = MatchViewModel(match: match)
+        self.match = match
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,22 +38,27 @@ class MatchViewController: FormViewController {
             }
             <<< TextRow("name") {
                 $0.title = "Event Name"
+                $0.value = match?.name
             }
             <<< ActionSheetRow<String>("format") {
                 $0.title = "Format"
                 $0.selectorTitle = "Format"
+                $0.value = match?.format
                 $0.options = Format.allValues
             }
             <<< ActionSheetRow<String>("rel") {
                 $0.title = "REL"
                 $0.selectorTitle = "REL"
+                $0.value = match?.rel
                 $0.options = REL.allValues
             }
             <<< TextRow("myDeck") {
                 $0.title = "My Deck"
+                $0.value = match?.myDeck
             }
             <<< TextRow("theirDeck") {
                 $0.title = "Their Deck"
+                $0.value = match?.theirDeck
             }
         +++ Section("Games")
             <<< GameRow("gameOne") {
