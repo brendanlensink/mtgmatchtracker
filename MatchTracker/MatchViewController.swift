@@ -63,15 +63,12 @@ class MatchViewController: FormViewController {
         +++ Section("Games")
             <<< GameRow("gameOne") {
                 $0.cell.game.gameNumber.value = 0
-                $0.value = $0.cell.game // TODO: Move this to setup() also pointers?
             }
             <<< GameRow("gameTwo") {
                 $0.cell.game.gameNumber.value = 1
-                $0.value = $0.cell.game
             }
             <<< GameRow("gameThree") {
                 $0.cell.game.gameNumber.value = 2
-                $0.value = $0.cell.game
                 $0.hidden = Eureka.Condition.function(["addButton"], { (form) -> Bool in
                     let row: ButtonRow? = form.rowBy(tag: "addButton")
                     return row?.value == nil
@@ -92,6 +89,7 @@ class MatchViewController: FormViewController {
                 $0.title = "Save"
             }
             .onCellSelection { (cell, row) in
+                print(self.form.values())
                 let (result, message) = self.viewModel.storeMatch(values: self.form.valuesNonNil())
                 if !result {
                     // TODO: Show a better error message

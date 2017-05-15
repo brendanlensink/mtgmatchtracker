@@ -73,7 +73,6 @@ class Match: Object {
                 }
             }
         }
-        
         return isReady
     }
     

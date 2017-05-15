@@ -64,7 +64,6 @@ class Game: Object {
             isReady.0 = false
             isReady.1.append("their hand")
         }
-        
         return isReady
     }
 

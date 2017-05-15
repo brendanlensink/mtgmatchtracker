@@ -42,8 +42,13 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         theirHandPicker.delegate = self
         theirHandPicker.dataSource = self
         notesField.delegate = self
-        
         height = {112}
+    }
+    
+    override func update() {
+        if !self.isHidden {
+            self.row.value = game
+        }
     }
     
     // MARK: Actions
