@@ -61,13 +61,13 @@ class MatchViewController: FormViewController {
                 $0.value = match?.theirDeck
             }
         +++ Section("Games")
-            <<< GameRow("gameOne") {
+            <<< GameRow("game0") {
                 $0.cell.game.gameNumber.value = 0
             }
-            <<< GameRow("gameTwo") {
+            <<< GameRow("game1") {
                 $0.cell.game.gameNumber.value = 1
             }
-            <<< GameRow("gameThree") {
+            <<< GameRow("game2") {
                 $0.cell.game.gameNumber.value = 2
                 $0.hidden = Eureka.Condition.function(["addButton"], { (form) -> Bool in
                     let row: ButtonRow? = form.rowBy(tag: "addButton")
@@ -89,7 +89,6 @@ class MatchViewController: FormViewController {
                 $0.title = "Save"
             }
             .onCellSelection { (cell, row) in
-                print(self.form.values())
                 let (result, message) = self.viewModel.storeMatch(values: self.form.valuesNonNil())
                 if !result {
                     // TODO: Show a better error message
@@ -100,5 +99,22 @@ class MatchViewController: FormViewController {
                     self.navigationController?.pushViewController(MatchViewController(match: nil), animated: true)
                 }
             }
+        
+        updateGameCells()
+    }
+    
+    // MARK: Helper Functions
+    
+    private func updateGameCells() {
+        if let match = self.match {
+            for game in match.games {
+                if let gameNumber = game.gameNumber.value {
+                    let gameRow = self.form.rowBy(tag: "game\(gameNumber)")
+                    print(gameRow, "game\(gameNumber)")
+                    
+                }
+                print(game.gameNumber.value, "Notes")
+            }
+        }
     }
 }
