@@ -42,8 +42,13 @@ class HistoryViewController: FormViewController {
             form.last! <<< MatchSummaryRow() {
                 $0.cell.match = match
                 $0.onCellSelection { _ in
-                    self.navigationController?.pushViewController(MatchViewController(match: match), animated: true)
+//                    self.navigationController?.pushViewController(MatchViewController(match: match), animated: true)
                 }
+            }
+            
+            // TODO: This isn't working properly, should update cells when we switch focus to this tab and show newly made matches
+            for row in form.allRows {
+                row.updateCell()
             }
         }
     }

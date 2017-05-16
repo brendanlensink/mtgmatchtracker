@@ -100,20 +100,18 @@ class MatchViewController: FormViewController {
                 }
             }
         
-        updateGameCells()
+        populateGameCells()
     }
     
     // MARK: Helper Functions
     
-    private func updateGameCells() {
+    private func populateGameCells() {
         if let match = self.match {
             for game in match.games {
                 if let gameNumber = game.gameNumber.value {
-                    let gameRow = self.form.rowBy(tag: "game\(gameNumber)")
-                    print(gameRow, "game\(gameNumber)")
-                    
+                    let gameRow = self.form.rowBy(tag: "game\(gameNumber)") as! GameRow
+                    gameRow.cell.game = game                    
                 }
-                print(game.gameNumber.value, "Notes")
             }
         }
     }

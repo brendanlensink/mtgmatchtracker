@@ -49,31 +49,57 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         if !self.isHidden {
             self.row.value = game
         }
+        
+        setResult(result: Result(rawValue: game.result!)!)
+        setStart(start: Start(rawValue: game.start!)!)
+        print("update was called")
     }
     
     // MARK: Actions
     
     @IBAction func resultButtonTouched(_ sender: UIButton) {
         if sender.titleLabel!.text == "Win" {
-            self.resultLabel.text = self.resultButton.titleLabel?.text
-            self.resultButton.setTitle("Loss", for: .normal)
-            game.result = Result.loss.rawValue
+            setResult(result: .loss)
         }else {
-            self.resultLabel.text = self.resultButton.titleLabel?.text
-            self.resultButton.setTitle("Win", for: .normal)
-            game.result = Result.win.rawValue
+            setResult(result: .win)
         }
     }
     
     @IBAction func startButtonTouched(_ sender: UIButton) {
         if sender.titleLabel!.text == "Play" {
-            self.startLabel.text = self.startButton.titleLabel?.text
-            self.startButton.setTitle("Draw", for: .normal)
-            game.start = Start.draw.rawValue
+            setStart(start: .draw)
         }else {
+            setStart(start: .play)
+        }
+    }
+    
+    // MARK: Helper Functions
+    
+    private func setResult(result: Result) {
+        switch result {
+        case .loss:
+            self.resultLabel.text = self.resultButton.titleLabel?.text
+            self.resultButton.setTitle("Loss", for: .normal)
+            game.result = Result.loss.rawValue
+        case .win:
+            self.resultLabel.text = self.resultButton.titleLabel?.text
+            self.resultButton.setTitle("Win", for: .normal)
+            game.result = Result.win.rawValue
+        case .draw:
+            return
+        }
+    }
+    
+    private func setStart(start: Start) {
+        switch start {
+        case .play:
             self.startLabel.text = self.startButton.titleLabel?.text
             self.startButton.setTitle("Play", for: .normal)
-            game.start = Start.play.rawValue
+//            game.start = Start.play.rawValue
+        case .draw:
+            self.startLabel.text = self.startButton.titleLabel?.text
+            self.startButton.setTitle("Draw", for: .normal)
+//            game.start = Start.draw.rawValue
         }
     }
     
