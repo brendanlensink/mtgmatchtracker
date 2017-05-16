@@ -34,7 +34,7 @@ class MatchViewController: FormViewController {
         form +++ Section("Match Info")
             <<< DateTimeInlineRow("created"){
                 $0.title = "Date Row"
-                $0.value = Date(timeIntervalSinceReferenceDate: 0)
+                $0.value = Date()
             }
             <<< TextRow("name") {
                 $0.title = "Event Name"
