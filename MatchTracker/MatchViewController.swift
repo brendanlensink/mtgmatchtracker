@@ -103,6 +103,10 @@ class MatchViewController: FormViewController {
         populateGameCells()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     // MARK: Helper Functions
     
     private func populateGameCells() {

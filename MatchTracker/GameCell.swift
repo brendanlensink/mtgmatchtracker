@@ -52,7 +52,6 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         
         setResult(result: Result(rawValue: game.result!)!)
         setStart(start: Start(rawValue: game.start!)!)
-        print("update was called")
     }
     
     // MARK: Actions

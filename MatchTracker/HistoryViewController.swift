@@ -36,6 +36,7 @@ class HistoryViewController: FormViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
         viewModel.refreshMatchHistory()
         
         for match in viewModel.matches {
