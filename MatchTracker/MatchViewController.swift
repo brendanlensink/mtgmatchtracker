@@ -7,6 +7,7 @@
 //
 
 import Eureka
+import SwiftyUserDefaults
 
 class MatchViewController: FormViewController {
 
@@ -38,23 +39,31 @@ class MatchViewController: FormViewController {
             }
             <<< TextRow("name") {
                 $0.title = "Event Name"
-                $0.value = match?.name
+                $0.value = match?.name ?? Defaults[.eventName]
             }
             <<< ActionSheetRow<String>("format") {
                 $0.title = "Format"
                 $0.selectorTitle = "Format"
-                $0.value = match?.format
+                if let format = Defaults[.format] {
+                    $0.value = format.rawValue.capitalized
+                }else {
+                    $0.value = match?.format
+                }
                 $0.options = Format.allValues
             }
             <<< ActionSheetRow<String>("rel") {
                 $0.title = "REL"
                 $0.selectorTitle = "REL"
-                $0.value = match?.rel
+                if let rel = Defaults[.REL] {
+                    $0.value = rel.rawValue.capitalized
+                }else {
+                    $0.value = match?.rel
+                }
                 $0.options = REL.allValues
             }
             <<< TextRow("myDeck") {
                 $0.title = "My Deck"
-                $0.value = match?.myDeck
+                $0.value = match?.myDeck ?? Defaults[.myDeck]
             }
             <<< TextRow("theirDeck") {
                 $0.title = "Their Deck"

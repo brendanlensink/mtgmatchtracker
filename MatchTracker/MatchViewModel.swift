@@ -39,8 +39,8 @@ class MatchViewModel {
             
             // Save the defaults
             Defaults[.eventName] = newMatch.name
-            Defaults[.format] = Format(rawValue: newMatch.format!)
-            Defaults[.REL] = REL(rawValue: newMatch.rel!)
+            Defaults[.format] = Format(rawValue: newMatch.format!.lowercased())
+            Defaults[.REL] = REL(rawValue: newMatch.rel!.lowercased())
             Defaults[.myDeck] = newMatch.myDeck
         }else {
             var returnString = ""
