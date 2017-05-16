@@ -43,6 +43,18 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         theirHandPicker.dataSource = self
         notesField.delegate = self
         height = {112}
+
+        contentView.backgroundColor = Color.Cell.background
+        startButton.setTitleColor(Color.Text.main, for: .normal)
+        startLabel.textColor = Color.Text.secondary
+        resultButton.setTitleColor(Color.Text.main, for: .normal)
+        resultLabel.textColor = Color.Text.secondary
+        myHandLabel.textColor = Color.Text.secondary
+        theirHandLabel.textColor = Color.Text.secondary
+        notesField.backgroundColor = Color.TextView.background
+        notesField.layer.borderColor = Color.TextView.border
+        notesField.layer.cornerRadius = 3
+        notesField.layer.borderWidth = 1
     }
     
     override func update() {
@@ -112,9 +124,18 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         return 8
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(7-row)"
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let viewLabel = UILabel()
+        viewLabel.text = "\(7-row)"
+        viewLabel.textAlignment = .right
+        viewLabel.textColor = Color.Text.main
+        viewLabel.font = UIFont.systemFont(ofSize: 22)
+        return viewLabel
     }
+    
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return "\(7-row)"
+//    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let updatedValue = Hand(rawValue: Int8(7-row))
