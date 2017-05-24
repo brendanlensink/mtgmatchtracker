@@ -31,6 +31,10 @@ struct Color {
     
     static let background = Blue.zero
     
+    struct TabBar {
+        static let tint = Grey.one
+    }
+    
     struct Cell {
         static let background = Blue.one
         static let title = Grey.eight
