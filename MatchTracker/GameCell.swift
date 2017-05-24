@@ -44,14 +44,6 @@ final class GameCell: Cell<Game>, CellType, UIPickerViewDataSource, UIPickerView
         notesField.delegate = self
         height = {112}
 
-        contentView.backgroundColor = Color.Cell.background
-        startButton.setTitleColor(Color.Text.main, for: .normal)
-        startLabel.textColor = Color.Text.secondary
-        resultButton.setTitleColor(Color.Text.main, for: .normal)
-        resultLabel.textColor = Color.Text.secondary
-        myHandLabel.textColor = Color.Text.secondary
-        theirHandLabel.textColor = Color.Text.secondary
-        notesField.backgroundColor = Color.TextView.background
         notesField.layer.borderColor = Color.TextView.border
         notesField.layer.cornerRadius = 3
         notesField.layer.borderWidth = 1

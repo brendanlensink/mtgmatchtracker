@@ -17,6 +17,7 @@
 		B30FA9B61EBE8E4C005E4027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FA9B51EBE8E4C005E4027 /* AppDelegate.swift */; };
 		B30FA9BD1EBE8E4C005E4027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30FA9BC1EBE8E4C005E4027 /* Assets.xcassets */; };
 		B30FA9C01EBE8E4C005E4027 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B30FA9BE1EBE8E4C005E4027 /* LaunchScreen.storyboard */; };
+		B34790921ED5020400CA8391 /* FormExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34790911ED5020400CA8391 /* FormExtension.swift */; };
 		B397BEC31EC8A92200A9D2E8 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397BEC21EC8A92200A9D2E8 /* RealmModel.swift */; };
 		B3CD00C31ECBC55C00B53619 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CD00C21ECBC55C00B53619 /* Color.swift */; };
 		B3CFC2841EC40CFE008A294A /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CFC2831EC40CFE008A294A /* Form.swift */; };
@@ -43,6 +44,7 @@
 		B30FA9BC1EBE8E4C005E4027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B30FA9BF1EBE8E4C005E4027 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B30FA9C11EBE8E4C005E4027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B34790911ED5020400CA8391 /* FormExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormExtension.swift; sourceTree = "<group>"; };
 		B397BEC21EC8A92200A9D2E8 /* RealmModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		B3CD00C21ECBC55C00B53619 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B3CFC2831EC40CFE008A294A /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				B30E13541EBEAC2B00294EE6 /* GameCell.xib */,
 				B3D2C9D21EC77CE0006166E0 /* MatchSummaryCell.swift */,
 				B3D2C9D61EC78B75006166E0 /* MatchSummaryCell.xib */,
+				B34790911ED5020400CA8391 /* FormExtension.swift */,
 			);
 			name = Form;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				B3CFC2841EC40CFE008A294A /* Form.swift in Sources */,
 				B30E135A1EBECE7900294EE6 /* MatchViewModel.swift in Sources */,
 				B30E134F1EBE993400294EE6 /* Match.swift in Sources */,
+				B34790921ED5020400CA8391 /* FormExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

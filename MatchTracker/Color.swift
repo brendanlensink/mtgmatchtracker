@@ -13,9 +13,9 @@ struct Color {
     // MARK: Private color declarations
     
     private struct Blue {
-        static let eight = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
-        static let five = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-        static let one = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        static let eight = #colorLiteral(red: 0, green: 0.2901960784, blue: 0.6235294118, alpha: 1)
+        static let five = #colorLiteral(red: 0.0862745098, green: 0.4588235294, blue: 0.8196078431, alpha: 1)
+        static let one = #colorLiteral(red: 0.3843137255, green: 0.6392156863, blue: 1, alpha: 1)
         static let zero = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
     }
     
@@ -29,19 +29,22 @@ struct Color {
     
     // MARK: Color assignments
     
-    static let background = Blue.eight
+    static let background = Blue.zero
     
     struct Cell {
         static let background = Blue.one
+        static let title = Grey.eight
+        static let placeholder = Grey.five
+        static let value = black
     }
     
     struct TextView {
         static let background = Blue.one
-        static let border = Blue.zero.cgColor
+        static let border = Grey.one.cgColor
     }
     
     struct Text {
-        static let main = white
-        static let secondary = Blue.zero
+        static let main = Grey.eight
+        static let secondary = Blue.eight
     }
 }
