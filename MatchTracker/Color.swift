@@ -22,14 +22,15 @@ struct Color {
     private struct Grey {
         static let eight = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         static let five = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        static let one = #colorLiteral(red: 0.7843137255, green: 0.7843137255, blue: 0.7843137255, alpha: 1)
+        static let one = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
     }
+    
     private static let white = UIColor.white
     private static let black = UIColor.white
     
     // MARK: Color assignments
     
-    static let background = Blue.zero
+    static let background = Grey.one
     
     struct TabBar {
         static let tint = Grey.one

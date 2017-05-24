@@ -32,6 +32,8 @@ class MatchViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.backgroundColor = Color.background
+        
         form +++ Section("Match Info")
             <<< DateTimeInlineRow("created"){
                 $0.title = "Date"
